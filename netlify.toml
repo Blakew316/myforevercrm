@@ -1,0 +1,14 @@
+# Netlify publishes a static design preview of the CRM (all captured
+# screens, anonymised) with Design 4.0 applied. The real CRM runs on
+# WordPress; see README.md for installing the redesign there.
+[build]
+  command = "node redesign/build.mjs && node tools/build-site.mjs"
+  publish = "site"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

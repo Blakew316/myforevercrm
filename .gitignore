@@ -11,3 +11,4 @@ node_modules/
 
 # Local agent session state (written by tooling, not project content)
 /.anchor/
+/site/

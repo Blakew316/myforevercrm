@@ -1,0 +1,576 @@
+{
+ "screens": [
+  {
+   "file": "overview.html",
+   "key": "tab=overview"
+  },
+  {
+   "file": "leads.html",
+   "key": "tab=leads"
+  },
+  {
+   "file": "customers.html",
+   "key": "tab=customers"
+  },
+  {
+   "file": "tasks.html",
+   "key": "tab=tasks"
+  },
+  {
+   "file": "attention.html",
+   "key": "tab=attention"
+  },
+  {
+   "file": "call-sheets--call_view-my-calls.html",
+   "key": "tab=call-sheets&call_view=my-calls"
+  },
+  {
+   "file": "call-sheets--call_view-callbacks.html",
+   "key": "tab=call-sheets&call_view=callbacks"
+  },
+  {
+   "file": "call-sheets--call_view-lists.html",
+   "key": "tab=call-sheets&call_view=lists"
+  },
+  {
+   "file": "conversations.html",
+   "key": "tab=conversations"
+  },
+  {
+   "file": "chat.html",
+   "key": "tab=chat"
+  },
+  {
+   "file": "notifications.html",
+   "key": "tab=notifications"
+  },
+  {
+   "file": "appointments.html",
+   "key": "tab=appointments"
+  },
+  {
+   "file": "calendar.html",
+   "key": "tab=calendar"
+  },
+  {
+   "file": "scheduler-pages.html",
+   "key": "tab=scheduler-pages"
+  },
+  {
+   "file": "proposals.html",
+   "key": "tab=proposals"
+  },
+  {
+   "file": "invoices.html",
+   "key": "tab=invoices"
+  },
+  {
+   "file": "contracts.html",
+   "key": "tab=contracts"
+  },
+  {
+   "file": "recurring.html",
+   "key": "tab=recurring"
+  },
+  {
+   "file": "leaderboard.html",
+   "key": "tab=leaderboard"
+  },
+  {
+   "file": "reports.html",
+   "key": "tab=reports"
+  },
+  {
+   "file": "forecast.html",
+   "key": "tab=forecast"
+  },
+  {
+   "file": "seo-analytics.html",
+   "key": "tab=seo-analytics"
+  },
+  {
+   "file": "time-tracking.html",
+   "key": "tab=time-tracking"
+  },
+  {
+   "file": "commissions.html",
+   "key": "tab=commissions"
+  },
+  {
+   "file": "bonuses.html",
+   "key": "tab=bonuses"
+  },
+  {
+   "file": "manager-center.html",
+   "key": "tab=manager-center"
+  },
+  {
+   "file": "manager-call-center.html",
+   "key": "tab=manager-call-center"
+  },
+  {
+   "file": "integration-health.html",
+   "key": "tab=integration-health"
+  },
+  {
+   "file": "resources--knowledge_view-workspace.html",
+   "key": "tab=resources&knowledge_view=workspace"
+  },
+  {
+   "file": "resources--knowledge_view-templates.html",
+   "key": "tab=resources&knowledge_view=templates"
+  },
+  {
+   "file": "tickets.html",
+   "key": "tab=tickets"
+  },
+  {
+   "file": "help.html",
+   "key": "tab=help"
+  },
+  {
+   "file": "ai.html",
+   "key": "tab=ai"
+  },
+  {
+   "file": "forms.html",
+   "key": "tab=forms"
+  },
+  {
+   "file": "saved-views.html",
+   "key": "tab=saved-views"
+  },
+  {
+   "file": "suite.html",
+   "key": "tab=suite"
+  },
+  {
+   "file": "field-mode.html",
+   "key": "tab=field-mode"
+  },
+  {
+   "file": "field.html",
+   "key": "tab=field"
+  },
+  {
+   "file": "canvass.html",
+   "key": "tab=canvass"
+  },
+  {
+   "file": "field-routes.html",
+   "key": "tab=field-routes"
+  },
+  {
+   "file": "my-jobs.html",
+   "key": "tab=my-jobs"
+  },
+  {
+   "file": "job-assignment.html",
+   "key": "tab=job-assignment"
+  },
+  {
+   "file": "customer-portal.html",
+   "key": "tab=customer-portal"
+  },
+  {
+   "file": "operations.html",
+   "key": "tab=operations"
+  },
+  {
+   "file": "customer-lifecycle.html",
+   "key": "tab=customer-lifecycle"
+  },
+  {
+   "file": "profitability.html",
+   "key": "tab=profitability"
+  },
+  {
+   "file": "vendor-portal.html",
+   "key": "tab=vendor-portal"
+  },
+  {
+   "file": "partner-portal.html",
+   "key": "tab=partner-portal"
+  },
+  {
+   "file": "customer-operations.html",
+   "key": "tab=customer-operations"
+  },
+  {
+   "file": "my-account--account_view-profile.html",
+   "key": "tab=my-account&account_view=profile"
+  },
+  {
+   "file": "my-account--account_view-connections.html",
+   "key": "tab=my-account&account_view=connections"
+  },
+  {
+   "file": "my-account--account_view-calendar.html",
+   "key": "tab=my-account&account_view=calendar"
+  },
+  {
+   "file": "my-account--account_view-email.html",
+   "key": "tab=my-account&account_view=email"
+  },
+  {
+   "file": "my-account--account_view-notifications.html",
+   "key": "tab=my-account&account_view=notifications"
+  },
+  {
+   "file": "my-account--account_view-preferences.html",
+   "key": "tab=my-account&account_view=preferences"
+  },
+  {
+   "file": "my-account--account_view-app.html",
+   "key": "tab=my-account&account_view=app"
+  },
+  {
+   "file": "my-account--account_view-security.html",
+   "key": "tab=my-account&account_view=security"
+  },
+  {
+   "file": "workspace-console.html",
+   "key": "tab=workspace-console"
+  },
+  {
+   "file": "team-directory.html",
+   "key": "tab=team-directory"
+  },
+  {
+   "file": "team-recruiting.html",
+   "key": "tab=team-recruiting"
+  },
+  {
+   "file": "team.html",
+   "key": "tab=team"
+  },
+  {
+   "file": "groups.html",
+   "key": "tab=groups"
+  },
+  {
+   "file": "lead-routing.html",
+   "key": "tab=lead-routing"
+  },
+  {
+   "file": "proposals--proposal_view-catalog.html",
+   "key": "tab=proposals&proposal_view=catalog"
+  },
+  {
+   "file": "discount-codes.html",
+   "key": "tab=discount-codes"
+  },
+  {
+   "file": "commission-plans.html",
+   "key": "tab=commission-plans"
+  },
+  {
+   "file": "pipelines.html",
+   "key": "tab=pipelines"
+  },
+  {
+   "file": "fields.html",
+   "key": "tab=fields"
+  },
+  {
+   "file": "approvals.html",
+   "key": "tab=approvals"
+  },
+  {
+   "file": "lead-capture.html",
+   "key": "tab=lead-capture"
+  },
+  {
+   "file": "sales-playbook.html",
+   "key": "tab=sales-playbook"
+  },
+  {
+   "file": "communications-settings.html",
+   "key": "tab=communications-settings"
+  },
+  {
+   "file": "call-center-setup.html",
+   "key": "tab=call-center-setup"
+  },
+  {
+   "file": "call-scripts.html",
+   "key": "tab=call-scripts"
+  },
+  {
+   "file": "contact-center.html",
+   "key": "tab=contact-center"
+  },
+  {
+   "file": "scheduler-admin.html",
+   "key": "tab=scheduler-admin"
+  },
+  {
+   "file": "payroll-admin.html",
+   "key": "tab=payroll-admin"
+  },
+  {
+   "file": "accounting.html",
+   "key": "tab=accounting"
+  },
+  {
+   "file": "vendor-bills.html",
+   "key": "tab=vendor-bills"
+  },
+  {
+   "file": "vendor-directory.html",
+   "key": "tab=vendor-directory"
+  },
+  {
+   "file": "products.html",
+   "key": "tab=products"
+  },
+  {
+   "file": "gamification.html",
+   "key": "tab=gamification"
+  },
+  {
+   "file": "automations.html",
+   "key": "tab=automations"
+  },
+  {
+   "file": "workflows.html",
+   "key": "tab=workflows"
+  },
+  {
+   "file": "dashboard-builder.html",
+   "key": "tab=dashboard-builder"
+  },
+  {
+   "file": "ai-access.html",
+   "key": "tab=ai-access"
+  },
+  {
+   "file": "projects-settings.html",
+   "key": "tab=projects-settings"
+  },
+  {
+   "file": "field--field_view-configure.html",
+   "key": "tab=field&field_view=configure"
+  },
+  {
+   "file": "industry-builder.html",
+   "key": "tab=industry-builder"
+  },
+  {
+   "file": "billing.html",
+   "key": "tab=billing"
+  },
+  {
+   "file": "experience-settings.html",
+   "key": "tab=experience-settings"
+  },
+  {
+   "file": "business-modules.html",
+   "key": "tab=business-modules"
+  },
+  {
+   "file": "guided-setup.html",
+   "key": "tab=guided-setup"
+  },
+  {
+   "file": "setup.html",
+   "key": "tab=setup"
+  },
+  {
+   "file": "branding.html",
+   "key": "tab=branding"
+  },
+  {
+   "file": "integrations.html",
+   "key": "tab=integrations"
+  },
+  {
+   "file": "seo-analytics-setup.html",
+   "key": "tab=seo-analytics-setup"
+  },
+  {
+   "file": "security.html",
+   "key": "tab=security"
+  },
+  {
+   "file": "data.html",
+   "key": "tab=data"
+  },
+  {
+   "file": "trash.html",
+   "key": "tab=trash"
+  },
+  {
+   "file": "lead.html",
+   "key": "tab=lead"
+  },
+  {
+   "file": "search.html",
+   "key": "tab=search"
+  },
+  {
+   "file": "call-sheets.html",
+   "key": "tab=call-sheets"
+  },
+  {
+   "file": "import.html",
+   "key": "tab=import"
+  },
+  {
+   "file": "tasks--task_view-all.html",
+   "key": "tab=tasks&task_view=all"
+  },
+  {
+   "file": "tasks--task_view-open.html",
+   "key": "tab=tasks&task_view=open"
+  },
+  {
+   "file": "tasks--task_view-today.html",
+   "key": "tab=tasks&task_view=today"
+  },
+  {
+   "file": "tasks--task_view-overdue.html",
+   "key": "tab=tasks&task_view=overdue"
+  },
+  {
+   "file": "tasks--task_view-upcoming.html",
+   "key": "tab=tasks&task_view=upcoming"
+  },
+  {
+   "file": "tasks--task_view-completed.html",
+   "key": "tab=tasks&task_view=completed"
+  },
+  {
+   "file": "calendar--calendar_view-availability.html",
+   "key": "tab=calendar&calendar_view=availability"
+  },
+  {
+   "file": "calendar--calendar_view-block.html",
+   "key": "tab=calendar&calendar_view=block"
+  },
+  {
+   "file": "proposals--proposal_view-proposals.html",
+   "key": "tab=proposals&proposal_view=proposals"
+  },
+  {
+   "file": "proposals--proposal_view-saved-templates.html",
+   "key": "tab=proposals&proposal_view=saved-templates"
+  },
+  {
+   "file": "proposals--proposal_view-template-library.html",
+   "key": "tab=proposals&proposal_view=template-library"
+  },
+  {
+   "file": "proposals--proposal_view-payments.html",
+   "key": "tab=proposals&proposal_view=payments"
+  },
+  {
+   "file": "proposals--proposal_view-pricing-approvals.html",
+   "key": "tab=proposals&proposal_view=pricing-approvals"
+  },
+  {
+   "file": "manager-call-center--setup_view-lists.html",
+   "key": "tab=manager-call-center&setup_view=lists"
+  },
+  {
+   "file": "manager-call-center--setup_view-assignments.html",
+   "key": "tab=manager-call-center&setup_view=assignments"
+  },
+  {
+   "file": "manager-call-center--setup_view-campaigns.html",
+   "key": "tab=manager-call-center&setup_view=campaigns"
+  },
+  {
+   "file": "manager-call-center--setup_view-dispositions.html",
+   "key": "tab=manager-call-center&setup_view=dispositions"
+  },
+  {
+   "file": "manager-call-center--setup_view-fields.html",
+   "key": "tab=manager-call-center&setup_view=fields"
+  },
+  {
+   "file": "manager-call-center--setup_view-queue-rules.html",
+   "key": "tab=manager-call-center&setup_view=queue-rules"
+  },
+  {
+   "file": "manager-call-center--setup_view-phone-modes.html",
+   "key": "tab=manager-call-center&setup_view=phone-modes"
+  },
+  {
+   "file": "manager-call-center--setup_view-reports.html",
+   "key": "tab=manager-call-center&setup_view=reports"
+  },
+  {
+   "file": "resources.html",
+   "key": "tab=resources"
+  },
+  {
+   "file": "workspace-console--setup_section-start.html",
+   "key": "tab=workspace-console&setup_section=start"
+  },
+  {
+   "file": "workspace-console--setup_section-people.html",
+   "key": "tab=workspace-console&setup_section=people"
+  },
+  {
+   "file": "workspace-console--setup_section-sales.html",
+   "key": "tab=workspace-console&setup_section=sales"
+  },
+  {
+   "file": "workspace-console--setup_section-communications.html",
+   "key": "tab=workspace-console&setup_section=communications"
+  },
+  {
+   "file": "workspace-console--setup_section-documents.html",
+   "key": "tab=workspace-console&setup_section=documents"
+  },
+  {
+   "file": "workspace-console--setup_section-operations.html",
+   "key": "tab=workspace-console&setup_section=operations"
+  },
+  {
+   "file": "workspace-console--setup_section-finance.html",
+   "key": "tab=workspace-console&setup_section=finance"
+  },
+  {
+   "file": "workspace-console--setup_section-performance.html",
+   "key": "tab=workspace-console&setup_section=performance"
+  },
+  {
+   "file": "workspace-console--setup_section-data.html",
+   "key": "tab=workspace-console&setup_section=data"
+  },
+  {
+   "file": "call-center-setup--setup_view-lists.html",
+   "key": "tab=call-center-setup&setup_view=lists"
+  },
+  {
+   "file": "call-center-setup--setup_view-assignments.html",
+   "key": "tab=call-center-setup&setup_view=assignments"
+  },
+  {
+   "file": "call-center-setup--setup_view-campaigns.html",
+   "key": "tab=call-center-setup&setup_view=campaigns"
+  },
+  {
+   "file": "call-center-setup--setup_view-dispositions.html",
+   "key": "tab=call-center-setup&setup_view=dispositions"
+  },
+  {
+   "file": "call-center-setup--setup_view-fields.html",
+   "key": "tab=call-center-setup&setup_view=fields"
+  },
+  {
+   "file": "call-center-setup--setup_view-queue-rules.html",
+   "key": "tab=call-center-setup&setup_view=queue-rules"
+  },
+  {
+   "file": "call-center-setup--setup_view-phone-modes.html",
+   "key": "tab=call-center-setup&setup_view=phone-modes"
+  },
+  {
+   "file": "call-center-setup--setup_view-reports.html",
+   "key": "tab=call-center-setup&setup_view=reports"
+  }
+ ]
+}
