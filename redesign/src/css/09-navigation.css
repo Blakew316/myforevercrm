@@ -1,0 +1,212 @@
+/* --------------------------------------------------------------------------
+   In-page navigation
+   Switching between views of the same screen (Table / Pipeline, Open /
+   Today / Overdue, Call Center tabs, Setup Center sections) is navigation,
+   not an action, so it is drawn as a segmented control: a gray track with
+   the current view lifted onto a white thumb. Long sets scroll sideways
+   instead of wrapping into ragged rows.
+   -------------------------------------------------------------------------- */
+
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) {
+  position: relative;
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 2px !important;
+  max-width: 100%;
+  margin: 0 0 16px;
+  padding: 3px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-md) !important;
+  background: var(--fx-fill) !important;
+  box-shadow: none !important;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  vertical-align: middle;
+}
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle)::-webkit-scrollbar { display: none; }
+
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) > :is(a, button) {
+  flex: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px !important;
+  height: auto;
+  margin: 0 !important;
+  padding: 5px 14px !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background: transparent !important;
+  color: var(--fx-ink-2) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease), box-shadow var(--fx-fast) var(--fx-ease);
+}
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) > :is(a, button):hover {
+  color: var(--fx-ink) !important;
+  background: color-mix(in srgb, var(--fx-surface) 55%, transparent) !important;
+}
+/* Current view */
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .resource-hero-actions:has(> a[href*="knowledge_view="])) > a:is([aria-current="page"], .primary, .is-active),
+body :is(.structure-view-switch, .ux340-view-toggle) > button:is(.is-active, [aria-pressed="true"]) {
+  background: var(--fx-surface-raised) !important;
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Two switchers stacked in one header sit side by side */
+body .section-head .view-switch + .view-switch { margin-left: 8px; }
+body .section-head .view-switch { margin: 12px 0 0; }
+
+/* Call Center tab bar carries its own action (Upload) — keep it out of the track */
+body .app nav.call-center-tabs > a.call-center-upload-tab {
+  margin-left: 8px !important;
+  font-weight: 600 !important;
+  background: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  border-radius: var(--fx-radius-pill) !important;
+}
+
+/* Tab bars that appear as their own block get a little air below the header */
+body .app main > nav:is(.call-center-tabs, .setup-center-tabs) { display: flex !important; width: fit-content; margin-bottom: 20px; }
+
+/* ---- Section navigator for long admin pages (workspace-sections.js) ---- */
+body .crm-section-nav {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 14px 16px !important;
+}
+body .crm-section-nav-heading { display: grid; gap: 2px; flex: 1 1 220px; }
+body .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
+body .crm-section-nav-heading small { color: var(--fx-secondary); }
+body .crm-section-nav-controls {
+  display: inline-flex !important;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--fx-radius-md);
+  background: var(--fx-fill);
+}
+body .crm-section-nav-controls > button {
+  min-height: 30px !important;
+  padding: 5px 12px !important;
+  border-radius: 7px !important;
+  background: transparent !important;
+  color: var(--fx-ink-2) !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+}
+body .crm-section-nav-controls > button[aria-pressed="true"] {
+  background: var(--fx-surface-raised) !important;
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ---- Phone tab bar ----------------------------------------------------- */
+@media (min-width: 781px) {
+  body .crm-mobile-nav,
+  body .crm-mobile-nav.crm-mobile-nav-3256 { display: none !important; }
+}
+@media (max-width: 780px) {
+  body nav.crm-mobile-nav.crm-mobile-nav-3256,
+  body nav.crm-mobile-nav {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1000 !important;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-template-columns: none !important;
+    gap: 0;
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom)) !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-top: 0.5px solid var(--fx-separator-strong) !important;
+    border-radius: 0 !important;
+    background: var(--fx-material-strong) !important;
+    -webkit-backdrop-filter: var(--fx-blur);
+    backdrop-filter: var(--fx-blur);
+    box-shadow: none !important;
+  }
+  body nav.crm-mobile-nav a {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px !important;
+    min-height: 50px !important;
+    padding: 4px 0 !important;
+    border-radius: var(--fx-radius-md) !important;
+    background: transparent !important;
+    color: var(--fx-tertiary) !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body nav.crm-mobile-nav a[aria-current="page"] {
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: var(--fx-tint-strong) !important;
+  }
+  body nav.crm-mobile-nav a > span:last-child {
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+  }
+  body nav.crm-mobile-nav .crm-mobile-nav-icon {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    font-size: 20px;
+    line-height: 1;
+  }
+  /* Known destinations get a drawn symbol in place of the text glyph */
+  body nav.crm-mobile-nav a:is([href$="tab=overview"], [href*="tab=leads"], [href$="tab=customers"], [href$="tab=canvass"],
+    [href$="tab=calendar"], [href$="tab=appointments"], [href$="tab=field"], [href$="tab=field-mode"], [href$="tab=my-jobs"],
+    [href$="tab=tasks"], [href*="tab=call-sheets"], [href$="tab=conversations"], [href$="tab=notifications"], [data-crm-mobile-menu]) .crm-mobile-nav-icon {
+    font-size: 0 !important;
+  }
+  body nav.crm-mobile-nav a:is([href$="tab=overview"], [href*="tab=leads"], [href$="tab=customers"], [href$="tab=canvass"],
+    [href$="tab=calendar"], [href$="tab=appointments"], [href$="tab=field"], [href$="tab=field-mode"], [href$="tab=my-jobs"],
+    [href$="tab=tasks"], [href*="tab=call-sheets"], [href$="tab=conversations"], [href$="tab=notifications"], [data-crm-mobile-menu]) .crm-mobile-nav-icon::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: currentColor;
+    -webkit-mask: var(--fx-icon) center / contain no-repeat;
+    mask: var(--fx-icon) center / contain no-repeat;
+  }
+  body nav.crm-mobile-nav a[href$="tab=overview"] { --fx-icon: var(--fx-i-house); }
+  body nav.crm-mobile-nav a[href*="tab=leads"] { --fx-icon: var(--fx-i-people); }
+  body nav.crm-mobile-nav a[href$="tab=customers"] { --fx-icon: var(--fx-i-heart); }
+  body nav.crm-mobile-nav a[href$="tab=canvass"] { --fx-icon: var(--fx-i-map); }
+  body nav.crm-mobile-nav a:is([href$="tab=calendar"], [href$="tab=appointments"]) { --fx-icon: var(--fx-i-calendar); }
+  body nav.crm-mobile-nav a:is([href$="tab=field"], [href$="tab=field-mode"]) { --fx-icon: var(--fx-i-mappin); }
+  body nav.crm-mobile-nav a[href$="tab=my-jobs"] { --fx-icon: var(--fx-i-briefcase); }
+  body nav.crm-mobile-nav a[href$="tab=tasks"] { --fx-icon: var(--fx-i-checklist); }
+  body nav.crm-mobile-nav a[href*="tab=call-sheets"] { --fx-icon: var(--fx-i-phone); }
+  body nav.crm-mobile-nav a[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
+  body nav.crm-mobile-nav a[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
+  body nav.crm-mobile-nav a[data-crm-mobile-menu] { --fx-icon: var(--fx-i-sidebar); }
+  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-tint-strong) !important; }
+}

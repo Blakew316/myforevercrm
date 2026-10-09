@@ -1,0 +1,268 @@
+/* --------------------------------------------------------------------------
+   Controls: buttons, fields, selects, checkboxes, labels, form layout
+   Buttons are capsules. Secondary actions are a quiet gray fill; the one
+   primary action per area is solid ink. Navigation never looks like an
+   action (see 09-navigation.css for segmented view switches).
+   -------------------------------------------------------------------------- */
+
+body button,
+body .button,
+body input[type="submit"],
+body input[type="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--fx-control-h);
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-fill);
+  color: var(--fx-ink);
+  box-shadow: none;
+  font-family: inherit;
+  font-size: var(--fx-text-callout);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.006em;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease),
+              transform var(--fx-fast) var(--fx-ease), opacity var(--fx-fast) var(--fx-ease);
+}
+body button:hover,
+body .button:hover {
+  background: var(--fx-fill-hover);
+  color: var(--fx-ink);
+  filter: none;
+  text-decoration: none;
+}
+body button:active,
+body .button:active { background: var(--fx-fill-pressed); transform: scale(0.98); }
+
+body button:disabled,
+body .button[aria-disabled="true"],
+body .button.disabled {
+  opacity: 0.42;
+  cursor: default;
+  transform: none;
+}
+
+/* Primary */
+body .primary,
+body button.primary,
+body .button.primary,
+body input[type="submit"].primary {
+  background: var(--fx-primary) !important;
+  border-color: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  font-weight: 600;
+}
+body button.primary:hover,
+body .button.primary:hover { background: var(--fx-primary-hover) !important; color: var(--fx-on-primary) !important; }
+
+/* Destructive */
+body button.danger,
+body .button.danger {
+  background: var(--fx-red-bg) !important;
+  color: var(--fx-red) !important;
+  border-color: transparent !important;
+}
+body button.danger:hover,
+body .button.danger:hover { background: color-mix(in srgb, var(--fx-red) 16%, transparent) !important; }
+
+/* Compact */
+body button.small,
+body .button.small {
+  min-height: 28px;
+  padding: 0 12px;
+  font-size: var(--fx-text-footnote);
+}
+
+/* Inline actions inside tables stay compact */
+body table :is(button, .button) {
+  min-height: 28px;
+  padding: 0 12px;
+  font-size: var(--fx-text-footnote);
+}
+
+/* ---- Fields ------------------------------------------------------------ */
+body label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--fx-ink-2);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  letter-spacing: -0.003em;
+}
+
+body input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]),
+body select,
+body textarea {
+  display: block;
+  width: 100%;
+  min-height: var(--fx-field-h);
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--fx-field-border);
+  border-radius: var(--fx-radius-md);
+  background-color: var(--fx-field-bg);
+  color: var(--fx-ink);
+  box-shadow: none;
+  font-family: inherit;
+  font-size: var(--fx-text-callout);
+  font-weight: 400;
+  line-height: 1.35;
+  transition: border-color var(--fx-fast) var(--fx-ease), box-shadow var(--fx-fast) var(--fx-ease);
+}
+body textarea { min-height: 88px; padding: 10px 12px; line-height: 1.47; resize: vertical; }
+
+body input::placeholder,
+body textarea::placeholder { color: var(--fx-tertiary); opacity: 1; }
+
+body input:not([type="checkbox"]):not([type="radio"]):hover,
+body select:hover,
+body textarea:hover { border-color: color-mix(in srgb, var(--fx-field-border) 60%, var(--fx-ink)); }
+
+body input:not([type="checkbox"]):not([type="radio"]):focus,
+body select:focus,
+body textarea:focus {
+  outline: none;
+  border-color: var(--fx-tint-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+}
+
+body input:disabled,
+body select:disabled,
+body textarea:disabled,
+body input[readonly] {
+  background-color: var(--fx-fill-quiet);
+  color: var(--fx-secondary);
+}
+
+/* Select: native control, Apple-style chevron */
+body select:not([multiple]) {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 34px;
+  background-image: var(--fx-i-chevron-updown-gray) !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 14px 14px !important;
+  cursor: pointer;
+}
+body select[multiple] { padding: 6px; }
+
+body input[type="search"] { -webkit-appearance: none; appearance: none; }
+body input[type="file"] {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--fx-text-subhead);
+  color: var(--fx-secondary);
+}
+body input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-fill);
+  color: var(--fx-ink);
+  font: 500 var(--fx-text-subhead)/1.2 var(--fx-font);
+  cursor: pointer;
+}
+body input[type="color"] { width: 44px; height: 32px; padding: 2px; border-radius: var(--fx-radius-sm); border: 1px solid var(--fx-field-border); }
+body input[type="range"] { accent-color: var(--fx-tint-strong); }
+
+/* Checkbox & radio: native, tinted, comfortably sized */
+body input[type="checkbox"],
+body input[type="radio"] {
+  flex: none;
+  width: 16px !important;
+  height: 16px !important;
+  min-height: 0 !important;
+  margin: 0;
+  accent-color: var(--fx-tint-strong);
+  cursor: pointer;
+  vertical-align: -3px;
+}
+body .check,
+body label.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fx-ink);
+  font-size: var(--fx-text-callout);
+  font-weight: 400;
+  line-height: 1.35;
+  cursor: pointer;
+}
+body .check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px 20px;
+}
+
+/* Form layout */
+body .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 20px;
+  margin-bottom: 16px;
+}
+body .form-grid > label { margin-bottom: 10px; }
+
+body fieldset {
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+body legend {
+  padding: 0;
+  margin-bottom: 10px;
+  color: var(--fx-ink);
+  font-size: var(--fx-text-title3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+/* Filter rows */
+body .filters,
+body form.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+}
+body .filters > label { flex: 1 1 200px; margin-bottom: 0; }
+body .filters > :is(button, .button) { margin-bottom: 0; }
+
+/* A row of actions */
+body .actions,
+body .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+body .save-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+/* Forms: the submit button keeps breathing room from the last field */
+body form > button:last-child,
+body form > .button:last-child { margin-top: 4px; }
+
+@media (max-width: 700px) {
+  body .form-grid { grid-template-columns: 1fr !important; }
+  /* 16px stops iOS Safari from zooming into focused fields */
+  body input:not([type="checkbox"]):not([type="radio"]),
+  body select,
+  body textarea { font-size: 16px; }
+  body button,
+  body .button { min-height: 44px; }
+  body table :is(button, .button),
+  body button.small,
+  body .button.small { min-height: 36px; }
+}

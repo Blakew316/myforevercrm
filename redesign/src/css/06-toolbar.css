@@ -1,0 +1,423 @@
+/* --------------------------------------------------------------------------
+   Toolbar + page title
+   A translucent toolbar stays pinned to the top of the content: sidebar
+   toggle, back, where-you-are, search, inbox, alerts and quick actions.
+   The page title sits beneath it as a large title; once it scrolls away the
+   toolbar shows a compact copy, as iOS navigation bars do.
+
+   Before the script runs, the same band is reserved (main padding-top) and
+   the search + tools are placed into it, so the page does not jump when
+   design-400.js builds the real toolbar.
+   -------------------------------------------------------------------------- */
+
+/* ---- Real toolbar (built by design-400.js) ---------------------------- */
+body .app main > .fx-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--fx-toolbar-h);
+  margin: 0;
+  padding: 0;
+}
+/* Full-bleed material behind the toolbar, clipped by main (overflow-x: clip) */
+body .app main > .fx-toolbar::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -100vw;
+  background: var(--fx-material);
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--fx-med) var(--fx-ease), background-color var(--fx-med) var(--fx-ease);
+}
+body .app main > .fx-toolbar.is-stuck::before { border-bottom-color: var(--fx-separator); }
+body .app main > .fx-toolbar:not(.is-stuck)::before { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.fx-toolbar-lead {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.fx-toolbar-trail {
+  flex: none;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Toolbar icon buttons */
+body .fx-tool,
+body .crm-command-wrap .crm-header-tool {
+  display: inline-grid !important;
+  place-items: center;
+  flex: none;
+  width: 34px !important;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  font-size: 0 !important;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease);
+}
+body .fx-tool:hover,
+body .crm-command-wrap .crm-header-tool:hover { background: var(--fx-fill) !important; color: var(--fx-ink) !important; }
+body .fx-tool:active,
+body .crm-command-wrap .crm-header-tool:active { background: var(--fx-fill-pressed) !important; }
+body .fx-tool > svg { width: 20px; height: 20px; }
+body .crm-command-wrap .crm-header-tool > span[aria-hidden="true"] { display: none !important; }
+body .crm-command-wrap .crm-header-tool::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+}
+body .crm-command-wrap .crm-header-tool[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
+body .crm-command-wrap .crm-header-tool[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
+
+/* Back */
+body .fx-toolbar .crm-page-back {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 2px;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 10px 0 4px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-tint-strong) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 500 !important;
+  white-space: nowrap;
+}
+body .fx-toolbar .crm-page-back:hover { background: var(--fx-fill) !important; }
+body .fx-toolbar .crm-page-back .fx-back-arrow { display: none; }
+body .fx-toolbar .crm-page-back::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--fx-i-chevron-left) center / contain no-repeat;
+  mask: var(--fx-i-chevron-left) center / contain no-repeat;
+}
+
+/* Breadcrumb */
+.fx-crumbs {
+  min-width: 0;
+  margin-left: 6px;
+  transition: opacity var(--fx-med) var(--fx-ease), transform var(--fx-med) var(--fx-ease);
+}
+.fx-crumbs ol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+}
+.fx-crumbs li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-crumbs li + li::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  mask: var(--fx-i-chevron-right) center / contain no-repeat;
+}
+.fx-crumbs a,
+.fx-crumbs button {
+  all: unset;
+  cursor: pointer;
+  color: var(--fx-secondary);
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-crumbs a:hover,
+.fx-crumbs button:hover { color: var(--fx-ink); text-decoration: none; }
+.fx-crumbs a:focus-visible,
+.fx-crumbs button:focus-visible { outline: 2px solid var(--fx-focus); outline-offset: 2px; }
+.fx-crumbs li[aria-current="page"] { color: var(--fx-ink); font-weight: 600; }
+
+/* Compact title, shown when the large title has scrolled away */
+.fx-compact-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -10px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  overflow: hidden;
+  color: var(--fx-ink);
+  font-family: var(--fx-font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: opacity var(--fx-med) var(--fx-ease), transform var(--fx-med) var(--fx-ease);
+}
+.fx-toolbar.has-compact-title .fx-compact-title { opacity: 1; transform: none; }
+.fx-toolbar.has-compact-title .fx-crumbs { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+.fx-title-slot {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+
+/* Search trigger */
+body .fx-search-trigger {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 8px 0 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: var(--fx-fill) !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 400 !important;
+  text-align: left;
+  cursor: text;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body .fx-search-trigger:hover { background: var(--fx-fill-hover) !important; }
+body .fx-search-trigger svg { flex: none; width: 16px; height: 16px; color: var(--fx-secondary); }
+body .fx-search-trigger .fx-search-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body .fx-search-trigger kbd { flex: none; }
+
+/* Command wrap: search form, inbox, alerts, quick actions */
+body .crm-command-wrap {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 6px !important;
+  flex: none !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+html.fx-ready body .fx-toolbar .crm-global-search { display: none !important; }
+
+/* Quick actions: compact "+" button with a menu */
+body .crm-command-wrap .crm-quick-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px !important;
+  min-height: 0 !important;
+  padding: 0 14px 0 10px !important;
+  margin-left: 4px;
+  border: 0 !important;
+  border-radius: var(--fx-radius-pill) !important;
+  background: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+}
+body .crm-command-wrap .crm-quick-toggle:hover { background: var(--fx-primary-hover) !important; filter: none !important; }
+body .crm-command-wrap .crm-quick-toggle .fx-plus { width: 15px; height: 15px; }
+
+body .crm-command-wrap .crm-quick-menu {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
+  left: auto !important;
+  z-index: 1000 !important;
+  display: grid !important;
+  gap: 1px;
+  width: 248px !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-material-strong) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  box-shadow: var(--fx-shadow-pop) !important;
+  transform-origin: top right;
+  animation: fx-pop-in var(--fx-fast) var(--fx-ease-out);
+}
+body .crm-command-wrap .crm-quick-menu[hidden] { display: none !important; }
+body .crm-command-wrap .crm-quick-menu > strong {
+  display: block;
+  padding: 6px 10px 4px !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-footnote) !important;
+  font-weight: 600 !important;
+}
+body .crm-command-wrap .crm-quick-menu > a {
+  display: flex !important;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 10px !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  background: transparent !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+}
+body .crm-command-wrap .crm-quick-menu > a:hover,
+body .crm-command-wrap .crm-quick-menu > a:focus-visible {
+  background: var(--fx-tint-strong) !important;
+  color: #fff !important;
+  outline: none !important;
+}
+
+/* ---- Before the script: same band, same positions --------------------- */
+html:not(.fx-ready) body .app main > header .crm-command-wrap {
+  position: absolute !important;
+  top: calc((var(--fx-toolbar-h) - 34px) / 2);
+  right: max(var(--fx-page-x), calc((100% - var(--fx-content-max)) / 2));
+}
+html:not(.fx-ready) body .app main > header .crm-global-search {
+  display: flex !important;
+  width: 260px;
+  margin: 0 !important;
+}
+html:not(.fx-ready) body .app main > header .crm-global-search input {
+  height: 34px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: var(--fx-fill) !important;
+  font-size: var(--fx-text-subhead) !important;
+}
+html:not(.fx-ready) body .app main > header .crm-global-search button { display: none !important; }
+
+/* ---- Session bar: its controls move into the toolbar / account menu ---- */
+body .app main > .session-bar {
+  position: absolute !important;
+  top: calc((var(--fx-toolbar-h) - 34px) / 2);
+  left: max(var(--fx-page-x), calc((100% - var(--fx-content-max)) / 2));
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body .app main > .session-bar > span,
+body .app main > .session-bar .session-logout { display: none !important; }
+body .app main > .session-bar .session-actions { display: flex; gap: 4px; }
+body .app main > .session-bar .button {
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 10px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--fx-tint-strong) !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+html.fx-ready body .app main > .session-bar { display: none !important; }
+
+/* Support strip: offered from the sidebar footer and search instead of
+   occupying the top of every page. */
+body .app main > .crm-contact-strip { display: none !important; }
+
+/* ---- Page title -------------------------------------------------------- */
+body .app main > header {
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  text-align: left !important;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 24px !important;
+  padding: 20px 0 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+body .app main > header .crm-header-logo { display: none !important; }
+body .app main > header > div:first-child { min-width: 0; }
+body .app main > header h1 {
+  margin: 0 !important;
+  font-size: var(--fx-text-largetitle) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.024em !important;
+  line-height: 1.12 !important;
+  color: var(--fx-ink) !important;
+}
+body .app main > header p.muted {
+  display: block !important;
+  margin: 4px 0 0 !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-callout) !important;
+}
+
+/* ---- Responsive -------------------------------------------------------- */
+@media (max-width: 1180px) {
+  body .fx-search-trigger { width: 200px; }
+}
+@media (max-width: 900px) {
+  body .fx-search-trigger { width: 34px; padding: 0 !important; justify-content: center; background: transparent !important; }
+  body .fx-search-trigger:hover { background: var(--fx-fill) !important; }
+  body .fx-search-trigger .fx-search-label,
+  body .fx-search-trigger kbd { display: none; }
+  body .fx-search-trigger svg { width: 20px; height: 20px; }
+  html:not(.fx-ready) body .app main > header .crm-global-search { width: 180px; }
+}
+@media (max-width: 780px) {
+  .fx-crumbs { display: none; }
+  .fx-toolbar .fx-sidebar-btn { display: none !important; }
+  body .crm-command-wrap .crm-header-tool[href$="tab=conversations"] { display: none !important; }
+  body .crm-command-wrap .crm-quick-toggle { width: 32px; padding: 0 !important; }
+  body .crm-command-wrap .crm-quick-toggle .fx-quick-label { display: none; }
+  .fx-compact-title { text-align: center; }
+  body .app main > header { padding-top: 4px !important; margin-bottom: 18px !important; }
+  html:not(.fx-ready) body .app main > header .crm-global-search { display: none !important; }
+  body .app main > .session-bar { display: none !important; }
+}

@@ -1,0 +1,254 @@
+/* --------------------------------------------------------------------------
+   Surfaces: cards, section headers, metrics, notices, status, tables
+   Hierarchy comes from fill, not from stacking borders: top-level cards are
+   white on the gray canvas; anything nested inside a card becomes a quiet
+   gray tile with no border or shadow.
+   -------------------------------------------------------------------------- */
+
+body .card {
+  margin: 0 0 20px;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--fx-radius-xl);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
+  color: var(--fx-ink);
+}
+body main .card { border: 0 !important; }
+
+/* Nested surfaces */
+body .card .card,
+body .card .metric,
+body .card [class$="-card"]:not(.card),
+body .card .ux340-view-card {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  box-shadow: none !important;
+}
+body .card .card { padding: 18px; margin-bottom: 12px; }
+
+/* Section header: title + description on the left, actions on the right */
+body .section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+body .section-head > div:first-child { min-width: min(100%, 280px); flex: 1 1 320px; }
+body .section-head h2,
+body .section-head h3 { margin: 0; }
+body .section-head p { margin: 4px 0 0; }
+body .section-head > :is(.button, button, .actions, form, a.button) { flex: none; }
+body .section-head > .badge { align-self: center; }
+
+body .card > h2:first-child,
+body .card > h3:first-child { margin-top: 0; }
+body .card > h2 + p.muted { margin-top: -2px; margin-bottom: 16px; }
+
+/* ---- Metrics ----------------------------------------------------------- */
+body .metric-grid,
+body .metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 0 0 20px;
+}
+body .metric {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 0;
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
+}
+body .metric span {
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  line-height: 1.3;
+}
+body .metric strong {
+  color: var(--fx-ink);
+  font-family: var(--fx-font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+body .metric strong.word { font-size: 19px; text-transform: none; }
+
+/* ---- Notices ----------------------------------------------------------- */
+body .notice {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 14px 16px 14px 46px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-tint-wash);
+  color: var(--fx-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+  font-size: var(--fx-text-callout);
+  line-height: 1.45;
+}
+body .notice::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-i-info) center / contain no-repeat;
+  mask: var(--fx-i-info) center / contain no-repeat;
+}
+body .notice.success,
+body .success.notice {
+  background: var(--fx-green-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-green) 22%, transparent);
+}
+body .notice.success::before { background: var(--fx-green); -webkit-mask-image: var(--fx-i-check-circle); mask-image: var(--fx-i-check-circle); }
+body .notice.danger,
+body .notice.error {
+  background: var(--fx-red-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-red) 22%, transparent);
+}
+body .notice.danger::before,
+body .notice.error::before { background: var(--fx-red); -webkit-mask-image: var(--fx-i-warning); mask-image: var(--fx-i-warning); }
+body .notice a { font-weight: 500; }
+body .notice strong { font-weight: 600; }
+
+/* ---- Status chips ------------------------------------------------------ */
+body .badge,
+body .crm-status-auto {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  padding: 2px 9px;
+  border: 0 !important;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-gray-bg);
+  color: var(--fx-ink-2);
+  font-size: var(--fx-text-footnote);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+body .crm-status-auto[data-tone="success"] { background: var(--fx-green-bg) !important; color: var(--fx-green) !important; }
+body .crm-status-auto[data-tone="warning"] { background: var(--fx-orange-bg) !important; color: var(--fx-orange) !important; }
+body .crm-status-auto[data-tone="danger"]  { background: var(--fx-red-bg) !important; color: var(--fx-red) !important; }
+body .crm-status-auto[data-tone="info"]    { background: var(--fx-blue-bg) !important; color: var(--fx-blue) !important; }
+body .crm-status-auto[data-tone="neutral"] { background: var(--fx-gray-bg) !important; color: var(--fx-ink-2) !important; }
+
+/* ---- Empty states ------------------------------------------------------ */
+body .empty,
+body .ux340-empty,
+body td.empty {
+  padding: 36px 20px;
+  border: 0;
+  border-radius: var(--fx-radius-lg);
+  background: transparent;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-callout);
+  text-align: center;
+}
+body .ux340-empty { background: var(--fx-fill-quiet); border: 0 !important; }
+body tr.ux340-empty-row td { padding: 32px 16px !important; color: var(--fx-secondary); text-align: center; }
+
+/* ---- Tables ------------------------------------------------------------ */
+body .table-wrap {
+  overflow: auto;
+  margin: 0 -4px;
+  padding: 0 4px;
+  -webkit-overflow-scrolling: touch;
+}
+body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--fx-text-subhead);
+  color: var(--fx-ink);
+}
+body th {
+  padding: 10px 12px !important;
+  border-bottom: 1px solid var(--fx-separator) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-footnote) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  text-transform: none !important;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+body td {
+  padding: 12px !important;
+  border-bottom: 1px solid var(--fx-separator) !important;
+  background: transparent;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+body tbody tr:last-child td { border-bottom: 0 !important; }
+body tbody tr { transition: background-color var(--fx-fast) var(--fx-ease); }
+body tbody tr:hover > td { background: color-mix(in srgb, var(--fx-ink) 2.5%, transparent); }
+body td strong { font-weight: 600; }
+body td small { display: block; margin-top: 2px; color: var(--fx-secondary); font-size: var(--fx-text-footnote); }
+body td a:not(.button) { font-weight: 500; }
+body td form { margin: 0; }
+
+/* Density preference */
+body.ux340-density-compact td,
+body.ux340-density-compact th { padding-top: 7px !important; padding-bottom: 7px !important; }
+body.ux340-density-comfortable td { padding-top: 15px !important; padding-bottom: 15px !important; }
+
+/* Pagination */
+body .pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 16px;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-footnote);
+}
+
+/* Notes and activity lists */
+body .note {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--fx-separator);
+}
+body .note:last-child { border-bottom: 0; }
+body .note small { color: var(--fx-secondary); }
+
+/* Disclosure inside content */
+body main details:not(.crm-nav-group):not(.crm-nav-subgroup) > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--fx-ink);
+}
+body main details:not(.crm-nav-group):not(.crm-nav-subgroup) > summary::marker { color: var(--fx-tertiary); }
+
+/* Images inside content never overflow */
+body main img { max-width: 100%; height: auto; }
+
+@media (max-width: 900px) {
+  body .card { padding: 20px; }
+}
+@media (max-width: 700px) {
+  body .card { padding: 16px; margin: 0 0 14px !important; border-radius: var(--fx-radius-lg); }
+  body .metric-grid,
+  body .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+  body .metric strong { font-size: 24px; }
+  body .section-head { margin-bottom: 16px; }
+  body .notice { padding: 12px 14px 12px 42px !important; }
+  body .notice::before { left: 14px; top: 13px; }
+}

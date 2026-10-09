@@ -1,0 +1,391 @@
+/* --------------------------------------------------------------------------
+   Sidebar — a light, translucent source list in the manner of Finder, Mail
+   and System Settings. Top-level groups read as quiet section headers; task
+   areas are disclosure rows with an icon; pages sit indented beneath them.
+   Only the area you are in opens by default (design-400.js), so the list
+   stays short and scannable.
+   -------------------------------------------------------------------------- */
+
+body aside#forever-crm-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: flex !important;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--fx-ink) !important;
+  background: var(--fx-material) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  border-right: 1px solid var(--fx-separator) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body aside#forever-crm-sidebar { background: #f2f2f5 !important; }
+}
+body.ux340-dark aside#forever-crm-sidebar { background: rgba(30, 30, 32, 0.9) !important; }
+
+/* Brand */
+body #forever-crm-sidebar .brand {
+  flex: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 18px 18px 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body #forever-crm-sidebar .brand-logo {
+  display: block;
+  width: auto !important;
+  max-width: 176px !important;
+  height: auto !important;
+  max-height: 34px !important;
+  object-fit: contain;
+  object-position: left center;
+  filter: none !important;
+  border: 0 !important;
+  background: none !important;
+}
+body #forever-crm-sidebar .brand:focus-visible { outline-offset: -2px !important; border-radius: var(--fx-radius-sm) !important; }
+
+/* "Current workspace" label: replaced by the search field; keeps its space
+   so nothing shifts when the script arrives. */
+body #forever-crm-sidebar > .eyebrow {
+  flex: none;
+  visibility: hidden;
+  height: 34px;
+  margin: 6px 12px 4px !important;
+}
+html.fx-ready body #forever-crm-sidebar > .eyebrow { display: none; }
+
+/* Scrolling list */
+body #forever-crm-sidebar nav.crm-nav-groups {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: block !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 10px 16px !important;
+  margin: 0 !important;
+  scrollbar-gutter: auto;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 16px), transparent);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 16px), transparent);
+}
+body #forever-crm-sidebar nav.crm-nav-groups > a { display: none !important; }
+
+/* ---- Section (top-level group) ---------------------------------------- */
+body #forever-crm-sidebar .crm-nav-group {
+  margin: 14px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+body #forever-crm-sidebar .crm-nav-group:first-child { margin-top: 6px !important; }
+body #forever-crm-sidebar .crm-nav-group > summary {
+  list-style: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+  padding: 4px 10px !important;
+  margin: 0 0 2px;
+  border-radius: var(--fx-radius-xs);
+  color: var(--fx-tertiary) !important;
+  background: transparent !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  cursor: pointer;
+  user-select: none;
+}
+body #forever-crm-sidebar summary::-webkit-details-marker { display: none; }
+body #forever-crm-sidebar summary::marker { content: ""; }
+body #forever-crm-sidebar summary > span[aria-hidden="true"] { display: none !important; }
+body #forever-crm-sidebar .crm-nav-group > summary::after {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  -webkit-mask: var(--fx-i-chevron-down) center / contain no-repeat;
+  mask: var(--fx-i-chevron-down) center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--fx-fast) var(--fx-ease), transform var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-group:not([open]) > summary::after { transform: rotate(-90deg); }
+body #forever-crm-sidebar .crm-nav-group > summary:hover::after,
+body #forever-crm-sidebar .crm-nav-group > summary:focus-visible::after,
+body #forever-crm-sidebar .crm-nav-group:not([open]) > summary::after { opacity: 1; }
+body #forever-crm-sidebar .crm-nav-group > summary:hover { color: var(--fx-secondary) !important; }
+
+body #forever-crm-sidebar .crm-nav-group-links {
+  display: grid !important;
+  gap: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ---- Task area (subgroup) --------------------------------------------- */
+body #forever-crm-sidebar .crm-nav-subgroup {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  min-width: 0;
+}
+body #forever-crm-sidebar .crm-nav-subgroup > summary,
+body #forever-crm-sidebar .crm-nav-group-links > a,
+body #forever-crm-sidebar .fx-side-single {
+  list-style: none;
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 5px 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  background: transparent !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.006em;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup > summary:hover,
+body #forever-crm-sidebar .crm-nav-group-links > a:hover { background: var(--fx-hover) !important; }
+
+/* Icon (set per area below) */
+body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
+body #forever-crm-sidebar .crm-nav-group-links > a::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+}
+/* Disclosure chevron */
+body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
+  content: "";
+  flex: none;
+  margin-left: auto;
+  width: 11px;
+  height: 11px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  transition: transform var(--fx-med) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup[open] > summary::after { transform: rotate(90deg); }
+
+body #forever-crm-sidebar .crm-nav-subgroup-links {
+  display: grid !important;
+  gap: 1px !important;
+  padding: 1px 0 6px !important;
+  margin: 0 !important;
+}
+
+/* ---- Page link --------------------------------------------------------- */
+body #forever-crm-sidebar .crm-nav-subgroup-links > a {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  min-height: 30px;
+  margin: 0 !important;
+  padding: 5px 30px 5px 38px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink-2) !important;
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.003em;
+  text-decoration: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
+
+/* Where you are */
+body #forever-crm-sidebar a[aria-current="page"] {
+  box-shadow: none !important;
+  outline-color: var(--fx-focus);
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  background: var(--fx-tint-soft) !important;
+  border: 0 !important;
+}
+body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
+
+/* Pin to favourites: present on hover / keyboard focus only */
+body #forever-crm-sidebar .crm-nav-pin {
+  position: absolute !important;
+  top: 50%;
+  right: 4px;
+  float: none !important;
+  display: grid !important;
+  place-items: center;
+  width: 24px !important;
+  height: 24px !important;
+  min-height: 0 !important;
+  margin: -12px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  opacity: 0;
+  transition: opacity var(--fx-fast) var(--fx-ease);
+  box-shadow: none !important;
+}
+body #forever-crm-sidebar .crm-nav-pin::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-star) center / contain no-repeat;
+  mask: var(--fx-i-star) center / contain no-repeat;
+}
+body #forever-crm-sidebar .crm-nav-pin.is-pinned::before {
+  background: var(--fx-tint);
+  -webkit-mask-image: var(--fx-i-star-fill);
+  mask-image: var(--fx-i-star-fill);
+}
+body #forever-crm-sidebar a:hover > .crm-nav-pin,
+body #forever-crm-sidebar a:focus-visible > .crm-nav-pin,
+body #forever-crm-sidebar .crm-nav-pin:focus-visible { opacity: 1; }
+body #forever-crm-sidebar .crm-nav-pin:hover { background: var(--fx-fill) !important; }
+@media (hover: none) {
+  body #forever-crm-sidebar .crm-nav-pin { display: none !important; }
+}
+
+/* Favourites (rendered by call-center-354.js) */
+body #forever-crm-sidebar .crm-favorites-group {
+  display: grid;
+  gap: 1px;
+  margin: 6px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > strong {
+  display: block;
+  padding: 4px 10px !important;
+  margin-bottom: 2px;
+  color: var(--fx-tertiary) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > a {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 5px 10px !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > a::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint);
+  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  mask: var(--fx-i-star-fill) center / 15px no-repeat;
+}
+body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
+
+/* Filter results (sidebar search) */
+body #forever-crm-sidebar.fx-filtering .crm-favorites-group,
+body #forever-crm-sidebar.fx-filtering [data-fx-hidden] { display: none !important; }
+body #forever-crm-sidebar .fx-side-empty {
+  padding: 18px 12px;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  text-align: center;
+}
+body #forever-crm-sidebar mark {
+  background: color-mix(in srgb, var(--fx-tint) 34%, transparent);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+/* ---- Footer: account + help ------------------------------------------- */
+body #forever-crm-sidebar .aside-bottom {
+  flex: none;
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 0;
+  align-items: center;
+  margin: 0 !important;
+  padding: 10px 12px calc(12px + env(safe-area-inset-bottom)) !important;
+  border-top: 1px solid var(--fx-separator);
+  background: transparent !important;
+}
+body #forever-crm-sidebar .aside-bottom::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--fx-tint) 70%, #fff), var(--fx-tint-strong));
+}
+body #forever-crm-sidebar .aside-bottom > strong {
+  grid-column: 2;
+  color: var(--fx-ink) !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body #forever-crm-sidebar .aside-bottom > small {
+  grid-column: 2;
+  color: var(--fx-secondary) !important;
+  font-size: 11.5px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body #forever-crm-sidebar .aside-bottom > a {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  margin: 0 !important;
+  color: var(--fx-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+html.fx-ready body #forever-crm-sidebar .aside-bottom::before { display: none; }
+html.fx-ready body #forever-crm-sidebar .aside-bottom > :is(strong, small, a) { display: none !important; }
+html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !important; padding-top: 8px !important; }

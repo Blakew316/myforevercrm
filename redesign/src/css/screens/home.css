@@ -1,0 +1,35 @@
+/* Dashboard: the phone welcome card follows the same surfaces as every
+   other card; its quick buttons duplicate the toolbar, so they are hidden. */
+body .crm-mobile-home {
+  background: var(--fx-surface) !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xl) !important;
+  box-shadow: var(--fx-shadow-card) !important;
+}
+body .crm-mobile-home h2 {
+  color: var(--fx-ink) !important;
+  font-size: 24px !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+}
+body .crm-mobile-quickbar { display: none !important; }
+body .crm-mobile-role-chips span {
+  background: var(--fx-tint-wash) !important;
+  color: var(--fx-tint-strong) !important;
+  font-weight: 600 !important;
+}
+body .crm-mobile-day-card {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  box-shadow: none !important;
+}
+body .crm-mobile-launch-grid a {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+}
+body .crm-mobile-launch-grid a span { color: var(--fx-secondary) !important; }
+body .ux340-role-home { background: var(--fx-surface) !important; border: 0 !important; }

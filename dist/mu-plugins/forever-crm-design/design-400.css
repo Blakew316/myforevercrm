@@ -1,0 +1,2654 @@
+/*! My Forever CRM — Design 4.0 · built 2026-10-09 · source: redesign/src */
+/* css/00-fonts.css */
+/* ==========================================================================
+   My Forever CRM — Design 4.0
+   Apple-style interface layer. Loaded after crm.css, experience-340.css and
+   call-center-354.css; it restyles their server-rendered markup without
+   changing any form, field name, permission or action.
+
+   Typeface: Apple devices render the native San Francisco family through
+   -apple-system / BlinkMacSystemFont. Everywhere else the bundled Inter
+   variable font (SIL OFL 1.1, latin subset, optical-size + weight axes) is
+   the closest open equivalent. Browsers download it only when the system
+   San Francisco face is unavailable, so Apple devices never fetch it.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Forever Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/inter-latin-var.woff2") format("woff2-variations"),
+       url("fonts/inter-latin-var.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* css/01-tokens.css */
+/* --------------------------------------------------------------------------
+   Tokens
+   One palette, one type scale, one 4-point spacing scale. Every legacy
+   variable is remapped onto these so older rules that already use
+   variables adopt the new look automatically.
+
+   Brand: the workspace branding color arrives as --gold on .app (white-label
+   workspaces set their own). It is used as the app tint, the way iOS apps
+   tint controls with their brand color; darker and softer variants are
+   mixed from it so any brand color keeps readable contrast.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Type */
+  --fx-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Forever Inter",
+             "Inter Variable", Inter, "Segoe UI Variable Text", "Segoe UI",
+             Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fx-font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+             "Forever Inter", "Inter Variable", Inter, "Segoe UI Variable Display",
+             "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fx-font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fx-text-largetitle: 30px;   /* page title */
+  --fx-text-title2: 21px;       /* card / section title */
+  --fx-text-title3: 17px;       /* sub-section title */
+  --fx-text-body: 15px;
+  --fx-text-callout: 14px;
+  --fx-text-subhead: 13px;
+  --fx-text-footnote: 12px;
+  --fx-text-caption: 11px;
+
+  /* Neutral palette (Apple light appearance) */
+  --fx-canvas: #f5f5f7;
+  --fx-surface: #ffffff;
+  --fx-surface-raised: #ffffff;
+  --fx-fill: rgba(120, 120, 128, 0.12);        /* secondary control fill */
+  --fx-fill-hover: rgba(120, 120, 128, 0.18);
+  --fx-fill-pressed: rgba(120, 120, 128, 0.24);
+  --fx-fill-quiet: #f5f5f7;                     /* nested surfaces */
+  --fx-ink: #1d1d1f;
+  --fx-ink-2: #424245;
+  --fx-secondary: #6e6e73;
+  --fx-tertiary: #86868b;
+  --fx-separator: rgba(0, 0, 0, 0.08);
+  --fx-separator-strong: rgba(0, 0, 0, 0.14);
+  --fx-field-border: #d2d2d7;
+  --fx-field-bg: #ffffff;
+  --fx-hover: rgba(0, 0, 0, 0.04);
+  --fx-selected-quiet: rgba(0, 0, 0, 0.06);
+
+  /* Actions */
+  --fx-primary: var(--fx-ink);
+  --fx-primary-hover: #000;
+  --fx-on-primary: #fff;
+
+  /* System status colors (text-safe variants on white) */
+  --fx-green: #248a3d;   --fx-green-bg: #e8f6ec;
+  --fx-red: #d70015;     --fx-red-bg: #fdecec;
+  --fx-orange: #b25000;  --fx-orange-bg: #fff3e0;
+  --fx-blue: #0066cc;    --fx-blue-bg: #e8f1fb;
+  --fx-gray-bg: #f0f0f2;
+
+  /* Shape */
+  --fx-radius-xs: 6px;
+  --fx-radius-sm: 8px;
+  --fx-radius-md: 10px;
+  --fx-radius-lg: 14px;
+  --fx-radius-xl: 18px;
+  --fx-radius-pill: 999px;
+
+  /* Depth: hairlines first, shadows only for things that float */
+  --fx-edge: 0 0 0 1px rgba(0, 0, 0, 0.045);
+  --fx-shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.045), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --fx-shadow-pop: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  --fx-shadow-modal: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(0, 0, 0, 0.22);
+
+  /* Spacing (4-point grid) */
+  --fx-s1: 4px;  --fx-s2: 8px;  --fx-s3: 12px; --fx-s4: 16px;
+  --fx-s5: 20px; --fx-s6: 24px; --fx-s8: 32px; --fx-s10: 40px; --fx-s12: 48px;
+
+  /* Layout */
+  --fx-sidebar-w: 288px;
+  --fx-toolbar-h: 56px;
+  --fx-content-max: 1320px;
+  --fx-page-x: 32px;
+  --fx-control-h: 36px;
+  --fx-field-h: 38px;
+
+  /* Motion */
+  --fx-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --fx-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fx-fast: 140ms;
+  --fx-med: 220ms;
+
+  /* Translucent material (toolbar, sidebar, palette) */
+  --fx-material: rgba(250, 250, 252, 0.78);
+  --fx-material-strong: rgba(255, 255, 255, 0.86);
+  --fx-blur: saturate(180%) blur(20px);
+
+  /* Legacy variables, remapped */
+  --ink: var(--fx-ink);
+  --muted: var(--fx-secondary);
+  --line: var(--fx-separator);
+  --paper: var(--fx-canvas);
+  --white: #fff;
+  --border: var(--fx-separator);
+  --card: var(--fx-surface);
+  --surface: var(--fx-surface);
+  --text: var(--fx-ink);
+  --crm-border: var(--fx-separator);
+  --crm-card: var(--fx-surface);
+  --crm-radius: var(--fx-radius-xl);
+  --crm-radius-sm: var(--fx-radius-md);
+  --crm-shadow: var(--fx-shadow-card);
+  --crm-shadow-sm: var(--fx-edge);
+  --crm-soft: var(--fx-fill-quiet);
+  --crm-sidebar-width: var(--fx-sidebar-w);
+  --ux340-panel: var(--fx-surface);
+  --ux340-soft: var(--fx-fill-quiet);
+  --ux340-border: var(--fx-separator);
+  --ux340-text: var(--fx-ink);
+  --ux340-muted: var(--fx-secondary);
+  --ux340-radius: var(--fx-radius-lg);
+  --ux340-shadow: var(--fx-shadow-pop);
+
+  --fx-i-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3.2' fill='%23000' stroke='none'/%3E%3C/svg%3E");
+  --fx-i-house: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.4 12 4l8 6.4V19a1 1 0 0 1-1 1h-4.6v-5.6H9.6V20H5a1 1 0 0 1-1-1z'/%3E%3C/svg%3E");
+  --fx-i-people: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3.25 19c.65-3.05 2.85-4.8 5.75-4.8s5.1 1.75 5.75 4.8'/%3E%3Cpath d='M15.4 5.55a3.15 3.15 0 0 1 0 5.9'/%3E%3Cpath d='M17 14.35c2 .55 3.25 2.05 3.75 4.65'/%3E%3C/svg%3E");
+  --fx-i-team: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8.2' r='3'/%3E%3Cpath d='M6.6 19.4c.55-3 2.75-4.7 5.4-4.7s4.85 1.7 5.4 4.7'/%3E%3Ccircle cx='5.4' cy='10.2' r='2.1'/%3E%3Ccircle cx='18.6' cy='10.2' r='2.1'/%3E%3Cpath d='M2.4 17.4c.3-1.65 1.35-2.7 2.95-3M21.6 17.4c-.3-1.65-1.35-2.7-2.95-3'/%3E%3C/svg%3E");
+  --fx-i-person: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Cpath d='M6.3 18.4c1.15-2.05 3.15-3.15 5.7-3.15s4.55 1.1 5.7 3.15'/%3E%3C/svg%3E");
+  --fx-i-phone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.7 3.75h2.55l1.45 4.05-2.05 1.5a11.2 11.2 0 0 0 6.05 6.05l1.5-2.05 4.05 1.45v2.55a2.05 2.05 0 0 1-2.15 2.05C10.6 18.95 5.05 13.4 4.6 5.9a2.05 2.05 0 0 1 2.1-2.15z'/%3E%3C/svg%3E");
+  --fx-i-phone-device: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='7' y='2.75' width='10' height='18.5' rx='2.5'/%3E%3Cpath d='M10.5 5.75h3M11 18h2'/%3E%3C/svg%3E");
+  --fx-i-headset: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 14.5V12a7.5 7.5 0 0 1 15 0v2.5'/%3E%3Crect x='3.5' y='13.25' width='4' height='6' rx='1.6'/%3E%3Crect x='16.5' y='13.25' width='4' height='6' rx='1.6'/%3E%3Cpath d='M18.5 19.25c0 1.3-1.55 2-4 2H13'/%3E%3C/svg%3E");
+  --fx-i-calendar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.75' y='5' width='16.5' height='15.25' rx='3'/%3E%3Cpath d='M3.75 9.75h16.5M8 3v4M16 3v4'/%3E%3C/svg%3E");
+  --fx-i-doc: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3.5h6.4l5.1 5.1v10.9a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5v-14.5A1.5 1.5 0 0 1 7 3.5z'/%3E%3Cpath d='M13.4 3.5v5.1h5.1M9 13h6M9 16.5h6'/%3E%3C/svg%3E");
+  --fx-i-chart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Crect x='5.5' y='11' width='3' height='6.5' rx='1'/%3E%3Crect x='10.5' y='6.5' width='3' height='11' rx='1'/%3E%3Crect x='15.5' y='9' width='3' height='8.5' rx='1'/%3E%3C/svg%3E");
+  --fx-i-dollar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M14.6 9.25c-.4-1-1.35-1.6-2.6-1.6-1.6 0-2.7.8-2.7 2s1 1.7 2.7 2.1 2.8.9 2.8 2.2-1.2 2.1-2.8 2.1c-1.3 0-2.3-.6-2.7-1.7M12 6v1.65M12 16.05v1.8'/%3E%3C/svg%3E");
+  --fx-i-gauge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.1 17.2a8.75 8.75 0 1 1 15.8 0'/%3E%3Cpath d='M12 13.4l3.7-3.9'/%3E%3Ccircle cx='12' cy='13.6' r='1.3'/%3E%3C/svg%3E");
+  --fx-i-book: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.6C10.2 5.2 7.7 4.5 4.5 4.5v13c3.2 0 5.7.7 7.5 2.1 1.8-1.4 4.3-2.1 7.5-2.1v-13c-3.2 0-5.7.7-7.5 2.1z'/%3E%3Cpath d='M12 6.6v13'/%3E%3C/svg%3E");
+  --fx-i-mappin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-6.5-5.65-6.5-11.1a6.5 6.5 0 0 1 13 0C18.5 15.35 12 21 12 21z'/%3E%3Ccircle cx='12' cy='9.9' r='2.4'/%3E%3C/svg%3E");
+  --fx-i-map: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4.5 3.5 6.5v13L9 17.5l6 2 5.5-2v-13L15 6.5z'/%3E%3Cpath d='M9 4.5v13M15 6.5v13'/%3E%3C/svg%3E");
+  --fx-i-briefcase: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='7' width='17' height='12.5' rx='2.5'/%3E%3Cpath d='M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3.5 12.5h17'/%3E%3C/svg%3E");
+  --fx-i-heart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 19.6s-7.75-4.45-7.75-10.1A4.2 4.2 0 0 1 12 7.15a4.2 4.2 0 0 1 7.75 2.35c0 5.65-7.75 10.1-7.75 10.1z'/%3E%3C/svg%3E");
+  --fx-i-building: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 20.5V5.5A1.5 1.5 0 0 1 6 4h7a1.5 1.5 0 0 1 1.5 1.5v15M14.5 10H18a1.5 1.5 0 0 1 1.5 1.5v9M3 20.5h18'/%3E%3Cpath d='M8 8h3M8 11.5h3M8 15h3'/%3E%3C/svg%3E");
+  --fx-i-box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 7.6 12 3.5l8.25 4.1v8.8L12 20.5l-8.25-4.1z'/%3E%3Cpath d='M3.75 7.6 12 11.7l8.25-4.1M12 11.7v8.8'/%3E%3C/svg%3E");
+  --fx-i-tag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.2V4.8a1.3 1.3 0 0 1 1.3-1.3h7.4l8.3 8.3a1.3 1.3 0 0 1 0 1.85l-7.2 7.2a1.3 1.3 0 0 1-1.85 0z'/%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3C/svg%3E");
+  --fx-i-banknote: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='6' width='18.5' height='12' rx='2'/%3E%3Ccircle cx='12' cy='12' r='2.6'/%3E%3Cpath d='M6 9.5v5M18 9.5v5'/%3E%3C/svg%3E");
+  --fx-i-bolt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2.75 5.25 13.25h6.25l-1 8L18.25 10.75H12z'/%3E%3C/svg%3E");
+  --fx-i-wrench: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.7 3.9a4.6 4.6 0 0 0-5.35 6l-5.6 5.6a1.95 1.95 0 0 0 2.75 2.75l5.6-5.6a4.6 4.6 0 0 0 6-5.35l-2.85 2.85-2.6-.4-.4-2.6z'/%3E%3C/svg%3E");
+  --fx-i-creditcard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='5' width='18.5' height='14' rx='2.5'/%3E%3Cpath d='M2.75 9.5h18.5M6.5 15h3.5'/%3E%3C/svg%3E");
+  --fx-i-sliders: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E");
+  --fx-i-link: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 14a4 4 0 0 0 5.65 0l3-3A4 4 0 0 0 13 5.35l-1.2 1.2'/%3E%3Cpath d='M14 10a4 4 0 0 0-5.65 0l-3 3A4 4 0 0 0 11 18.65l1.2-1.2'/%3E%3C/svg%3E");
+  --fx-i-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V8a4 4 0 0 1 8 0v2.5'/%3E%3C/svg%3E");
+  --fx-i-archive: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='4.5' width='17' height='4.5' rx='1.5'/%3E%3Cpath d='M5 9v9a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18V9M10 13h4'/%3E%3C/svg%3E");
+  --fx-i-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.75' cy='10.75' r='6.25'/%3E%3Cpath d='m15.5 15.5 4.75 4.75'/%3E%3C/svg%3E");
+  --fx-i-envelope: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='2.5'/%3E%3Cpath d='m3.75 7.25 8.25 6 8.25-6'/%3E%3C/svg%3E");
+  --fx-i-bell: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.5H5z'/%3E%3Cpath d='M10 20.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+  --fx-i-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+  --fx-i-sidebar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='3'/%3E%3Cpath d='M9.5 4.5v15M5.5 8.25h1.5M5.5 11.25h1.5'/%3E%3C/svg%3E");
+  --fx-i-chevron-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.5 5.5-6.5 6.5 6.5 6.5'/%3E%3C/svg%3E");
+  --fx-i-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9.5 5.5 6.5 6.5-6.5 6.5'/%3E%3C/svg%3E");
+  --fx-i-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5.5 9.25 6.5 6.5 6.5-6.5'/%3E%3C/svg%3E");
+  --fx-i-chevron-updown: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9.5 4-4 4 4M8 14.5l4 4 4-4'/%3E%3C/svg%3E");
+  --fx-i-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3.8 2.5 5.1 5.6.8-4 3.95.95 5.6L12 16.6l-5.05 2.65.95-5.6-4-3.95 5.6-.8z'/%3E%3C/svg%3E");
+  --fx-i-star-fill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3.8 2.5 5.1 5.6.8-4 3.95.95 5.6L12 16.6l-5.05 2.65.95-5.6-4-3.95 5.6-.8z' fill='%23000'/%3E%3C/svg%3E");
+  --fx-i-clock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/svg%3E");
+  --fx-i-checklist: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 7 1.5 1.5L8.5 5.5M4 13l1.5 1.5 3-3M11.5 7h8.5M11.5 13h8.5M11.5 18.5h8.5'/%3E%3C/svg%3E");
+  --fx-i-logout: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4.5H7A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h7'/%3E%3Cpath d='M16 8.5 19.5 12 16 15.5M19.5 12H10'/%3E%3C/svg%3E");
+  --fx-i-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M9.6 9.6a2.5 2.5 0 0 1 4.85.85c0 1.75-2.45 2.1-2.45 3.65'/%3E%3Cpath d='M12 17.1v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-i-keyboard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='6' width='18.5' height='12' rx='2.5'/%3E%3Cpath d='M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7.5 14h9'/%3E%3C/svg%3E");
+  --fx-i-sparkles: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 3.5 11.6 8.4 16.5 10l-4.9 1.6L10 16.5l-1.6-4.9L3.5 10l4.9-1.6z'/%3E%3Cpath d='m17.5 14.5.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z'/%3E%3C/svg%3E");
+  --fx-i-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='4' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3C/svg%3E");
+  --fx-i-return: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 5.5v6a2.5 2.5 0 0 1-2.5 2.5H6'/%3E%3Cpath d='m9.5 10.5-3.5 3.5 3.5 3.5'/%3E%3C/svg%3E");
+  --fx-i-message: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19V7a2.5 2.5 0 0 1 2.5-2.5h9A2.5 2.5 0 0 1 19 7v6.5a2.5 2.5 0 0 1-2.5 2.5H9z'/%3E%3C/svg%3E");
+  --fx-i-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M12 11v5.25'/%3E%3Cpath d='M12 7.9v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-i-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 4.6a2 2 0 0 1 3.4 0l7.05 12.2a2 2 0 0 1-1.7 3H4.95a2 2 0 0 1-1.7-3z'/%3E%3Cpath d='M12 9.5v4'/%3E%3Cpath d='M12 16.6v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-i-check-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='m8.25 12.25 2.5 2.5 5-5.25'/%3E%3C/svg%3E");
+  --fx-i-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 6.5l11 11M17.5 6.5l-11 11'/%3E%3C/svg%3E");
+  --fx-i-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.5 16.5 16.5 7.5M9 7.5h7.5V15'/%3E%3C/svg%3E");
+  --fx-i-chevron-updown-gray: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9.5 4-4 4 4M8 14.5l4 4 4-4'/%3E%3C/svg%3E");
+}
+
+/* Tint tokens are declared on .app as well as :root because the workspace
+   brand color is set inline on .app; custom properties resolve where they
+   are declared, so derived values must be recomputed there. */
+:root, .app {
+  --fx-tint: var(--gold, #c9a458);
+  --fx-tint-strong: color-mix(in srgb, var(--fx-tint) 58%, #000);
+  --fx-tint-soft: color-mix(in srgb, var(--fx-tint) 18%, #fff);
+  --fx-tint-wash: color-mix(in srgb, var(--fx-tint) 9%, #fff);
+  --fx-link: var(--fx-tint-strong);
+  --fx-focus: var(--fx-tint-strong);
+  --accent: var(--fx-tint-strong);
+  --crm-accent: var(--fx-tint-strong);
+}
+
+@media (max-width: 1100px) {
+  :root { --fx-page-x: 24px; --fx-text-largetitle: 28px; }
+}
+@media (max-width: 700px) {
+  :root {
+    --fx-page-x: 16px;
+    --fx-text-largetitle: 26px;
+    --fx-text-title2: 19px;
+    --fx-control-h: 40px;
+    --fx-field-h: 44px;
+    --fx-toolbar-h: 52px;
+  }
+}
+
+/* Dark appearance: follows the existing per-user Appearance preference
+   (experience-340.js adds body.ux340-dark), not the OS alone. */
+body.ux340-dark {
+  --fx-canvas: #000;
+  --fx-surface: #1c1c1e;
+  --fx-surface-raised: #2c2c2e;
+  --fx-fill: rgba(118, 118, 128, 0.24);
+  --fx-fill-hover: rgba(118, 118, 128, 0.32);
+  --fx-fill-pressed: rgba(118, 118, 128, 0.4);
+  --fx-fill-quiet: #2c2c2e;
+  --fx-ink: #f5f5f7;
+  --fx-ink-2: #d1d1d6;
+  --fx-secondary: #a1a1a6;
+  --fx-tertiary: #8e8e93;
+  --fx-separator: rgba(255, 255, 255, 0.1);
+  --fx-separator-strong: rgba(255, 255, 255, 0.18);
+  --fx-field-border: #3a3a3c;
+  --fx-field-bg: #1c1c1e;
+  --fx-hover: rgba(255, 255, 255, 0.06);
+  --fx-selected-quiet: rgba(255, 255, 255, 0.1);
+  --fx-primary: #f5f5f7;
+  --fx-primary-hover: #fff;
+  --fx-on-primary: #1d1d1f;
+  --fx-green: #30d158;  --fx-green-bg: rgba(48, 209, 88, 0.16);
+  --fx-red: #ff6961;    --fx-red-bg: rgba(255, 69, 58, 0.16);
+  --fx-orange: #ffb340; --fx-orange-bg: rgba(255, 159, 10, 0.16);
+  --fx-blue: #64a8ff;   --fx-blue-bg: rgba(10, 132, 255, 0.18);
+  --fx-gray-bg: #2c2c2e;
+  --fx-material: rgba(28, 28, 30, 0.78);
+  --fx-material-strong: rgba(28, 28, 30, 0.9);
+  --fx-shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --fx-edge: 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+body.ux340-dark, body.ux340-dark .app {
+  --fx-tint-strong: color-mix(in srgb, var(--fx-tint) 82%, #fff);
+  --fx-tint-soft: color-mix(in srgb, var(--fx-tint) 26%, #1c1c1e);
+  --fx-tint-wash: color-mix(in srgb, var(--fx-tint) 12%, #1c1c1e);
+  --fx-link: var(--fx-tint-strong);
+  --fx-focus: var(--fx-tint-strong);
+}
+
+/* css/02-base.css */
+/* --------------------------------------------------------------------------
+   Base: page, type scale, links, focus
+   -------------------------------------------------------------------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--fx-toolbar-h) + 12px);
+}
+
+html body {
+  margin: 0;
+  background: var(--fx-canvas) !important;
+  color: var(--fx-ink);
+  font-family: var(--fx-font) !important;
+  font-size: var(--fx-text-body);
+  line-height: 1.47;
+  letter-spacing: -0.009em;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body button, body input, body select, body textarea, body optgroup {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+/* Legacy screens set Arial / Inter / Georgia on individual components.
+   Interface text is one family; documents keep their own (proposal previews). */
+body .app :is(h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, label, button,
+  input, select, textarea, small, strong, summary, legend, div):not(
+  [class*="proposal-page"] *, [class*="proposal-preview"] *, [class*="document-preview"] *,
+  .fag-flow-canvas *, code, pre, kbd) {
+  font-family: inherit;
+}
+
+body h1, body h2, body h3, body h4 {
+  font-family: var(--fx-font-display);
+  color: var(--fx-ink);
+  font-weight: 600;
+}
+body h1 { font-size: var(--fx-text-largetitle); line-height: 1.15; letter-spacing: -0.022em; margin: 0 0 4px; }
+body h2 { font-size: var(--fx-text-title2); line-height: 1.24; letter-spacing: -0.018em; margin: 0 0 8px; }
+body h3 { font-size: var(--fx-text-title3); line-height: 1.3; letter-spacing: -0.012em; margin: 0 0 6px; }
+body h4 { font-size: var(--fx-text-body); line-height: 1.35; letter-spacing: -0.009em; margin: 0 0 4px; }
+
+body p { margin: 0 0 12px; }
+body p:last-child { margin-bottom: 0; }
+
+body small { font-size: var(--fx-text-footnote); letter-spacing: 0; }
+body strong, body b { font-weight: 600; }
+
+body .muted,
+body p.muted,
+body .muted p {
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-callout);
+  line-height: 1.43;
+}
+
+body .eyebrow,
+body p.eyebrow {
+  display: block;
+  margin: 0 0 6px !important;
+  color: var(--fx-tertiary) !important;
+  font-size: var(--fx-text-caption) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* Links */
+body a {
+  color: var(--fx-link);
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+body a:hover { text-decoration: underline; }
+body a.button:hover,
+body nav a:hover,
+body #forever-crm-sidebar a:hover { text-decoration: none; }
+
+/* Focus: one visible ring, everywhere, keyboard only */
+body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--fx-focus) !important;
+  outline-offset: 2px !important;
+  box-shadow: none;
+}
+body :is(input, select, textarea):focus-visible { outline-offset: 0 !important; }
+
+::selection { background: color-mix(in srgb, var(--fx-tint) 32%, transparent); }
+
+body hr {
+  border: 0;
+  height: 1px;
+  background: var(--fx-separator);
+  margin: 20px 0;
+}
+
+body code {
+  font-family: var(--fx-font-mono);
+  font-size: 0.88em;
+  background: var(--fx-fill-quiet);
+  border-radius: var(--fx-radius-sm);
+  padding: 12px 14px;
+}
+
+body kbd {
+  font-family: var(--fx-font);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 3px 5px;
+  min-width: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: var(--fx-secondary);
+  background: var(--fx-surface);
+  box-shadow: 0 0 0 1px var(--fx-separator-strong), 0 1px 0 var(--fx-separator-strong);
+}
+
+/* Numbers line up in data */
+body :is(table, .metric, .metric strong, .metrics, [class*="summary"] strong, [class*="stat"] strong) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quiet, thin scrollbars that do not fight the content */
+body * { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.22) transparent; }
+body.ux340-dark * { scrollbar-color: rgba(255, 255, 255, 0.24) transparent; }
+
+body footer,
+body main > footer {
+  color: var(--fx-tertiary) !important;
+  font-size: var(--fx-text-caption);
+  margin: 40px 0 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--fx-separator);
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visually hidden, still announced */
+.fx-sr {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+/* css/03-shell.css */
+/* --------------------------------------------------------------------------
+   Shell: two-column window (sidebar + content), content measure, and the
+   breakpoints that every other partial follows:
+     ≥1024px  docked sidebar
+     781–1023 sidebar slides over the content (toolbar button)
+     ≤780px   phone: bottom tab bar + sidebar as a sheet
+   -------------------------------------------------------------------------- */
+
+body .app[data-sidebar-app] {
+  display: grid !important;
+  grid-template-columns: var(--fx-sidebar-w) minmax(0, 1fr) !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--fx-canvas);
+}
+body .app[data-sidebar-app].sidebar-hidden {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+/* Content column. Side padding grows on wide screens so the content keeps
+   a comfortable measure while the toolbar material still spans the window. */
+body .app[data-sidebar-app] > main {
+  display: block !important;
+  position: relative;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--fx-toolbar-h) max(var(--fx-page-x), calc((100% - var(--fx-content-max)) / 2)) 72px !important;
+  overflow-x: clip;
+  background: transparent !important;
+}
+/* Once the toolbar exists it occupies the reserved band itself. */
+html.fx-ready body .app[data-sidebar-app] > main { padding-top: 0 !important; }
+
+/* ---- Tablet & phone: sidebar becomes an overlay ------------------------ */
+@media (max-width: 1023px) {
+  body .app[data-sidebar-app],
+  body .app[data-sidebar-app].sidebar-hidden {
+    display: block !important;
+  }
+  body .app[data-sidebar-app].sidebar-hidden aside#forever-crm-sidebar { display: flex !important; }
+  body aside#forever-crm-sidebar {
+    position: fixed !important;
+    z-index: 1100 !important;
+    inset: 0 auto 0 0 !important;
+    width: min(88vw, 320px) !important;
+    height: 100% !important;
+    transform: translateX(-104%);
+    transition: transform var(--fx-med) var(--fx-ease-out), visibility 0s linear var(--fx-med);
+    visibility: hidden;
+    box-shadow: var(--fx-shadow-modal) !important;
+    border-right: 0 !important;
+    background: var(--fx-canvas) !important;
+  }
+  body.crm-sidebar-open aside#forever-crm-sidebar {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform var(--fx-med) var(--fx-ease-out), visibility 0s;
+  }
+  body.crm-sidebar-open::after {
+    content: "" !important;
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1090 !important;
+    background: rgba(0, 0, 0, 0.32) !important;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    animation: fx-fade-in var(--fx-med) var(--fx-ease);
+  }
+  body.crm-sidebar-open { overflow: hidden; }
+}
+
+@media (max-width: 780px) {
+  body { padding-bottom: 0 !important; }
+  body .app[data-sidebar-app] > main {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@keyframes fx-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fx-pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fx-sheet-in {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* css/04-sidebar.css */
+/* --------------------------------------------------------------------------
+   Sidebar — a light, translucent source list in the manner of Finder, Mail
+   and System Settings. Top-level groups read as quiet section headers; task
+   areas are disclosure rows with an icon; pages sit indented beneath them.
+   Only the area you are in opens by default (design-400.js), so the list
+   stays short and scannable.
+   -------------------------------------------------------------------------- */
+
+body aside#forever-crm-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: flex !important;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--fx-ink) !important;
+  background: var(--fx-material) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  border-right: 1px solid var(--fx-separator) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body aside#forever-crm-sidebar { background: #f2f2f5 !important; }
+}
+body.ux340-dark aside#forever-crm-sidebar { background: rgba(30, 30, 32, 0.9) !important; }
+
+/* Brand */
+body #forever-crm-sidebar .brand {
+  flex: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 18px 18px 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body #forever-crm-sidebar .brand-logo {
+  display: block;
+  width: auto !important;
+  max-width: 176px !important;
+  height: auto !important;
+  max-height: 34px !important;
+  object-fit: contain;
+  object-position: left center;
+  filter: none !important;
+  border: 0 !important;
+  background: none !important;
+}
+body #forever-crm-sidebar .brand:focus-visible { outline-offset: -2px !important; border-radius: var(--fx-radius-sm) !important; }
+
+/* "Current workspace" label: replaced by the search field; keeps its space
+   so nothing shifts when the script arrives. */
+body #forever-crm-sidebar > .eyebrow {
+  flex: none;
+  visibility: hidden;
+  height: 34px;
+  margin: 6px 12px 4px !important;
+}
+html.fx-ready body #forever-crm-sidebar > .eyebrow { display: none; }
+
+/* Scrolling list */
+body #forever-crm-sidebar nav.crm-nav-groups {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: block !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 10px 16px !important;
+  margin: 0 !important;
+  scrollbar-gutter: auto;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 16px), transparent);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 16px), transparent);
+}
+body #forever-crm-sidebar nav.crm-nav-groups > a { display: none !important; }
+
+/* ---- Section (top-level group) ---------------------------------------- */
+body #forever-crm-sidebar .crm-nav-group {
+  margin: 14px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+body #forever-crm-sidebar .crm-nav-group:first-child { margin-top: 6px !important; }
+body #forever-crm-sidebar .crm-nav-group > summary {
+  list-style: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+  padding: 4px 10px !important;
+  margin: 0 0 2px;
+  border-radius: var(--fx-radius-xs);
+  color: var(--fx-tertiary) !important;
+  background: transparent !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  cursor: pointer;
+  user-select: none;
+}
+body #forever-crm-sidebar summary::-webkit-details-marker { display: none; }
+body #forever-crm-sidebar summary::marker { content: ""; }
+body #forever-crm-sidebar summary > span[aria-hidden="true"] { display: none !important; }
+body #forever-crm-sidebar .crm-nav-group > summary::after {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  -webkit-mask: var(--fx-i-chevron-down) center / contain no-repeat;
+  mask: var(--fx-i-chevron-down) center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--fx-fast) var(--fx-ease), transform var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-group:not([open]) > summary::after { transform: rotate(-90deg); }
+body #forever-crm-sidebar .crm-nav-group > summary:hover::after,
+body #forever-crm-sidebar .crm-nav-group > summary:focus-visible::after,
+body #forever-crm-sidebar .crm-nav-group:not([open]) > summary::after { opacity: 1; }
+body #forever-crm-sidebar .crm-nav-group > summary:hover { color: var(--fx-secondary) !important; }
+
+body #forever-crm-sidebar .crm-nav-group-links {
+  display: grid !important;
+  gap: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ---- Task area (subgroup) --------------------------------------------- */
+body #forever-crm-sidebar .crm-nav-subgroup {
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  min-width: 0;
+}
+body #forever-crm-sidebar .crm-nav-subgroup > summary,
+body #forever-crm-sidebar .crm-nav-group-links > a,
+body #forever-crm-sidebar .fx-side-single {
+  list-style: none;
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 5px 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  background: transparent !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.006em;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup > summary:hover,
+body #forever-crm-sidebar .crm-nav-group-links > a:hover { background: var(--fx-hover) !important; }
+
+/* Icon (set per area below) */
+body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
+body #forever-crm-sidebar .crm-nav-group-links > a::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+}
+/* Disclosure chevron */
+body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
+  content: "";
+  flex: none;
+  margin-left: auto;
+  width: 11px;
+  height: 11px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  transition: transform var(--fx-med) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup[open] > summary::after { transform: rotate(90deg); }
+
+body #forever-crm-sidebar .crm-nav-subgroup-links {
+  display: grid !important;
+  gap: 1px !important;
+  padding: 1px 0 6px !important;
+  margin: 0 !important;
+}
+
+/* ---- Page link --------------------------------------------------------- */
+body #forever-crm-sidebar .crm-nav-subgroup-links > a {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  min-height: 30px;
+  margin: 0 !important;
+  padding: 5px 30px 5px 38px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink-2) !important;
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.003em;
+  text-decoration: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
+
+/* Where you are */
+body #forever-crm-sidebar a[aria-current="page"] {
+  box-shadow: none !important;
+  outline-color: var(--fx-focus);
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  background: var(--fx-tint-soft) !important;
+  border: 0 !important;
+}
+body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
+
+/* Pin to favourites: present on hover / keyboard focus only */
+body #forever-crm-sidebar .crm-nav-pin {
+  position: absolute !important;
+  top: 50%;
+  right: 4px;
+  float: none !important;
+  display: grid !important;
+  place-items: center;
+  width: 24px !important;
+  height: 24px !important;
+  min-height: 0 !important;
+  margin: -12px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  opacity: 0;
+  transition: opacity var(--fx-fast) var(--fx-ease);
+  box-shadow: none !important;
+}
+body #forever-crm-sidebar .crm-nav-pin::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-star) center / contain no-repeat;
+  mask: var(--fx-i-star) center / contain no-repeat;
+}
+body #forever-crm-sidebar .crm-nav-pin.is-pinned::before {
+  background: var(--fx-tint);
+  -webkit-mask-image: var(--fx-i-star-fill);
+  mask-image: var(--fx-i-star-fill);
+}
+body #forever-crm-sidebar a:hover > .crm-nav-pin,
+body #forever-crm-sidebar a:focus-visible > .crm-nav-pin,
+body #forever-crm-sidebar .crm-nav-pin:focus-visible { opacity: 1; }
+body #forever-crm-sidebar .crm-nav-pin:hover { background: var(--fx-fill) !important; }
+@media (hover: none) {
+  body #forever-crm-sidebar .crm-nav-pin { display: none !important; }
+}
+
+/* Favourites (rendered by call-center-354.js) */
+body #forever-crm-sidebar .crm-favorites-group {
+  display: grid;
+  gap: 1px;
+  margin: 6px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > strong {
+  display: block;
+  padding: 4px 10px !important;
+  margin-bottom: 2px;
+  color: var(--fx-tertiary) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > a {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 5px 10px !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+body #forever-crm-sidebar .crm-favorites-group > a::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint);
+  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  mask: var(--fx-i-star-fill) center / 15px no-repeat;
+}
+body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
+
+/* Filter results (sidebar search) */
+body #forever-crm-sidebar.fx-filtering .crm-favorites-group,
+body #forever-crm-sidebar.fx-filtering [data-fx-hidden] { display: none !important; }
+body #forever-crm-sidebar .fx-side-empty {
+  padding: 18px 12px;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  text-align: center;
+}
+body #forever-crm-sidebar mark {
+  background: color-mix(in srgb, var(--fx-tint) 34%, transparent);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+/* ---- Footer: account + help ------------------------------------------- */
+body #forever-crm-sidebar .aside-bottom {
+  flex: none;
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 0;
+  align-items: center;
+  margin: 0 !important;
+  padding: 10px 12px calc(12px + env(safe-area-inset-bottom)) !important;
+  border-top: 1px solid var(--fx-separator);
+  background: transparent !important;
+}
+body #forever-crm-sidebar .aside-bottom::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--fx-tint) 70%, #fff), var(--fx-tint-strong));
+}
+body #forever-crm-sidebar .aside-bottom > strong {
+  grid-column: 2;
+  color: var(--fx-ink) !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body #forever-crm-sidebar .aside-bottom > small {
+  grid-column: 2;
+  color: var(--fx-secondary) !important;
+  font-size: 11.5px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body #forever-crm-sidebar .aside-bottom > a {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  margin: 0 !important;
+  color: var(--fx-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+html.fx-ready body #forever-crm-sidebar .aside-bottom::before { display: none; }
+html.fx-ready body #forever-crm-sidebar .aside-bottom > :is(strong, small, a) { display: none !important; }
+html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !important; padding-top: 8px !important; }
+
+/* css/05-sidebar-icons.css */
+/* --------------------------------------------------------------------------
+   Sidebar icons. Each task area is recognised by the pages it contains, not
+   by its label, so renamed or role-filtered menus still pick the right
+   symbol. Unknown areas fall back to a neutral dot.
+   -------------------------------------------------------------------------- */
+
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-icon: var(--fx-i-people); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-icon: var(--fx-i-phone); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-icon: var(--fx-i-doc); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-icon: var(--fx-i-chart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-icon: var(--fx-i-dollar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-icon: var(--fx-i-gauge); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-icon: var(--fx-i-book); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-icon: var(--fx-i-mappin); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-icon: var(--fx-i-briefcase); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-icon: var(--fx-i-heart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-icon: var(--fx-i-building); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-icon: var(--fx-i-team); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-icon: var(--fx-i-tag); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-icon: var(--fx-i-headset); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-icon: var(--fx-i-banknote); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-icon: var(--fx-i-bolt); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-icon: var(--fx-i-wrench); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-icon: var(--fx-i-creditcard); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-icon: var(--fx-i-lock); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-icon: var(--fx-i-archive); }
+
+/* Pages that sit directly in a section, without a task area */
+#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-icon: var(--fx-i-box); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-icon: var(--fx-i-person); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-icon: var(--fx-i-link); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-icon: var(--fx-i-envelope); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-icon: var(--fx-i-bell); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-icon: var(--fx-i-phone-device); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-icon: var(--fx-i-lock); }
+
+/* css/06-toolbar.css */
+/* --------------------------------------------------------------------------
+   Toolbar + page title
+   A translucent toolbar stays pinned to the top of the content: sidebar
+   toggle, back, where-you-are, search, inbox, alerts and quick actions.
+   The page title sits beneath it as a large title; once it scrolls away the
+   toolbar shows a compact copy, as iOS navigation bars do.
+
+   Before the script runs, the same band is reserved (main padding-top) and
+   the search + tools are placed into it, so the page does not jump when
+   design-400.js builds the real toolbar.
+   -------------------------------------------------------------------------- */
+
+/* ---- Real toolbar (built by design-400.js) ---------------------------- */
+body .app main > .fx-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--fx-toolbar-h);
+  margin: 0;
+  padding: 0;
+}
+/* Full-bleed material behind the toolbar, clipped by main (overflow-x: clip) */
+body .app main > .fx-toolbar::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -100vw;
+  background: var(--fx-material);
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--fx-med) var(--fx-ease), background-color var(--fx-med) var(--fx-ease);
+}
+body .app main > .fx-toolbar.is-stuck::before { border-bottom-color: var(--fx-separator); }
+body .app main > .fx-toolbar:not(.is-stuck)::before { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.fx-toolbar-lead {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.fx-toolbar-trail {
+  flex: none;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Toolbar icon buttons */
+body .fx-tool,
+body .crm-command-wrap .crm-header-tool {
+  display: inline-grid !important;
+  place-items: center;
+  flex: none;
+  width: 34px !important;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  font-size: 0 !important;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease);
+}
+body .fx-tool:hover,
+body .crm-command-wrap .crm-header-tool:hover { background: var(--fx-fill) !important; color: var(--fx-ink) !important; }
+body .fx-tool:active,
+body .crm-command-wrap .crm-header-tool:active { background: var(--fx-fill-pressed) !important; }
+body .fx-tool > svg { width: 20px; height: 20px; }
+body .crm-command-wrap .crm-header-tool > span[aria-hidden="true"] { display: none !important; }
+body .crm-command-wrap .crm-header-tool::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+}
+body .crm-command-wrap .crm-header-tool[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
+body .crm-command-wrap .crm-header-tool[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
+
+/* Back */
+body .fx-toolbar .crm-page-back {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 2px;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 10px 0 4px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-tint-strong) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 500 !important;
+  white-space: nowrap;
+}
+body .fx-toolbar .crm-page-back:hover { background: var(--fx-fill) !important; }
+body .fx-toolbar .crm-page-back .fx-back-arrow { display: none; }
+body .fx-toolbar .crm-page-back::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--fx-i-chevron-left) center / contain no-repeat;
+  mask: var(--fx-i-chevron-left) center / contain no-repeat;
+}
+
+/* Breadcrumb */
+.fx-crumbs {
+  min-width: 0;
+  margin-left: 6px;
+  transition: opacity var(--fx-med) var(--fx-ease), transform var(--fx-med) var(--fx-ease);
+}
+.fx-crumbs ol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+}
+.fx-crumbs li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-crumbs li + li::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--fx-tertiary);
+  -webkit-mask: var(--fx-i-chevron-right) center / contain no-repeat;
+  mask: var(--fx-i-chevron-right) center / contain no-repeat;
+}
+.fx-crumbs a,
+.fx-crumbs button {
+  all: unset;
+  cursor: pointer;
+  color: var(--fx-secondary);
+  border-radius: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-crumbs a:hover,
+.fx-crumbs button:hover { color: var(--fx-ink); text-decoration: none; }
+.fx-crumbs a:focus-visible,
+.fx-crumbs button:focus-visible { outline: 2px solid var(--fx-focus); outline-offset: 2px; }
+.fx-crumbs li[aria-current="page"] { color: var(--fx-ink); font-weight: 600; }
+
+/* Compact title, shown when the large title has scrolled away */
+.fx-compact-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -10px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  overflow: hidden;
+  color: var(--fx-ink);
+  font-family: var(--fx-font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: opacity var(--fx-med) var(--fx-ease), transform var(--fx-med) var(--fx-ease);
+}
+.fx-toolbar.has-compact-title .fx-compact-title { opacity: 1; transform: none; }
+.fx-toolbar.has-compact-title .fx-crumbs { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+.fx-title-slot {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+
+/* Search trigger */
+body .fx-search-trigger {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 8px 0 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: var(--fx-fill) !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 400 !important;
+  text-align: left;
+  cursor: text;
+  transition: background-color var(--fx-fast) var(--fx-ease);
+}
+body .fx-search-trigger:hover { background: var(--fx-fill-hover) !important; }
+body .fx-search-trigger svg { flex: none; width: 16px; height: 16px; color: var(--fx-secondary); }
+body .fx-search-trigger .fx-search-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body .fx-search-trigger kbd { flex: none; }
+
+/* Command wrap: search form, inbox, alerts, quick actions */
+body .crm-command-wrap {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 6px !important;
+  flex: none !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+html.fx-ready body .fx-toolbar .crm-global-search { display: none !important; }
+
+/* Quick actions: compact "+" button with a menu */
+body .crm-command-wrap .crm-quick-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px !important;
+  min-height: 0 !important;
+  padding: 0 14px 0 10px !important;
+  margin-left: 4px;
+  border: 0 !important;
+  border-radius: var(--fx-radius-pill) !important;
+  background: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+}
+body .crm-command-wrap .crm-quick-toggle:hover { background: var(--fx-primary-hover) !important; filter: none !important; }
+body .crm-command-wrap .crm-quick-toggle .fx-plus { width: 15px; height: 15px; }
+
+body .crm-command-wrap .crm-quick-menu {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
+  left: auto !important;
+  z-index: 1000 !important;
+  display: grid !important;
+  gap: 1px;
+  width: 248px !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-material-strong) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  box-shadow: var(--fx-shadow-pop) !important;
+  transform-origin: top right;
+  animation: fx-pop-in var(--fx-fast) var(--fx-ease-out);
+}
+body .crm-command-wrap .crm-quick-menu[hidden] { display: none !important; }
+body .crm-command-wrap .crm-quick-menu > strong {
+  display: block;
+  padding: 6px 10px 4px !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-footnote) !important;
+  font-weight: 600 !important;
+}
+body .crm-command-wrap .crm-quick-menu > a {
+  display: flex !important;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 10px !important;
+  border-radius: var(--fx-radius-sm) !important;
+  color: var(--fx-ink) !important;
+  background: transparent !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+}
+body .crm-command-wrap .crm-quick-menu > a:hover,
+body .crm-command-wrap .crm-quick-menu > a:focus-visible {
+  background: var(--fx-tint-strong) !important;
+  color: #fff !important;
+  outline: none !important;
+}
+
+/* ---- Before the script: same band, same positions --------------------- */
+html:not(.fx-ready) body .app main > header .crm-command-wrap {
+  position: absolute !important;
+  top: calc((var(--fx-toolbar-h) - 34px) / 2);
+  right: max(var(--fx-page-x), calc((100% - var(--fx-content-max)) / 2));
+}
+html:not(.fx-ready) body .app main > header .crm-global-search {
+  display: flex !important;
+  width: 260px;
+  margin: 0 !important;
+}
+html:not(.fx-ready) body .app main > header .crm-global-search input {
+  height: 34px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: var(--fx-fill) !important;
+  font-size: var(--fx-text-subhead) !important;
+}
+html:not(.fx-ready) body .app main > header .crm-global-search button { display: none !important; }
+
+/* ---- Session bar: its controls move into the toolbar / account menu ---- */
+body .app main > .session-bar {
+  position: absolute !important;
+  top: calc((var(--fx-toolbar-h) - 34px) / 2);
+  left: max(var(--fx-page-x), calc((100% - var(--fx-content-max)) / 2));
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body .app main > .session-bar > span,
+body .app main > .session-bar .session-logout { display: none !important; }
+body .app main > .session-bar .session-actions { display: flex; gap: 4px; }
+body .app main > .session-bar .button {
+  height: 34px !important;
+  min-height: 0 !important;
+  padding: 0 10px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--fx-tint-strong) !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+}
+html.fx-ready body .app main > .session-bar { display: none !important; }
+
+/* Support strip: offered from the sidebar footer and search instead of
+   occupying the top of every page. */
+body .app main > .crm-contact-strip { display: none !important; }
+
+/* ---- Page title -------------------------------------------------------- */
+body .app main > header {
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  text-align: left !important;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 24px !important;
+  padding: 20px 0 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+body .app main > header .crm-header-logo { display: none !important; }
+body .app main > header > div:first-child { min-width: 0; }
+body .app main > header h1 {
+  margin: 0 !important;
+  font-size: var(--fx-text-largetitle) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.024em !important;
+  line-height: 1.12 !important;
+  color: var(--fx-ink) !important;
+}
+body .app main > header p.muted {
+  display: block !important;
+  margin: 4px 0 0 !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-callout) !important;
+}
+
+/* ---- Responsive -------------------------------------------------------- */
+@media (max-width: 1180px) {
+  body .fx-search-trigger { width: 200px; }
+}
+@media (max-width: 900px) {
+  body .fx-search-trigger { width: 34px; padding: 0 !important; justify-content: center; background: transparent !important; }
+  body .fx-search-trigger:hover { background: var(--fx-fill) !important; }
+  body .fx-search-trigger .fx-search-label,
+  body .fx-search-trigger kbd { display: none; }
+  body .fx-search-trigger svg { width: 20px; height: 20px; }
+  html:not(.fx-ready) body .app main > header .crm-global-search { width: 180px; }
+}
+@media (max-width: 780px) {
+  .fx-crumbs { display: none; }
+  .fx-toolbar .fx-sidebar-btn { display: none !important; }
+  body .crm-command-wrap .crm-header-tool[href$="tab=conversations"] { display: none !important; }
+  body .crm-command-wrap .crm-quick-toggle { width: 32px; padding: 0 !important; }
+  body .crm-command-wrap .crm-quick-toggle .fx-quick-label { display: none; }
+  .fx-compact-title { text-align: center; }
+  body .app main > header { padding-top: 4px !important; margin-bottom: 18px !important; }
+  html:not(.fx-ready) body .app main > header .crm-global-search { display: none !important; }
+  body .app main > .session-bar { display: none !important; }
+}
+
+/* css/07-controls.css */
+/* --------------------------------------------------------------------------
+   Controls: buttons, fields, selects, checkboxes, labels, form layout
+   Buttons are capsules. Secondary actions are a quiet gray fill; the one
+   primary action per area is solid ink. Navigation never looks like an
+   action (see 09-navigation.css for segmented view switches).
+   -------------------------------------------------------------------------- */
+
+body button,
+body .button,
+body input[type="submit"],
+body input[type="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--fx-control-h);
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-fill);
+  color: var(--fx-ink);
+  box-shadow: none;
+  font-family: inherit;
+  font-size: var(--fx-text-callout);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.006em;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease),
+              transform var(--fx-fast) var(--fx-ease), opacity var(--fx-fast) var(--fx-ease);
+}
+body button:hover,
+body .button:hover {
+  background: var(--fx-fill-hover);
+  color: var(--fx-ink);
+  filter: none;
+  text-decoration: none;
+}
+body button:active,
+body .button:active { background: var(--fx-fill-pressed); transform: scale(0.98); }
+
+body button:disabled,
+body .button[aria-disabled="true"],
+body .button.disabled {
+  opacity: 0.42;
+  cursor: default;
+  transform: none;
+}
+
+/* Primary */
+body .primary,
+body button.primary,
+body .button.primary,
+body input[type="submit"].primary {
+  background: var(--fx-primary) !important;
+  border-color: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  font-weight: 600;
+}
+body button.primary:hover,
+body .button.primary:hover { background: var(--fx-primary-hover) !important; color: var(--fx-on-primary) !important; }
+
+/* Destructive */
+body button.danger,
+body .button.danger {
+  background: var(--fx-red-bg) !important;
+  color: var(--fx-red) !important;
+  border-color: transparent !important;
+}
+body button.danger:hover,
+body .button.danger:hover { background: color-mix(in srgb, var(--fx-red) 16%, transparent) !important; }
+
+/* Compact */
+body button.small,
+body .button.small {
+  min-height: 28px;
+  padding: 0 12px;
+  font-size: var(--fx-text-footnote);
+}
+
+/* Inline actions inside tables stay compact */
+body table :is(button, .button) {
+  min-height: 28px;
+  padding: 0 12px;
+  font-size: var(--fx-text-footnote);
+}
+
+/* ---- Fields ------------------------------------------------------------ */
+body label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--fx-ink-2);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  letter-spacing: -0.003em;
+}
+
+body input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]):not([type="range"]):not([type="color"]):not([type="submit"]):not([type="button"]),
+body select,
+body textarea {
+  display: block;
+  width: 100%;
+  min-height: var(--fx-field-h);
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--fx-field-border);
+  border-radius: var(--fx-radius-md);
+  background-color: var(--fx-field-bg);
+  color: var(--fx-ink);
+  box-shadow: none;
+  font-family: inherit;
+  font-size: var(--fx-text-callout);
+  font-weight: 400;
+  line-height: 1.35;
+  transition: border-color var(--fx-fast) var(--fx-ease), box-shadow var(--fx-fast) var(--fx-ease);
+}
+body textarea { min-height: 88px; padding: 10px 12px; line-height: 1.47; resize: vertical; }
+
+body input::placeholder,
+body textarea::placeholder { color: var(--fx-tertiary); opacity: 1; }
+
+body input:not([type="checkbox"]):not([type="radio"]):hover,
+body select:hover,
+body textarea:hover { border-color: color-mix(in srgb, var(--fx-field-border) 60%, var(--fx-ink)); }
+
+body input:not([type="checkbox"]):not([type="radio"]):focus,
+body select:focus,
+body textarea:focus {
+  outline: none;
+  border-color: var(--fx-tint-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+}
+
+body input:disabled,
+body select:disabled,
+body textarea:disabled,
+body input[readonly] {
+  background-color: var(--fx-fill-quiet);
+  color: var(--fx-secondary);
+}
+
+/* Select: native control, Apple-style chevron */
+body select:not([multiple]) {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 34px;
+  background-image: var(--fx-i-chevron-updown-gray) !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 14px 14px !important;
+  cursor: pointer;
+}
+body select[multiple] { padding: 6px; }
+
+body input[type="search"] { -webkit-appearance: none; appearance: none; }
+body input[type="file"] {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--fx-text-subhead);
+  color: var(--fx-secondary);
+}
+body input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-fill);
+  color: var(--fx-ink);
+  font: 500 var(--fx-text-subhead)/1.2 var(--fx-font);
+  cursor: pointer;
+}
+body input[type="color"] { width: 44px; height: 32px; padding: 2px; border-radius: var(--fx-radius-sm); border: 1px solid var(--fx-field-border); }
+body input[type="range"] { accent-color: var(--fx-tint-strong); }
+
+/* Checkbox & radio: native, tinted, comfortably sized */
+body input[type="checkbox"],
+body input[type="radio"] {
+  flex: none;
+  width: 16px !important;
+  height: 16px !important;
+  min-height: 0 !important;
+  margin: 0;
+  accent-color: var(--fx-tint-strong);
+  cursor: pointer;
+  vertical-align: -3px;
+}
+body .check,
+body label.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fx-ink);
+  font-size: var(--fx-text-callout);
+  font-weight: 400;
+  line-height: 1.35;
+  cursor: pointer;
+}
+body .check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px 20px;
+}
+
+/* Form layout */
+body .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 20px;
+  margin-bottom: 16px;
+}
+body .form-grid > label { margin-bottom: 10px; }
+
+body fieldset {
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+body legend {
+  padding: 0;
+  margin-bottom: 10px;
+  color: var(--fx-ink);
+  font-size: var(--fx-text-title3);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+/* Filter rows */
+body .filters,
+body form.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+}
+body .filters > label { flex: 1 1 200px; margin-bottom: 0; }
+body .filters > :is(button, .button) { margin-bottom: 0; }
+
+/* A row of actions */
+body .actions,
+body .quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+body .save-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+/* Forms: the submit button keeps breathing room from the last field */
+body form > button:last-child,
+body form > .button:last-child { margin-top: 4px; }
+
+@media (max-width: 700px) {
+  body .form-grid { grid-template-columns: 1fr !important; }
+  /* 16px stops iOS Safari from zooming into focused fields */
+  body input:not([type="checkbox"]):not([type="radio"]),
+  body select,
+  body textarea { font-size: 16px; }
+  body button,
+  body .button { min-height: 44px; }
+  body table :is(button, .button),
+  body button.small,
+  body .button.small { min-height: 36px; }
+}
+
+/* css/08-surfaces.css */
+/* --------------------------------------------------------------------------
+   Surfaces: cards, section headers, metrics, notices, status, tables
+   Hierarchy comes from fill, not from stacking borders: top-level cards are
+   white on the gray canvas; anything nested inside a card becomes a quiet
+   gray tile with no border or shadow.
+   -------------------------------------------------------------------------- */
+
+body .card {
+  margin: 0 0 20px;
+  padding: 24px;
+  border: 0;
+  border-radius: var(--fx-radius-xl);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
+  color: var(--fx-ink);
+}
+body main .card { border: 0 !important; }
+
+/* Nested surfaces */
+body .card .card,
+body .card .metric,
+body .card [class$="-card"]:not(.card),
+body .card .ux340-view-card {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  box-shadow: none !important;
+}
+body .card .card { padding: 18px; margin-bottom: 12px; }
+
+/* Section header: title + description on the left, actions on the right */
+body .section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+body .section-head > div:first-child { min-width: min(100%, 280px); flex: 1 1 320px; }
+body .section-head h2,
+body .section-head h3 { margin: 0; }
+body .section-head p { margin: 4px 0 0; }
+body .section-head > :is(.button, button, .actions, form, a.button) { flex: none; }
+body .section-head > .badge { align-self: center; }
+
+body .card > h2:first-child,
+body .card > h3:first-child { margin-top: 0; }
+body .card > h2 + p.muted { margin-top: -2px; margin-bottom: 16px; }
+
+/* ---- Metrics ----------------------------------------------------------- */
+body .metric-grid,
+body .metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 0 0 20px;
+}
+body .metric {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 0;
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
+}
+body .metric span {
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-subhead);
+  font-weight: 500;
+  line-height: 1.3;
+}
+body .metric strong {
+  color: var(--fx-ink);
+  font-family: var(--fx-font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+body .metric strong.word { font-size: 19px; text-transform: none; }
+
+/* ---- Notices ----------------------------------------------------------- */
+body .notice {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 14px 16px 14px 46px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-tint-wash);
+  color: var(--fx-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+  font-size: var(--fx-text-callout);
+  line-height: 1.45;
+}
+body .notice::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-i-info) center / contain no-repeat;
+  mask: var(--fx-i-info) center / contain no-repeat;
+}
+body .notice.success,
+body .success.notice {
+  background: var(--fx-green-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-green) 22%, transparent);
+}
+body .notice.success::before { background: var(--fx-green); -webkit-mask-image: var(--fx-i-check-circle); mask-image: var(--fx-i-check-circle); }
+body .notice.danger,
+body .notice.error {
+  background: var(--fx-red-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-red) 22%, transparent);
+}
+body .notice.danger::before,
+body .notice.error::before { background: var(--fx-red); -webkit-mask-image: var(--fx-i-warning); mask-image: var(--fx-i-warning); }
+body .notice a { font-weight: 500; }
+body .notice strong { font-weight: 600; }
+
+/* ---- Status chips ------------------------------------------------------ */
+body .badge,
+body .crm-status-auto {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  padding: 2px 9px;
+  border: 0 !important;
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-gray-bg);
+  color: var(--fx-ink-2);
+  font-size: var(--fx-text-footnote);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+body .crm-status-auto[data-tone="success"] { background: var(--fx-green-bg) !important; color: var(--fx-green) !important; }
+body .crm-status-auto[data-tone="warning"] { background: var(--fx-orange-bg) !important; color: var(--fx-orange) !important; }
+body .crm-status-auto[data-tone="danger"]  { background: var(--fx-red-bg) !important; color: var(--fx-red) !important; }
+body .crm-status-auto[data-tone="info"]    { background: var(--fx-blue-bg) !important; color: var(--fx-blue) !important; }
+body .crm-status-auto[data-tone="neutral"] { background: var(--fx-gray-bg) !important; color: var(--fx-ink-2) !important; }
+
+/* ---- Empty states ------------------------------------------------------ */
+body .empty,
+body .ux340-empty,
+body td.empty {
+  padding: 36px 20px;
+  border: 0;
+  border-radius: var(--fx-radius-lg);
+  background: transparent;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-callout);
+  text-align: center;
+}
+body .ux340-empty { background: var(--fx-fill-quiet); border: 0 !important; }
+body tr.ux340-empty-row td { padding: 32px 16px !important; color: var(--fx-secondary); text-align: center; }
+
+/* ---- Tables ------------------------------------------------------------ */
+body .table-wrap {
+  overflow: auto;
+  margin: 0 -4px;
+  padding: 0 4px;
+  -webkit-overflow-scrolling: touch;
+}
+body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--fx-text-subhead);
+  color: var(--fx-ink);
+}
+body th {
+  padding: 10px 12px !important;
+  border-bottom: 1px solid var(--fx-separator) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-footnote) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  text-transform: none !important;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+body td {
+  padding: 12px !important;
+  border-bottom: 1px solid var(--fx-separator) !important;
+  background: transparent;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+body tbody tr:last-child td { border-bottom: 0 !important; }
+body tbody tr { transition: background-color var(--fx-fast) var(--fx-ease); }
+body tbody tr:hover > td { background: color-mix(in srgb, var(--fx-ink) 2.5%, transparent); }
+body td strong { font-weight: 600; }
+body td small { display: block; margin-top: 2px; color: var(--fx-secondary); font-size: var(--fx-text-footnote); }
+body td a:not(.button) { font-weight: 500; }
+body td form { margin: 0; }
+
+/* Density preference */
+body.ux340-density-compact td,
+body.ux340-density-compact th { padding-top: 7px !important; padding-bottom: 7px !important; }
+body.ux340-density-comfortable td { padding-top: 15px !important; padding-bottom: 15px !important; }
+
+/* Pagination */
+body .pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 16px;
+  color: var(--fx-secondary);
+  font-size: var(--fx-text-footnote);
+}
+
+/* Notes and activity lists */
+body .note {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--fx-separator);
+}
+body .note:last-child { border-bottom: 0; }
+body .note small { color: var(--fx-secondary); }
+
+/* Disclosure inside content */
+body main details:not(.crm-nav-group):not(.crm-nav-subgroup) > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--fx-ink);
+}
+body main details:not(.crm-nav-group):not(.crm-nav-subgroup) > summary::marker { color: var(--fx-tertiary); }
+
+/* Images inside content never overflow */
+body main img { max-width: 100%; height: auto; }
+
+@media (max-width: 900px) {
+  body .card { padding: 20px; }
+}
+@media (max-width: 700px) {
+  body .card { padding: 16px; margin: 0 0 14px !important; border-radius: var(--fx-radius-lg); }
+  body .metric-grid,
+  body .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+  body .metric strong { font-size: 24px; }
+  body .section-head { margin-bottom: 16px; }
+  body .notice { padding: 12px 14px 12px 42px !important; }
+  body .notice::before { left: 14px; top: 13px; }
+}
+
+/* css/09-navigation.css */
+/* --------------------------------------------------------------------------
+   In-page navigation
+   Switching between views of the same screen (Table / Pipeline, Open /
+   Today / Overdue, Call Center tabs, Setup Center sections) is navigation,
+   not an action, so it is drawn as a segmented control: a gray track with
+   the current view lifted onto a white thumb. Long sets scroll sideways
+   instead of wrapping into ragged rows.
+   -------------------------------------------------------------------------- */
+
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) {
+  position: relative;
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 2px !important;
+  max-width: 100%;
+  margin: 0 0 16px;
+  padding: 3px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-md) !important;
+  background: var(--fx-fill) !important;
+  box-shadow: none !important;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  vertical-align: middle;
+}
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle)::-webkit-scrollbar { display: none; }
+
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) > :is(a, button) {
+  flex: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px !important;
+  height: auto;
+  margin: 0 !important;
+  padding: 5px 14px !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  background: transparent !important;
+  color: var(--fx-ink-2) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: background-color var(--fx-fast) var(--fx-ease), color var(--fx-fast) var(--fx-ease), box-shadow var(--fx-fast) var(--fx-ease);
+}
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) > :is(a, button):hover {
+  color: var(--fx-ink) !important;
+  background: color-mix(in srgb, var(--fx-surface) 55%, transparent) !important;
+}
+/* Current view */
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .resource-hero-actions:has(> a[href*="knowledge_view="])) > a:is([aria-current="page"], .primary, .is-active),
+body :is(.structure-view-switch, .ux340-view-toggle) > button:is(.is-active, [aria-pressed="true"]) {
+  background: var(--fx-surface-raised) !important;
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Two switchers stacked in one header sit side by side */
+body .section-head .view-switch + .view-switch { margin-left: 8px; }
+body .section-head .view-switch { margin: 12px 0 0; }
+
+/* Call Center tab bar carries its own action (Upload) — keep it out of the track */
+body .app nav.call-center-tabs > a.call-center-upload-tab {
+  margin-left: 8px !important;
+  font-weight: 600 !important;
+  background: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  border-radius: var(--fx-radius-pill) !important;
+}
+
+/* Tab bars that appear as their own block get a little air below the header */
+body .app main > nav:is(.call-center-tabs, .setup-center-tabs) { display: flex !important; width: fit-content; margin-bottom: 20px; }
+
+/* ---- Section navigator for long admin pages (workspace-sections.js) ---- */
+body .crm-section-nav {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 14px 16px !important;
+}
+body .crm-section-nav-heading { display: grid; gap: 2px; flex: 1 1 220px; }
+body .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
+body .crm-section-nav-heading small { color: var(--fx-secondary); }
+body .crm-section-nav-controls {
+  display: inline-flex !important;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--fx-radius-md);
+  background: var(--fx-fill);
+}
+body .crm-section-nav-controls > button {
+  min-height: 30px !important;
+  padding: 5px 12px !important;
+  border-radius: 7px !important;
+  background: transparent !important;
+  color: var(--fx-ink-2) !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+}
+body .crm-section-nav-controls > button[aria-pressed="true"] {
+  background: var(--fx-surface-raised) !important;
+  color: var(--fx-ink) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ---- Phone tab bar ----------------------------------------------------- */
+@media (min-width: 781px) {
+  body .crm-mobile-nav,
+  body .crm-mobile-nav.crm-mobile-nav-3256 { display: none !important; }
+}
+@media (max-width: 780px) {
+  body nav.crm-mobile-nav.crm-mobile-nav-3256,
+  body nav.crm-mobile-nav {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1000 !important;
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    grid-template-columns: none !important;
+    gap: 0;
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom)) !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-top: 0.5px solid var(--fx-separator-strong) !important;
+    border-radius: 0 !important;
+    background: var(--fx-material-strong) !important;
+    -webkit-backdrop-filter: var(--fx-blur);
+    backdrop-filter: var(--fx-blur);
+    box-shadow: none !important;
+  }
+  body nav.crm-mobile-nav a {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px !important;
+    min-height: 50px !important;
+    padding: 4px 0 !important;
+    border-radius: var(--fx-radius-md) !important;
+    background: transparent !important;
+    color: var(--fx-tertiary) !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body nav.crm-mobile-nav a[aria-current="page"] {
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: var(--fx-tint-strong) !important;
+  }
+  body nav.crm-mobile-nav a > span:last-child {
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+  }
+  body nav.crm-mobile-nav .crm-mobile-nav-icon {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    font-size: 20px;
+    line-height: 1;
+  }
+  /* Known destinations get a drawn symbol in place of the text glyph */
+  body nav.crm-mobile-nav a:is([href$="tab=overview"], [href*="tab=leads"], [href$="tab=customers"], [href$="tab=canvass"],
+    [href$="tab=calendar"], [href$="tab=appointments"], [href$="tab=field"], [href$="tab=field-mode"], [href$="tab=my-jobs"],
+    [href$="tab=tasks"], [href*="tab=call-sheets"], [href$="tab=conversations"], [href$="tab=notifications"], [data-crm-mobile-menu]) .crm-mobile-nav-icon {
+    font-size: 0 !important;
+  }
+  body nav.crm-mobile-nav a:is([href$="tab=overview"], [href*="tab=leads"], [href$="tab=customers"], [href$="tab=canvass"],
+    [href$="tab=calendar"], [href$="tab=appointments"], [href$="tab=field"], [href$="tab=field-mode"], [href$="tab=my-jobs"],
+    [href$="tab=tasks"], [href*="tab=call-sheets"], [href$="tab=conversations"], [href$="tab=notifications"], [data-crm-mobile-menu]) .crm-mobile-nav-icon::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: currentColor;
+    -webkit-mask: var(--fx-icon) center / contain no-repeat;
+    mask: var(--fx-icon) center / contain no-repeat;
+  }
+  body nav.crm-mobile-nav a[href$="tab=overview"] { --fx-icon: var(--fx-i-house); }
+  body nav.crm-mobile-nav a[href*="tab=leads"] { --fx-icon: var(--fx-i-people); }
+  body nav.crm-mobile-nav a[href$="tab=customers"] { --fx-icon: var(--fx-i-heart); }
+  body nav.crm-mobile-nav a[href$="tab=canvass"] { --fx-icon: var(--fx-i-map); }
+  body nav.crm-mobile-nav a:is([href$="tab=calendar"], [href$="tab=appointments"]) { --fx-icon: var(--fx-i-calendar); }
+  body nav.crm-mobile-nav a:is([href$="tab=field"], [href$="tab=field-mode"]) { --fx-icon: var(--fx-i-mappin); }
+  body nav.crm-mobile-nav a[href$="tab=my-jobs"] { --fx-icon: var(--fx-i-briefcase); }
+  body nav.crm-mobile-nav a[href$="tab=tasks"] { --fx-icon: var(--fx-i-checklist); }
+  body nav.crm-mobile-nav a[href*="tab=call-sheets"] { --fx-icon: var(--fx-i-phone); }
+  body nav.crm-mobile-nav a[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
+  body nav.crm-mobile-nav a[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
+  body nav.crm-mobile-nav a[data-crm-mobile-menu] { --fx-icon: var(--fx-i-sidebar); }
+  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-tint-strong) !important; }
+}
+
+/* css/10-overlays.css */
+/* --------------------------------------------------------------------------
+   Overlays: search palette, account menu, sidebar search, sheets, toasts,
+   keyboard-shortcut sheet. Floating things are the only things with real
+   shadows, and they arrive with a short, quiet motion.
+   -------------------------------------------------------------------------- */
+
+/* ---- Sidebar: find a page -------------------------------------------- */
+.fx-side-search {
+  flex: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 34px;
+  margin: 6px 12px 4px;
+}
+.fx-side-search svg {
+  position: absolute;
+  left: 9px;
+  width: 15px;
+  height: 15px;
+  color: var(--fx-secondary);
+  pointer-events: none;
+}
+body .fx-side-search input[type="search"] {
+  width: 100%;
+  height: 34px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 10px 0 30px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: var(--fx-fill) !important;
+  color: var(--fx-ink) !important;
+  font-size: var(--fx-text-subhead) !important;
+  box-shadow: none !important;
+}
+body .fx-side-search input[type="search"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 30%, transparent) !important; }
+body .fx-side-search input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+/* ---- Sidebar footer: help + account ----------------------------------- */
+.fx-help-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0 0 6px;
+}
+body #forever-crm-sidebar .fx-help-row a {
+  white-space: nowrap;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: var(--fx-radius-xs);
+  color: var(--fx-secondary) !important;
+  font-size: var(--fx-text-footnote);
+  font-weight: 500;
+  text-decoration: none !important;
+}
+.fx-help-row a:hover { background: var(--fx-hover); color: var(--fx-ink) !important; }
+.fx-help-row svg { width: 15px; height: 15px; }
+
+body .fx-account {
+  grid-column: 1 / -1;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 6px 8px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-md) !important;
+  background: transparent !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+  text-align: left;
+  font-weight: 400 !important;
+  transform: none !important;
+}
+body .fx-account:hover,
+body .fx-account[aria-expanded="true"] { background: var(--fx-hover) !important; }
+.fx-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--fx-tint) 72%, #fff), var(--fx-tint-strong));
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.fx-account-text { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
+.fx-account-text strong { font-size: var(--fx-text-subhead); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-account-text small { color: var(--fx-secondary); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-account svg { flex: none; width: 14px; height: 14px; color: var(--fx-tertiary); }
+
+/* ---- Menus (account) -------------------------------------------------- */
+.fx-menu {
+  position: fixed;
+  z-index: 1200;
+  min-width: 248px;
+  max-width: min(320px, calc(100vw - 24px));
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-material-strong);
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  box-shadow: var(--fx-shadow-pop);
+  animation: fx-pop-in var(--fx-fast) var(--fx-ease-out);
+}
+.fx-menu[hidden] { display: none; }
+.fx-menu-head { padding: 8px 10px 10px; border-bottom: 1px solid var(--fx-separator); margin-bottom: 6px; }
+.fx-menu-head strong { display: block; font-size: var(--fx-text-callout); font-weight: 600; color: var(--fx-ink); }
+.fx-menu-head small { display: block; color: var(--fx-secondary); font-size: var(--fx-text-footnote); overflow-wrap: anywhere; }
+.fx-menu-label { padding: 6px 10px 2px; color: var(--fx-tertiary); font-size: var(--fx-text-caption); font-weight: 600; }
+.fx-menu-sep { height: 1px; margin: 6px 4px; background: var(--fx-separator); }
+body .fx-menu a,
+body .fx-menu button {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px !important;
+  margin: 0 !important;
+  padding: 6px 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-callout) !important;
+  font-weight: 400 !important;
+  text-align: left;
+  text-decoration: none !important;
+  transform: none !important;
+}
+body .fx-menu a::before { display: none !important; }
+body .fx-menu a:hover,
+body .fx-menu button:hover,
+body .fx-menu a:focus-visible,
+body .fx-menu button:focus-visible {
+  background: var(--fx-tint-strong) !important;
+  color: #fff !important;
+  outline: none !important;
+}
+body .fx-menu a[aria-current="page"] { font-weight: 600 !important; }
+.fx-menu svg { flex: none; width: 16px; height: 16px; }
+body .fx-menu .crm-nav-pin { display: none !important; }
+
+/* ---- Search palette --------------------------------------------------- */
+.fx-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: max(10vh, 48px) 16px 16px;
+}
+.fx-palette[hidden] { display: none; }
+.fx-palette-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  animation: fx-fade-in var(--fx-fast) var(--fx-ease);
+}
+.fx-palette-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(680px, 100%);
+  max-height: min(72vh, 620px);
+  overflow: hidden;
+  border-radius: var(--fx-radius-xl);
+  background: var(--fx-material-strong);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  backdrop-filter: saturate(180%) blur(28px);
+  box-shadow: var(--fx-shadow-modal);
+  animation: fx-pop-in var(--fx-med) var(--fx-ease-out);
+}
+.fx-palette-field {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--fx-separator);
+}
+.fx-palette-field svg { flex: none; width: 22px; height: 22px; color: var(--fx-secondary); }
+body .fx-palette-field input {
+  flex: 1;
+  min-width: 0;
+  height: 60px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font-size: 21px !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.016em;
+}
+body .fx-palette-field input:focus-visible { outline: none !important; }
+body .fx-palette-field input::placeholder { color: var(--fx-tertiary); }
+.fx-palette-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 8px 8px;
+  scroll-padding: 32px 0 8px;
+}
+.fx-palette-heading {
+  padding: 10px 10px 4px;
+  color: var(--fx-tertiary);
+  font-size: var(--fx-text-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.fx-palette-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: var(--fx-radius-md);
+  color: var(--fx-ink);
+  cursor: pointer;
+  user-select: none;
+}
+.fx-palette-item[aria-selected="true"] { background: var(--fx-tint-strong); color: #fff; }
+.fx-palette-item[aria-selected="true"] .fx-palette-sub,
+.fx-palette-item[aria-selected="true"] .fx-palette-hint { color: rgba(255, 255, 255, 0.78); }
+.fx-palette-item[aria-selected="true"] .fx-palette-icon { background: rgba(255, 255, 255, 0.18); color: #fff; }
+.fx-palette-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--fx-radius-sm);
+  background: var(--fx-tint-wash);
+  color: var(--fx-tint-strong);
+}
+.fx-palette-icon svg { width: 17px; height: 17px; }
+.fx-palette-text { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
+.fx-palette-title { font-size: var(--fx-text-callout); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-palette-title mark { background: transparent; color: inherit; font-weight: 700; }
+.fx-palette-sub { color: var(--fx-secondary); font-size: var(--fx-text-footnote); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-palette-hint { flex: none; color: var(--fx-tertiary); font-size: var(--fx-text-footnote); }
+.fx-palette-empty { padding: 28px 16px; color: var(--fx-secondary); text-align: center; font-size: var(--fx-text-callout); }
+.fx-palette-foot {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  padding: 10px 18px;
+  border-top: 1px solid var(--fx-separator);
+  color: var(--fx-tertiary);
+  font-size: var(--fx-text-footnote);
+}
+.fx-palette-foot span { display: inline-flex; align-items: center; gap: 4px; }
+@media (max-width: 700px) {
+  .fx-palette { padding: 8px 8px 0; align-items: stretch; }
+  .fx-palette-panel { max-height: calc(100dvh - 16px); border-radius: var(--fx-radius-lg); align-self: flex-start; }
+  .fx-palette-foot { display: none; }
+  body .fx-palette-field input { font-size: 18px !important; height: 54px !important; }
+}
+
+/* ---- Keyboard shortcut sheet ----------------------------------------- */
+.fx-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.fx-dialog[hidden] { display: none; }
+.fx-dialog-panel {
+  position: relative;
+  width: min(460px, 100%);
+  max-height: 80vh;
+  overflow: auto;
+  padding: 22px 24px 20px;
+  border-radius: var(--fx-radius-xl);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-modal);
+  animation: fx-pop-in var(--fx-med) var(--fx-ease-out);
+}
+.fx-dialog-panel h2 { margin: 0 0 14px; font-size: var(--fx-text-title3); }
+.fx-keys { display: grid; grid-template-columns: 1fr auto; gap: 10px 20px; margin: 0; font-size: var(--fx-text-callout); }
+.fx-keys dt { color: var(--fx-ink-2); }
+.fx-keys dd { margin: 0; display: flex; gap: 4px; justify-content: flex-end; }
+body .fx-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+}
+.fx-dialog-close svg { width: 14px; height: 14px; }
+
+/* ---- Mobile action sheets (mobile-productivity.js) ------------------- */
+body .crm-mobile-sheet {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1300 !important;
+  display: flex !important;
+  align-items: flex-end;
+  justify-content: center;
+  background: transparent !important;
+}
+body .crm-mobile-sheet .crm-sheet-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: rgba(0, 0, 0, 0.32) !important;
+  animation: fx-fade-in var(--fx-med) var(--fx-ease);
+}
+body .crm-mobile-sheet > section {
+  position: relative !important;
+  width: min(560px, 100%) !important;
+  max-height: 80vh;
+  overflow: auto;
+  margin: 0 !important;
+  padding: 8px 12px calc(14px + env(safe-area-inset-bottom)) !important;
+  border-radius: 16px 16px 0 0 !important;
+  background: var(--fx-surface) !important;
+  box-shadow: var(--fx-shadow-modal) !important;
+  animation: fx-sheet-in var(--fx-med) var(--fx-ease-out);
+}
+body .crm-mobile-sheet > section::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 5px;
+  margin: 0 auto 8px;
+  border-radius: 3px;
+  background: var(--fx-separator-strong);
+}
+body .crm-mobile-sheet header {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 10px !important;
+  margin: 0 !important;
+  position: static !important;
+  background: transparent !important;
+}
+body .crm-mobile-sheet header strong { font-size: var(--fx-text-title3); font-weight: 600; }
+body .crm-mobile-sheet header [data-close] {
+  width: 30px; height: 30px; min-height: 0 !important; padding: 0 !important;
+  border-radius: 50% !important; font-size: 18px !important;
+}
+body .crm-mobile-sheet .crm-sheet-actions { display: grid; gap: 8px; }
+body .crm-mobile-sheet .crm-sheet-action {
+  display: grid !important;
+  gap: 2px;
+  justify-items: start;
+  width: 100%;
+  min-height: 52px !important;
+  padding: 10px 14px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  color: var(--fx-ink) !important;
+  text-align: left !important;
+  text-decoration: none !important;
+}
+body .crm-mobile-sheet .crm-sheet-action strong { font-size: var(--fx-text-body); font-weight: 600; }
+body .crm-mobile-sheet .crm-sheet-action span { color: var(--fx-secondary); font-size: var(--fx-text-subhead); font-weight: 400; }
+
+/* ---- Toasts ------------------------------------------------------------ */
+body .ux340-toast,
+body .fx-toast {
+  position: fixed !important;
+  top: auto !important;
+  right: auto !important;
+  left: 50% !important;
+  bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+  z-index: 1400 !important;
+  transform: translateX(-50%);
+  max-width: min(440px, calc(100vw - 32px));
+  padding: 11px 18px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-pill) !important;
+  background: rgba(29, 29, 31, 0.92) !important;
+  color: #fff !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  font-size: var(--fx-text-callout);
+  font-weight: 500;
+  animation: fx-sheet-in var(--fx-med) var(--fx-ease-out);
+}
+@media (max-width: 780px) {
+  body .ux340-toast,
+  body .fx-toast { bottom: calc(80px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* ---- Legacy command list (only if the old palette is ever opened) ----- */
+body .ux340-command { background: rgba(0, 0, 0, 0.18) !important; }
+body .ux340-command-panel { border: 0 !important; border-radius: var(--fx-radius-xl) !important; box-shadow: var(--fx-shadow-modal) !important; }
+
+/* ---- Floating create button + phone dock (experience-340) ------------ */
+body .ux340-create-fab {
+  background: var(--fx-primary) !important;
+  color: var(--fx-on-primary) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+body .ux340-create-menu {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-material-strong) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  box-shadow: var(--fx-shadow-pop) !important;
+}
+body .ux340-phone-dock {
+  left: calc(var(--fx-sidebar-w) + 24px) !important;
+  border-radius: var(--fx-radius-xl) !important;
+  background: rgba(29, 29, 31, 0.9) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+}
+body .sidebar-hidden ~ .ux340-phone-dock,
+body:has(.app.sidebar-hidden) .ux340-phone-dock { left: 24px !important; }
+@media (max-width: 1023px) {
+  body .ux340-phone-dock { left: 12px !important; right: 12px !important; }
+}
+@media (max-width: 780px) {
+  body .ux340-phone-dock { bottom: calc(72px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* PWA install prompt */
+body .pwa-install {
+  border-radius: var(--fx-radius-pill) !important;
+  box-shadow: var(--fx-shadow-pop) !important;
+}
+@media (max-width: 780px) {
+  body .pwa-install { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* Online / offline banner (pwa.js): fully hidden until shown */
+body .network-banner {
+  bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+  padding: 10px 18px !important;
+  background: rgba(29, 29, 31, 0.92) !important;
+  -webkit-backdrop-filter: var(--fx-blur);
+  backdrop-filter: var(--fx-blur);
+  font-weight: 500 !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--fx-med) var(--fx-ease-out), opacity var(--fx-med) var(--fx-ease), visibility 0s linear var(--fx-med) !important;
+}
+body .network-banner.show { opacity: 1; visibility: visible; transition: transform var(--fx-med) var(--fx-ease-out), opacity var(--fx-med) var(--fx-ease), visibility 0s !important; }
+@media (max-width: 780px) {
+  body .network-banner { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* css/screens/home.css */
+/* Dashboard: the phone welcome card follows the same surfaces as every
+   other card; its quick buttons duplicate the toolbar, so they are hidden. */
+body .crm-mobile-home {
+  background: var(--fx-surface) !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xl) !important;
+  box-shadow: var(--fx-shadow-card) !important;
+}
+body .crm-mobile-home h2 {
+  color: var(--fx-ink) !important;
+  font-size: 24px !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+}
+body .crm-mobile-quickbar { display: none !important; }
+body .crm-mobile-role-chips span {
+  background: var(--fx-tint-wash) !important;
+  color: var(--fx-tint-strong) !important;
+  font-weight: 600 !important;
+}
+body .crm-mobile-day-card {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  box-shadow: none !important;
+}
+body .crm-mobile-launch-grid a {
+  border: 0 !important;
+  border-radius: var(--fx-radius-lg) !important;
+  background: var(--fx-fill-quiet) !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+}
+body .crm-mobile-launch-grid a span { color: var(--fx-secondary) !important; }
+body .ux340-role-home { background: var(--fx-surface) !important; border: 0 !important; }

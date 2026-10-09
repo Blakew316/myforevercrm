@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------
+   Sidebar icons. Each task area is recognised by the pages it contains, not
+   by its label, so renamed or role-filtered menus still pick the right
+   symbol. Unknown areas fall back to a neutral dot.
+   -------------------------------------------------------------------------- */
+
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-icon: var(--fx-i-people); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-icon: var(--fx-i-phone); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-icon: var(--fx-i-doc); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-icon: var(--fx-i-chart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-icon: var(--fx-i-dollar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-icon: var(--fx-i-gauge); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-icon: var(--fx-i-book); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-icon: var(--fx-i-mappin); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-icon: var(--fx-i-briefcase); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-icon: var(--fx-i-heart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-icon: var(--fx-i-building); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-icon: var(--fx-i-team); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-icon: var(--fx-i-tag); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-icon: var(--fx-i-headset); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-icon: var(--fx-i-banknote); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-icon: var(--fx-i-bolt); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-icon: var(--fx-i-wrench); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-icon: var(--fx-i-creditcard); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-icon: var(--fx-i-lock); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-icon: var(--fx-i-archive); }
+
+/* Pages that sit directly in a section, without a task area */
+#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-icon: var(--fx-i-box); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-icon: var(--fx-i-person); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-icon: var(--fx-i-link); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-icon: var(--fx-i-envelope); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-icon: var(--fx-i-bell); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-icon: var(--fx-i-phone-device); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-icon: var(--fx-i-lock); }
