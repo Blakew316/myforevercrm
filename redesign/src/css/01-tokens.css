@@ -58,8 +58,8 @@
   --fx-accent-ring: rgba(0, 113, 227, 0.32);
 
   /* Actions */
-  --fx-primary: var(--fx-accent);
-  --fx-primary-hover: var(--fx-accent-hover);
+  --fx-primary: var(--fx-ink);
+  --fx-primary-hover: #000;
   --fx-on-primary: #fff;
 
   /* Glass (Liquid-Glass-style surfaces over the ambient canvas) */

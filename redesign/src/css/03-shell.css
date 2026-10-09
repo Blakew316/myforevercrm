@@ -16,6 +16,9 @@ body .app[data-sidebar-app] {
 body .app[data-sidebar-app].sidebar-hidden {
   grid-template-columns: minmax(0, 1fr) !important;
 }
+@media (min-width: 1024px) {
+  body .app[data-sidebar-app].sidebar-hidden > aside#forever-crm-sidebar { display: none !important; }
+}
 
 /* Content column. Side padding grows on wide screens so the content keeps
    a comfortable measure while the toolbar material still spans the window. */

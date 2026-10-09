@@ -100,7 +100,7 @@ body .fx-toolbar .crm-page-back {
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   background: transparent !important;
-  color: var(--fx-tint-strong) !important;
+  color: var(--fx-accent-text) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-callout) !important;
   font-weight: 500 !important;
@@ -303,7 +303,7 @@ body .crm-command-wrap .crm-quick-menu > a {
 }
 body .crm-command-wrap .crm-quick-menu > a:hover,
 body .crm-command-wrap .crm-quick-menu > a:focus-visible {
-  background: var(--fx-tint-strong) !important;
+  background: var(--fx-accent) !important;
   color: #fff !important;
   outline: none !important;
 }
@@ -352,7 +352,7 @@ body .app main > .session-bar .button {
   padding: 0 10px !important;
   border: 0 !important;
   background: transparent !important;
-  color: var(--fx-tint-strong) !important;
+  color: var(--fx-accent-text) !important;
   font-size: var(--fx-text-callout) !important;
   font-weight: 500 !important;
   box-shadow: none !important;

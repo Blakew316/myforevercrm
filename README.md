@@ -14,37 +14,36 @@ server action stays exactly as it is.
   titles, 21 / 17 px section titles, 15 px body.
 - Light gray canvas with white cards. Anything nested in a card becomes a quiet
   gray tile rather than another bordered box.
-- Capsule buttons: gray for secondary, solid ink for the one primary action.
-  Fields are 38 px (44 px on phones) with a brand-tinted focus ring.
-- The workspace brand color (Workspace branding) tints selection, icons, links
-  and focus, so white-label workspaces keep their identity.
+- Calm, neutral palette: white cards on light gray, capsule buttons (white
+  for secondary, solid black for the one primary action). Blue only marks
+  links and keyboard focus. Fields are 38 px (44 px on phones).
 - Tables, status chips, notices, metrics, sheets and toasts all share the same
   tokens. Dark appearance follows the existing per-user Appearance preference.
 
 **Navigation**
-- **Sidebar**: a translucent source list with an icon per area. Only the area
-  you are in opens, so the list is about a quarter of its old length. Sections
-  you collapse stay collapsed. Areas with a single page become a single row.
-- **Find a page**: a field at the top of the sidebar filters the menu as you
-  type. It also matches everyday words, so typing "clock in" finds My Time & Pay.
-- **Search or jump to** (⌘K / Ctrl+K, or `/`): one field for every page you can
-  open, your recent pages, favorites and quick actions. It also searches your
-  records with the CRM's own search. When what you type looks like a name
-  rather than a page, record search comes first.
-- **Toolbar**: a pinned bar with sidebar toggle, back, where-you-are and
-  search, plus the inbox, alerts and **New** buttons. Back is labelled with its
-  destination when known (‹ Leads). When the large page title scrolls away, the
-  toolbar shows a compact copy.
-- **View switchers** (Table / Pipeline, Open / Today / Overdue, Call Center and
-  Setup Center tabs) are segmented controls, so navigation no longer looks like
-  an action button.
-- **Account menu** in the sidebar footer: your profile and settings pages, help,
-  keyboard shortcuts and Log out. The "Need help?" strip and the session bar no
-  longer take up the top of every page.
-- **Phone**: an iOS-style tab bar with drawn icons. The menu slides in as a
-  sheet and closes from the backdrop or Esc. Fields use 16 px text so iOS does
-  not zoom in.
-- **Keyboard**: ⌘K / Ctrl+K search, ⌘\ / Ctrl+\ sidebar, `G` then
+- **Sidebar, rebuilt around daily work.** The pages people open all day come
+  first, one click each: Dashboard, Attention, Leads, Customers, Tasks,
+  Calls, Inbox, Messages and Calendar. Everything else sits in a few
+  collapsible sections. Only the section you're in opens.
+- **Settings is its own panel.** The 50-plus workspace administration pages
+  slide in behind **Settings ›**, so they no longer bury the daily pages. On
+  an admin page the sidebar opens on that panel, with **‹ Main menu** to go
+  back.
+- **Pinned pages:** star any page in the sidebar to keep it at the top.
+- **Search or jump to** (⌘K / Ctrl+K, `/`, or the Search field in the
+  sidebar): one field for every page you can open, recent pages, pinned
+  pages and quick actions. It also searches records with the CRM's own search.
+- **Toolbar:** a pinned bar with hide/show sidebar, a Back button labelled
+  with its destination (‹ Leads), the breadcrumb, search, inbox, alerts and
+  **New**.
+- **Tabs and view switchers** (Table / Pipeline, Call Center tabs, section
+  pickers on long admin pages) are single-row segmented controls that scroll
+  sideways instead of wrapping.
+- **Account menu** in the sidebar footer holds your profile and settings
+  pages, help, keyboard shortcuts and Log out.
+- **Phone:** a tab bar with drawn icons. The menu slides in as a sheet and
+  closes from the backdrop or Esc.
+- **Keyboard:** ⌘K / Ctrl+K search, ⌘\ / Ctrl+\ sidebar, `G` then
   `H L C T K I N` to jump to the main pages, `?` for the list, Esc closes.
 
 ## Install

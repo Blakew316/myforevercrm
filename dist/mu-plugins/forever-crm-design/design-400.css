@@ -86,8 +86,8 @@
   --fx-accent-ring: rgba(0, 113, 227, 0.32);
 
   /* Actions */
-  --fx-primary: var(--fx-accent);
-  --fx-primary-hover: var(--fx-accent-hover);
+  --fx-primary: var(--fx-ink);
+  --fx-primary-hover: #000;
   --fx-on-primary: #fff;
 
   /* Glass (Liquid-Glass-style surfaces over the ambient canvas) */
@@ -539,6 +539,9 @@ body .app[data-sidebar-app] {
 body .app[data-sidebar-app].sidebar-hidden {
   grid-template-columns: minmax(0, 1fr) !important;
 }
+@media (min-width: 1024px) {
+  body .app[data-sidebar-app].sidebar-hidden > aside#forever-crm-sidebar { display: none !important; }
+}
 
 /* Content column. Side padding grows on wide screens so the content keeps
    a comfortable measure while the toolbar material still spans the window. */
@@ -631,10 +634,8 @@ body aside#forever-crm-sidebar {
   padding: 0 !important;
   overflow: hidden !important;
   color: var(--fx-ink) !important;
-  background: rgba(246, 246, 249, 0.66) !important;
-  -webkit-backdrop-filter: saturate(200%) blur(30px);
-  backdrop-filter: saturate(200%) blur(30px);
-  border-right: 1px solid rgba(0, 0, 0, 0.07) !important;
+  background: #f2f2f5 !important;
+  border-right: 1px solid var(--fx-separator) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-subhead);
 }
@@ -768,7 +769,7 @@ body #forever-crm-sidebar .fx-side-single {
   display: flex !important;
   align-items: center;
   gap: 10px;
-  min-height: 34px;
+  min-height: 32px;
   padding: 5px 10px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
@@ -791,13 +792,11 @@ body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
 body #forever-crm-sidebar .crm-nav-group-links > a::before {
   content: "";
   flex: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background:
-    var(--fx-ic, var(--fx-iw-circle)) center / 15px 15px no-repeat,
-    linear-gradient(180deg, color-mix(in srgb, var(--fx-ic-bg, var(--fx-c-gray)) 78%, #fff), var(--fx-ic-bg, var(--fx-c-gray)));
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
 }
 /* Disclosure chevron */
 body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
@@ -827,7 +826,7 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
   align-items: center;
   min-height: 30px;
   margin: 0 !important;
-  padding: 5px 30px 5px 44px !important;
+  padding: 5px 30px 5px 38px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   color: var(--fx-ink-2) !important;
@@ -841,16 +840,15 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
 }
 body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
 
-/* Where you are: filled with the accent, like a focused macOS sidebar */
-body #forever-crm-sidebar a[aria-current="page"],
-body #forever-crm-sidebar a[aria-current="page"]:hover {
-  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.35) !important;
-  color: #fff !important;
+/* Where you are */
+body #forever-crm-sidebar a[aria-current="page"] {
+  box-shadow: none !important;
+  outline-color: var(--fx-focus);
+  color: var(--fx-ink) !important;
   font-weight: 600 !important;
-  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
+  background: var(--fx-tint-soft) !important;
   border: 0 !important;
 }
-body #forever-crm-sidebar a[aria-current="page"] .crm-nav-pin::before { background: rgba(255, 255, 255, 0.85); }
 body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
 
 /* Pin to favourites: present on hover / keyboard focus only */
@@ -931,11 +929,11 @@ body #forever-crm-sidebar .crm-favorites-group > a {
 body #forever-crm-sidebar .crm-favorites-group > a::before {
   content: "";
   flex: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: var(--fx-iw-star-fill) center / 14px no-repeat, linear-gradient(180deg, #ffd60a, var(--fx-c-orange));
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint);
+  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  mask: var(--fx-i-star-fill) center / 15px no-repeat;
 }
 body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
 
@@ -1007,6 +1005,203 @@ html.fx-ready body #forever-crm-sidebar .aside-bottom::before { display: none; }
 html.fx-ready body #forever-crm-sidebar .aside-bottom > :is(strong, small, a) { display: none !important; }
 html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !important; padding-top: 8px !important; }
 
+/* ==== Design 4.0 navigation (built by design-400.js) ===================
+   Replaces the server's nested menu once the script runs. One label
+   column for every row: icon rows and plain rows line up at 38px. */
+html.fx-ready body #forever-crm-sidebar nav.crm-nav-groups { display: none !important; }
+
+body #forever-crm-sidebar .fx-side-search {
+  flex: none;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  height: 34px !important;
+  min-height: 0 !important;
+  margin: 6px 12px 8px !important;
+  padding: 0 8px 0 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: rgba(0, 0, 0, 0.055) !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 400 !important;
+  text-align: left;
+  cursor: pointer;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-side-search:hover { background: rgba(0, 0, 0, 0.08) !important; }
+body #forever-crm-sidebar .fx-side-search svg { width: 15px; height: 15px; color: var(--fx-secondary); }
+body #forever-crm-sidebar .fx-side-search span { flex: 1; }
+
+.fx-panels {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.fx-panel {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 10px 20px;
+  transition: transform 280ms var(--fx-ease-out), opacity 200ms var(--fx-ease);
+}
+.fx-panels[data-panel="main"] #fx-panel-settings,
+.fx-panels[data-panel="settings"] #fx-panel-main { pointer-events: none; opacity: 0; }
+.fx-panels[data-panel="main"] #fx-panel-settings { transform: translateX(100%); }
+.fx-panels[data-panel="settings"] #fx-panel-main { transform: translateX(-24%); }
+
+.fx-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.fx-list + .fx-list,
+.fx-everyday { margin-bottom: 10px; }
+.fx-section { margin: 2px 0; }
+
+body #forever-crm-sidebar .fx-item {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px !important;
+  margin: 0 !important;
+  padding: 6px 30px 6px 38px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.006em;
+  text-align: left;
+  text-decoration: none !important;
+  transform: none !important;
+  cursor: pointer;
+}
+body #forever-crm-sidebar .fx-item:has(> .fx-item-icon) { padding-left: 10px !important; }
+body #forever-crm-sidebar .fx-item:hover { background: rgba(0, 0, 0, 0.05) !important; }
+body #forever-crm-sidebar .fx-item[aria-current="page"] {
+  background: rgba(0, 0, 0, 0.08) !important;
+  font-weight: 600 !important;
+}
+.fx-item-icon { flex: none; width: 18px; height: 18px; color: var(--fx-secondary); }
+body #forever-crm-sidebar .fx-item[aria-current="page"] .fx-item-icon { color: var(--fx-ink); }
+.fx-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-item-end { flex: none; width: 12px; height: 12px; margin-right: -20px; color: var(--fx-tertiary); }
+
+/* Pin: appears on hover or keyboard focus */
+body #forever-crm-sidebar .fx-pin {
+  position: absolute !important;
+  top: 50%;
+  right: 4px;
+  display: grid !important;
+  place-items: center;
+  width: 24px !important;
+  height: 24px !important;
+  min-height: 0 !important;
+  margin: -12px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  opacity: 0;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-pin svg { width: 14px; height: 14px; }
+body #forever-crm-sidebar .fx-pin[aria-pressed="true"] { color: var(--fx-ink-2) !important; }
+body #forever-crm-sidebar .fx-pin[aria-pressed="true"] svg path { fill: currentColor; }
+body #forever-crm-sidebar .fx-item:hover > .fx-pin,
+body #forever-crm-sidebar .fx-item:focus-visible > .fx-pin,
+body #forever-crm-sidebar .fx-pin:focus-visible { opacity: 1; }
+body #forever-crm-sidebar .fx-pin:hover { background: rgba(0, 0, 0, 0.06) !important; }
+@media (hover: none) { body #forever-crm-sidebar .fx-pin { display: none !important; } }
+
+/* Section headings */
+body #forever-crm-sidebar .fx-heading {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 28px !important;
+  margin: 10px 0 1px !important;
+  padding: 4px 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  box-shadow: none !important;
+  font-family: var(--fx-font) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  text-align: left;
+  text-transform: none !important;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-toggle { cursor: pointer; }
+body #forever-crm-sidebar .fx-toggle:hover { background: rgba(0, 0, 0, 0.04) !important; color: var(--fx-ink) !important; }
+.fx-toggle-chev { flex: none; width: 11px; height: 11px; transition: transform 200ms var(--fx-ease); }
+.fx-toggle[aria-expanded="true"] .fx-toggle-chev { transform: rotate(90deg); }
+.fx-section .fx-heading { margin-top: 2px !important; }
+.fx-everyday + .fx-section .fx-heading { margin-top: 6px !important; }
+
+/* Settings entry and panel */
+.fx-settings-link { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--fx-separator); }
+body #forever-crm-sidebar .fx-panel-back {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 2px;
+  min-height: 30px !important;
+  margin: 2px 0 0 !important;
+  padding: 0 8px 0 2px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-accent-text) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-panel-back:hover { background: rgba(0, 0, 0, 0.05) !important; }
+body #forever-crm-sidebar .fx-panel-back svg { width: 16px; height: 16px; }
+.fx-panel-title {
+  margin: 6px 10px 4px !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+@media (prefers-reduced-motion: reduce) { .fx-panel { transition: none; } }
+
+/* Settings panel: back + title stay in view while the list scrolls */
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-back,
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-title {
+  position: sticky;
+  z-index: 2;
+  background: #f2f2f5 !important;
+}
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-back { top: 0; margin: 0 -10px !important; padding: 2px 8px 2px 12px !important; width: calc(100% + 20px); border-radius: 0 !important; min-height: 32px !important; }
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-title { top: 32px; margin: 0 -10px !important; padding: 2px 20px 8px !important; }
+
+/* Overlay sidebar (tablet / phone) is opaque so the page behind never muddies it */
+@media (max-width: 1023px) {
+  body aside#forever-crm-sidebar {
+    background: #f2f2f5 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+@media (hover: none) {
+  body #forever-crm-sidebar .fx-side-search kbd { display: none; }
+}
+
 /* css/05-sidebar-icons.css */
 /* --------------------------------------------------------------------------
    Sidebar icons. Each task area is recognised by the pages it contains, not
@@ -1014,39 +1209,39 @@ html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !importan
    symbol. Unknown areas fall back to a neutral dot.
    -------------------------------------------------------------------------- */
 
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-ic: var(--fx-iw-people); --fx-ic-bg: var(--fx-c-blue); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-ic: var(--fx-iw-phone); --fx-ic-bg: var(--fx-c-green); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-ic: var(--fx-iw-calendar); --fx-ic-bg: var(--fx-c-red); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-ic: var(--fx-iw-doc); --fx-ic-bg: var(--fx-c-indigo); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-ic: var(--fx-iw-chart); --fx-ic-bg: var(--fx-c-purple); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-ic: var(--fx-iw-dollar); --fx-ic-bg: var(--fx-c-mint); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-ic: var(--fx-iw-gauge); --fx-ic-bg: var(--fx-c-orange); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-ic: var(--fx-iw-book); --fx-ic-bg: var(--fx-c-brown); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-ic: var(--fx-iw-mappin); --fx-ic-bg: var(--fx-c-red); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-ic: var(--fx-iw-briefcase); --fx-ic-bg: var(--fx-c-brown); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-ic: var(--fx-iw-heart); --fx-ic-bg: var(--fx-c-pink); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-ic: var(--fx-iw-building); --fx-ic-bg: var(--fx-c-graphite); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-ic: var(--fx-iw-team); --fx-ic-bg: var(--fx-c-blue); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-ic: var(--fx-iw-tag); --fx-ic-bg: var(--fx-c-orange); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-ic: var(--fx-iw-headset); --fx-ic-bg: var(--fx-c-teal); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-ic: var(--fx-iw-banknote); --fx-ic-bg: var(--fx-c-green); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-ic: var(--fx-iw-bolt); --fx-ic-bg: var(--fx-c-yellow); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-ic: var(--fx-iw-wrench); --fx-ic-bg: var(--fx-c-gray); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-ic: var(--fx-iw-creditcard); --fx-ic-bg: var(--fx-c-indigo); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-ic: var(--fx-iw-sliders); --fx-ic-bg: var(--fx-c-gray); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-ic: var(--fx-iw-lock); --fx-ic-bg: var(--fx-c-blue); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-ic: var(--fx-iw-archive); --fx-ic-bg: var(--fx-c-graphite); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-icon: var(--fx-i-people); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-icon: var(--fx-i-phone); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-icon: var(--fx-i-doc); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-icon: var(--fx-i-chart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-icon: var(--fx-i-dollar); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-icon: var(--fx-i-gauge); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-icon: var(--fx-i-book); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-icon: var(--fx-i-mappin); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-icon: var(--fx-i-briefcase); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-icon: var(--fx-i-heart); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-icon: var(--fx-i-building); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-icon: var(--fx-i-team); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-icon: var(--fx-i-tag); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-icon: var(--fx-i-headset); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-icon: var(--fx-i-banknote); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-icon: var(--fx-i-bolt); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-icon: var(--fx-i-wrench); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-icon: var(--fx-i-creditcard); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-icon: var(--fx-i-lock); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-icon: var(--fx-i-archive); }
 
 /* Pages that sit directly in a section, without a task area */
-#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-ic: var(--fx-iw-box); --fx-ic-bg: var(--fx-c-brown); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-ic: var(--fx-iw-person); --fx-ic-bg: var(--fx-c-gray); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-ic: var(--fx-iw-link); --fx-ic-bg: var(--fx-c-blue); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-ic: var(--fx-iw-calendar); --fx-ic-bg: var(--fx-c-red); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-ic: var(--fx-iw-envelope); --fx-ic-bg: var(--fx-c-blue); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-ic: var(--fx-iw-bell); --fx-ic-bg: var(--fx-c-red); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-ic: var(--fx-iw-sliders); --fx-ic-bg: var(--fx-c-gray); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-ic: var(--fx-iw-phone-device); --fx-ic-bg: var(--fx-c-graphite); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-ic: var(--fx-iw-lock); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-icon: var(--fx-i-box); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-icon: var(--fx-i-person); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-icon: var(--fx-i-link); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-icon: var(--fx-i-calendar); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-icon: var(--fx-i-envelope); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-icon: var(--fx-i-bell); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-icon: var(--fx-i-sliders); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-icon: var(--fx-i-phone-device); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-icon: var(--fx-i-lock); }
 
 /* css/06-toolbar.css */
 /* --------------------------------------------------------------------------
@@ -1151,7 +1346,7 @@ body .fx-toolbar .crm-page-back {
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   background: transparent !important;
-  color: var(--fx-tint-strong) !important;
+  color: var(--fx-accent-text) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-callout) !important;
   font-weight: 500 !important;
@@ -1354,7 +1549,7 @@ body .crm-command-wrap .crm-quick-menu > a {
 }
 body .crm-command-wrap .crm-quick-menu > a:hover,
 body .crm-command-wrap .crm-quick-menu > a:focus-visible {
-  background: var(--fx-tint-strong) !important;
+  background: var(--fx-accent) !important;
   color: #fff !important;
   outline: none !important;
 }
@@ -1403,7 +1598,7 @@ body .app main > .session-bar .button {
   padding: 0 10px !important;
   border: 0 !important;
   background: transparent !important;
-  color: var(--fx-tint-strong) !important;
+  color: var(--fx-accent-text) !important;
   font-size: var(--fx-text-callout) !important;
   font-weight: 500 !important;
   box-shadow: none !important;
@@ -1493,12 +1688,12 @@ body input[type="button"] {
   padding: 0 16px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-accent-soft);
-  color: var(--fx-accent-text);
-  box-shadow: none;
+  background: var(--fx-surface);
+  color: var(--fx-ink);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.04);
   font-family: inherit;
   font-size: var(--fx-text-callout);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.006em;
   text-align: center;
@@ -1511,13 +1706,13 @@ body input[type="button"] {
 }
 body button:hover,
 body .button:hover {
-  background: var(--fx-accent-soft-hover);
-  color: var(--fx-accent-text);
+  background: #f5f5f7;
+  color: var(--fx-ink);
   filter: none;
   text-decoration: none;
 }
 body button:active,
-body .button:active { background: rgba(0, 113, 227, 0.22); transform: scale(0.97); }
+body .button:active { background: #ebebef; transform: scale(0.98); }
 
 body button:disabled,
 body .button[aria-disabled="true"],
@@ -1532,14 +1727,13 @@ body .primary,
 body button.primary,
 body .button.primary,
 body input[type="submit"].primary {
-  background: linear-gradient(180deg, #1a86f0, var(--fx-primary)) !important;
+  background: var(--fx-primary) !important;
   border-color: var(--fx-primary) !important;
   color: var(--fx-on-primary) !important;
   font-weight: 600;
-  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 }
 body button.primary:hover,
-body .button.primary:hover { background: linear-gradient(180deg, #2b91f5, var(--fx-primary-hover)) !important; color: var(--fx-on-primary) !important; }
+body .button.primary:hover { background: var(--fx-primary-hover) !important; color: var(--fx-on-primary) !important; }
 
 /* Destructive */
 body button.danger,
@@ -1609,7 +1803,7 @@ body select:focus,
 body textarea:focus {
   outline: none;
   border-color: var(--fx-accent);
-  box-shadow: 0 0 0 4px var(--fx-accent-ring);
+  box-shadow: 0 0 0 3px var(--fx-accent-ring);
 }
 
 body input:disabled,
@@ -1645,13 +1839,13 @@ body input[type="file"]::file-selector-button {
   padding: 7px 14px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-accent-soft);
-  color: var(--fx-accent-text);
-  font: 600 var(--fx-text-subhead)/1.2 var(--fx-font);
+  background: var(--fx-fill);
+  color: var(--fx-ink);
+  font: 500 var(--fx-text-subhead)/1.2 var(--fx-font);
   cursor: pointer;
 }
 body input[type="color"] { width: 44px; height: 32px; padding: 2px; border-radius: var(--fx-radius-sm); border: 1px solid var(--fx-field-border); }
-body input[type="range"] { accent-color: var(--fx-tint-strong); }
+body input[type="range"] { accent-color: var(--fx-accent); }
 
 /* Checkbox & radio: native, tinted, comfortably sized */
 body input[type="checkbox"],
@@ -1661,7 +1855,7 @@ body input[type="radio"] {
   height: 16px !important;
   min-height: 0 !important;
   margin: 0;
-  accent-color: var(--fx-accent);
+  accent-color: var(--fx-ink);
   cursor: pointer;
   vertical-align: -3px;
 }
@@ -1757,23 +1951,20 @@ body .card {
   padding: 24px;
   border: 0;
   border-radius: var(--fx-radius-xl);
-  background: var(--fx-glass);
-  -webkit-backdrop-filter: var(--fx-glass-blur);
-  backdrop-filter: var(--fx-glass-blur);
-  box-shadow: var(--fx-shadow-card), inset 0 1px 0 var(--fx-glass-edge);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
   color: var(--fx-ink);
 }
 body main .card { border: 0 !important; }
 
 /* Nested surfaces */
 body .card .card,
+body .card .metric,
 body .card [class$="-card"]:not(.card),
 body .card .ux340-view-card {
   border: 0 !important;
   border-radius: var(--fx-radius-lg) !important;
-  background: rgba(118, 118, 128, 0.07) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  background: var(--fx-fill-quiet) !important;
   box-shadow: none !important;
 }
 body .card .card { padding: 18px; margin-bottom: 12px; }
@@ -1841,9 +2032,9 @@ body .notice {
   padding: 14px 16px 14px 46px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-lg);
-  background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), rgba(94, 92, 230, 0.07));
+  background: var(--fx-surface);
   color: var(--fx-ink);
-  box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.18);
+  box-shadow: var(--fx-shadow-card);
   font-size: var(--fx-text-callout);
   line-height: 1.45;
 }
@@ -1949,7 +2140,7 @@ body td {
 }
 body tbody tr:last-child td { border-bottom: 0 !important; }
 body tbody tr { transition: background-color var(--fx-fast) var(--fx-ease); }
-body tbody tr:hover > td { background: rgba(0, 113, 227, 0.045); }
+body tbody tr:hover > td { background: color-mix(in srgb, var(--fx-ink) 2.5%, transparent); }
 body td strong { font-weight: 600; }
 body td small { display: block; margin-top: 2px; color: var(--fx-secondary); font-size: var(--fx-text-footnote); }
 body td a:not(.button) { font-weight: 500; }
@@ -2017,6 +2208,7 @@ body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tab
   .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) {
   position: relative;
   display: inline-flex !important;
+  flex-direction: row !important;
   flex-wrap: nowrap !important;
   align-items: center;
   gap: 2px !important;
@@ -2089,40 +2281,62 @@ body .app nav.call-center-tabs > a.call-center-upload-tab {
 /* Tab bars that appear as their own block get a little air below the header */
 body .app main > nav:is(.call-center-tabs, .setup-center-tabs) { display: flex !important; width: fit-content; margin-bottom: 20px; }
 
-/* ---- Section navigator for long admin pages (workspace-sections.js) ---- */
-body .crm-section-nav {
+/* ---- Section navigator for long admin pages (workspace-sections.js) ----
+   A heading and one scrollable segmented row: pick a section to show it. */
+body .app .crm-section-nav {
   display: flex !important;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  padding: 14px 16px !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  min-height: 0 !important;
+  margin: 0 0 20px !important;
+  padding: 16px 20px !important;
+  border: 0 !important;
+  background: var(--fx-surface) !important;
+  box-shadow: var(--fx-shadow-card) !important;
 }
-body .crm-section-nav-heading { display: grid; gap: 2px; flex: 1 1 220px; }
-body .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
-body .crm-section-nav-heading small { color: var(--fx-secondary); }
-body .crm-section-nav-controls {
-  display: inline-flex !important;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 3px;
+body .app .crm-section-nav-heading { display: grid !important; gap: 2px !important; text-align: left !important; color: var(--fx-ink) !important; }
+body .app .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
+body .app .crm-section-nav-heading small { color: var(--fx-secondary) !important; font-size: var(--fx-text-footnote); }
+body .app .crm-section-nav-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-self: flex-start;
+  max-width: 100%;
+  gap: 2px !important;
+  padding: 3px !important;
+  overflow-x: auto;
+  scrollbar-width: none;
   border-radius: var(--fx-radius-md);
-  background: var(--fx-fill);
+  background: var(--fx-fill) !important;
 }
-body .crm-section-nav-controls > button {
+body .app .crm-section-nav-controls::-webkit-scrollbar { display: none; }
+body .app .crm-section-nav-controls button {
+  flex: none !important;
+  width: auto !important;
   min-height: 30px !important;
+  margin: 0 !important;
   padding: 5px 12px !important;
+  border: 0 !important;
   border-radius: 7px !important;
   background: transparent !important;
   color: var(--fx-ink-2) !important;
+  box-shadow: none !important;
   font-size: var(--fx-text-subhead) !important;
   font-weight: 500 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  transform: none !important;
 }
-body .crm-section-nav-controls > button[aria-pressed="true"] {
+body .app .crm-section-nav-controls button:hover { color: var(--fx-ink) !important; background: rgba(255, 255, 255, 0.6) !important; }
+body .app .crm-section-nav-controls button[aria-pressed="true"] {
   background: var(--fx-surface-raised) !important;
   color: var(--fx-ink) !important;
   font-weight: 600 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.04) !important;
 }
+body .app .crm-section-nav-controls .crm-section-show-all { margin-left: 6px !important; color: var(--fx-accent-text) !important; }
 
 /* ---- Phone tab bar ----------------------------------------------------- */
 @media (min-width: 781px) {
@@ -2171,7 +2385,7 @@ body .crm-section-nav-controls > button[aria-pressed="true"] {
     border: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
-    color: var(--fx-tint-strong) !important;
+    color: var(--fx-accent) !important;
   }
   body nav.crm-mobile-nav a > span:last-child {
     font-size: 10.5px !important;
@@ -2214,7 +2428,7 @@ body .crm-section-nav-controls > button[aria-pressed="true"] {
   body nav.crm-mobile-nav a[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
   body nav.crm-mobile-nav a[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
   body nav.crm-mobile-nav a[data-crm-mobile-menu] { --fx-icon: var(--fx-i-sidebar); }
-  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-tint-strong) !important; }
+  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-accent) !important; }
 }
 
 /* css/10-overlays.css */
@@ -2223,39 +2437,6 @@ body .crm-section-nav-controls > button[aria-pressed="true"] {
    keyboard-shortcut sheet. Floating things are the only things with real
    shadows, and they arrive with a short, quiet motion.
    -------------------------------------------------------------------------- */
-
-/* ---- Sidebar: find a page -------------------------------------------- */
-.fx-side-search {
-  flex: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 34px;
-  margin: 6px 12px 4px;
-}
-.fx-side-search svg {
-  position: absolute;
-  left: 9px;
-  width: 15px;
-  height: 15px;
-  color: var(--fx-secondary);
-  pointer-events: none;
-}
-body .fx-side-search input[type="search"] {
-  width: 100%;
-  height: 34px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 10px 0 30px !important;
-  border: 0 !important;
-  border-radius: var(--fx-radius-sm) !important;
-  background: var(--fx-fill) !important;
-  color: var(--fx-ink) !important;
-  font-size: var(--fx-text-subhead) !important;
-  box-shadow: none !important;
-}
-body .fx-side-search input[type="search"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 30%, transparent) !important; }
-body .fx-side-search input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 
 /* ---- Sidebar footer: help + account ----------------------------------- */
 .fx-help-row {
@@ -2370,7 +2551,7 @@ body .fx-menu a:hover,
 body .fx-menu button:hover,
 body .fx-menu a:focus-visible,
 body .fx-menu button:focus-visible {
-  background: var(--fx-tint-strong) !important;
+  background: var(--fx-accent) !important;
   color: #fff !important;
   outline: none !important;
 }
@@ -2463,7 +2644,7 @@ body .fx-palette-field input::placeholder { color: var(--fx-tertiary); }
   cursor: pointer;
   user-select: none;
 }
-.fx-palette-item[aria-selected="true"] { background: var(--fx-tint-strong); color: #fff; }
+.fx-palette-item[aria-selected="true"] { background: var(--fx-accent); color: #fff; }
 .fx-palette-item[aria-selected="true"] .fx-palette-sub,
 .fx-palette-item[aria-selected="true"] .fx-palette-hint { color: rgba(255, 255, 255, 0.78); }
 .fx-palette-item[aria-selected="true"] .fx-palette-icon { background: rgba(255, 255, 255, 0.18); color: #fff; }
@@ -2474,8 +2655,8 @@ body .fx-palette-field input::placeholder { color: var(--fx-tertiary); }
   width: 30px;
   height: 30px;
   border-radius: var(--fx-radius-sm);
-  background: var(--fx-tint-wash);
-  color: var(--fx-tint-strong);
+  background: var(--fx-fill-quiet);
+  color: var(--fx-ink-2);
 }
 .fx-palette-icon svg { width: 17px; height: 17px; }
 .fx-palette-text { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
@@ -2698,215 +2879,6 @@ body .network-banner {
 body .network-banner.show { opacity: 1; visibility: visible; transition: transform var(--fx-med) var(--fx-ease-out), opacity var(--fx-med) var(--fx-ease), visibility 0s !important; }
 @media (max-width: 780px) {
   body .network-banner { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
-}
-
-/* css/11-life.css */
-/* --------------------------------------------------------------------------
-   Color, depth and motion
-   An ambient wash of the brand color and system blue sits behind glass
-   surfaces, numbers carry color, the dashboard opens with a vivid card,
-   and content settles in once on load. Everything here is decoration on
-   top of the structure defined earlier, so it can be tuned in one place.
-   -------------------------------------------------------------------------- */
-
-/* ---- Ambient canvas ---------------------------------------------------- */
-body .app[data-sidebar-app]::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(1100px 620px at 8% -10%, color-mix(in srgb, var(--fx-tint) 30%, transparent), transparent 68%),
-    radial-gradient(900px 600px at 92% -14%, rgba(10, 132, 255, 0.2), transparent 66%),
-    radial-gradient(800px 520px at 55% -6%, rgba(191, 90, 242, 0.12), transparent 70%),
-    radial-gradient(900px 700px at 100% 100%, rgba(48, 209, 88, 0.07), transparent 70%),
-    linear-gradient(180deg, #fbfbfd 0%, var(--fx-canvas) 520px);
-}
-body .app[data-sidebar-app] > main,
-body .app[data-sidebar-app] > aside { z-index: 1; }
-body.ux340-dark .app[data-sidebar-app]::before {
-  background:
-    radial-gradient(1100px 620px at 8% -10%, color-mix(in srgb, var(--fx-tint) 22%, transparent), transparent 68%),
-    radial-gradient(900px 600px at 92% -14%, rgba(10, 132, 255, 0.22), transparent 66%),
-    #000;
-}
-
-/* ---- Page title -------------------------------------------------------- */
-body .app main > header h1 {
-  font-size: calc(var(--fx-text-largetitle) + 4px) !important;
-  letter-spacing: -0.028em !important;
-}
-.fx-dateline {
-  display: block;
-  margin: 0 0 2px;
-  color: var(--fx-accent-text);
-  font-size: var(--fx-text-subhead);
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-/* ---- Toolbar glass ----------------------------------------------------- */
-body .app main > .fx-toolbar.is-stuck::before {
-  background: rgba(255, 255, 255, 0.7);
-  -webkit-backdrop-filter: saturate(200%) blur(30px);
-  backdrop-filter: saturate(200%) blur(30px);
-}
-body .fx-search-trigger {
-  background: rgba(255, 255, 255, 0.72) !important;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-}
-body .fx-search-trigger:hover { background: #fff !important; }
-body .crm-command-wrap .crm-quick-toggle {
-  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
-  box-shadow: 0 1px 3px rgba(0, 113, 227, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
-}
-body .fx-toolbar .crm-page-back { color: var(--fx-accent-text) !important; }
-
-/* ---- Metrics: each tile gets its own color ----------------------------- */
-body .metric {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  --fx-m: var(--fx-c-blue);
-  --fx-m-text: #0a6fd8;
-  background: rgba(255, 255, 255, 0.86) !important;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 20px rgba(15, 23, 42, 0.05) !important;
-}
-body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 2) { --fx-m: var(--fx-c-green); --fx-m-text: #1f9d4b; }
-body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 3) { --fx-m: var(--fx-c-orange); --fx-m-text: #d97a00; }
-body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 4) { --fx-m: var(--fx-c-purple); --fx-m-text: #a145d4; }
-body .metric::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  right: -36px;
-  top: -40px;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fx-m) 24%, transparent), transparent);
-}
-body .metric::after {
-  content: "";
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 0;
-  height: 3px;
-  border-radius: 3px 3px 0 0;
-  background: linear-gradient(90deg, var(--fx-m), color-mix(in srgb, var(--fx-m) 40%, transparent));
-  opacity: 0.75;
-}
-body .metric strong {
-  color: var(--fx-m-text) !important;
-  font-size: 32px !important;
-  font-weight: 700 !important;
-}
-
-/* ---- Dashboard opening card ------------------------------------------- */
-body .card.ux340-role-home {
-  position: relative;
-  overflow: hidden;
-  padding: 28px !important;
-  background:
-    radial-gradient(120% 160% at 0% 0%, rgba(10, 132, 255, 0.16), transparent 52%),
-    radial-gradient(110% 150% at 100% 0%, color-mix(in srgb, var(--fx-tint) 34%, transparent), transparent 55%),
-    radial-gradient(90% 130% at 60% 130%, rgba(191, 90, 242, 0.14), transparent 60%),
-    rgba(255, 255, 255, 0.78) !important;
-}
-body .card.ux340-role-home h2 {
-  font-size: 26px !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.024em !important;
-}
-body .card.needs-attention-clear .badge {
-  background: var(--fx-green-bg) !important;
-  color: var(--fx-green) !important;
-  font-weight: 600;
-}
-body .quick-actions .button:not(.primary) { background: rgba(255, 255, 255, 0.9) !important; box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05) !important; }
-body .quick-actions .button:not(.primary):hover { background: #fff !important; box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08) !important; }
-
-/* ---- Cards that are links lift under the pointer ----------------------- */
-body :is(a.card, .crm-mobile-launch-grid a, .setup-center-card, .ux340-view-card, .call-center-management-card, .integration-connect-card, .ai-package-card, .ai-launch-card) {
-  transition: transform var(--fx-med) var(--fx-ease-out), box-shadow var(--fx-med) var(--fx-ease-out);
-}
-@media (hover: hover) {
-  body :is(a.card, .crm-mobile-launch-grid a, .setup-center-card, .ux340-view-card, .call-center-management-card, .integration-connect-card, .ai-package-card, .ai-launch-card):hover {
-    transform: translateY(-2px);
-    box-shadow: var(--fx-shadow-lift) !important;
-  }
-}
-
-/* ---- Segmented controls on glass -------------------------------------- */
-body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
-  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="]), .crm-section-nav-controls) {
-  background: rgba(118, 118, 128, 0.12) !important;
-}
-
-/* ---- Menus and search use the accent for the highlighted row ---------- */
-.fx-palette-item[aria-selected="true"] { background: linear-gradient(180deg, #1a86f0, var(--fx-accent)); }
-.fx-palette-icon {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--fx-pi, var(--fx-c-blue)) 78%, #fff), var(--fx-pi, var(--fx-c-blue)));
-  color: #fff;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
-}
-body .fx-menu a:hover,
-body .fx-menu button:hover,
-body .fx-menu a:focus-visible,
-body .fx-menu button:focus-visible,
-body .crm-command-wrap .crm-quick-menu > a:hover,
-body .crm-command-wrap .crm-quick-menu > a:focus-visible {
-  background: var(--fx-accent) !important;
-  color: #fff !important;
-}
-body .fx-side-search input[type="search"]:focus { box-shadow: 0 0 0 4px var(--fx-accent-ring) !important; }
-
-/* ---- Phone: floating glass tab bar ------------------------------------ */
-@media (max-width: 780px) {
-  body nav.crm-mobile-nav.crm-mobile-nav-3256,
-  body nav.crm-mobile-nav {
-    left: 12px !important;
-    right: 12px !important;
-    bottom: calc(10px + env(safe-area-inset-bottom)) !important;
-    padding: 6px !important;
-    border: 0 !important;
-    border-radius: 28px !important;
-    background: rgba(255, 255, 255, 0.72) !important;
-    -webkit-backdrop-filter: saturate(200%) blur(30px);
-    backdrop-filter: saturate(200%) blur(30px);
-    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 12px 32px rgba(15, 23, 42, 0.16) !important;
-  }
-  body nav.crm-mobile-nav a { min-height: 52px !important; border-radius: 22px !important; color: var(--fx-secondary) !important; }
-  body nav.crm-mobile-nav a[aria-current="page"] {
-    background: var(--fx-accent-soft) !important;
-    color: var(--fx-accent) !important;
-  }
-  body .app[data-sidebar-app] > main { padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important; }
-}
-
-/* ---- One entrance, on load --------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-  html.fx-ready body .app main > :is(header, section, .card, .notice, nav, form, .dashboard-widget-grid, .metric-grid, .metrics) {
-    animation: fx-rise 520ms var(--fx-ease-out) both;
-  }
-  html.fx-ready body .app main > :nth-child(3) { animation-delay: 40ms; }
-  html.fx-ready body .app main > :nth-child(4) { animation-delay: 80ms; }
-  html.fx-ready body .app main > :nth-child(5) { animation-delay: 120ms; }
-  html.fx-ready body .app main > :nth-child(6) { animation-delay: 160ms; }
-  html.fx-ready body .app main > :nth-child(7) { animation-delay: 200ms; }
-  html.fx-ready body .app main > :nth-child(n + 8) { animation-delay: 240ms; }
-}
-@keyframes fx-rise {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
-}
-
-/* Narrow toolbars show search as a plain icon */
-@media (max-width: 900px) {
-  body .fx-search-trigger { background: transparent !important; box-shadow: none !important; }
-  body .fx-search-trigger:hover { background: var(--fx-fill) !important; }
 }
 
 /* css/screens/home.css */

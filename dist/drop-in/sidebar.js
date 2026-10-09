@@ -286,151 +286,235 @@ function iconFor(entry) {
 }
 
 /* js/02-sidebar.js */
-/* Sidebar: open only where you are, remember the sections you collapse,
-   flatten one-page areas, find a page by typing, and keep the account,
-   help and sign-out together in the footer. */
+/* Sidebar navigation, rebuilt from the links the server rendered for this
+   person (so permissions and the workspace's module settings still decide
+   what appears):
 
-var sideSearchInput = null;
+     Search ⌘K
+     Pinned            pages you starred
+     Everyday pages    Dashboard, Leads, Customers, Tasks, Calls, Inbox …
+     Sections          everything else, one collapsible group per area
+     Settings ›        workspace administration, in its own panel
+
+   Administration (50+ pages) lives in a second panel that slides in, so it
+   never buries the pages people use every day. On a settings page the
+   sidebar opens on that panel. */
+
+// Everyday destinations, in the order they appear. Shorter labels where the
+// server's label is a sentence; the full label stays as the tooltip.
+var EVERYDAY = [
+  { tab: 'overview', icon: 'house' },
+  { tab: 'attention', icon: 'warning' },
+  { tab: 'leads', icon: 'people' },
+  { tab: 'customers', icon: 'heart' },
+  { tab: 'tasks', icon: 'checklist' },
+  { tab: 'call-sheets', view: 'call_view=my-calls', icon: 'phone', label: 'Calls' },
+  { tab: 'conversations', icon: 'envelope' },
+  { tab: 'chat', icon: 'message' },
+  { tab: 'calendar', icon: 'calendar' }
+];
+
+var sidePanels = null;
 
 function setupSidebar() {
   if (!sidebar || !navEl) return;
 
-  // 1. One-page areas become a single row (no disclosure for one link).
-  qsa('details.crm-nav-subgroup', navEl).forEach(function (sub) {
-    var links = qsa(':scope > .crm-nav-subgroup-links > a[href]', sub);
-    if (links.length !== 1) return;
-    var summary = qs(':scope > summary', sub);
-    var styles = summary ? getComputedStyle(summary) : null;
-    var link = links[0];
-    link.classList.add('fx-side-single');
-    ['--fx-ic', '--fx-ic-bg'].forEach(function (name) {
-      var value = styles ? styles.getPropertyValue(name).trim() : '';
-      if (value) link.style.setProperty(name, value);
-    });
-    if (!link.title && summary) link.title = labelOf(summary);
-    sub.parentNode.replaceChild(link, sub);
-  });
-
-  // 2. Disclosure: the area you are in is open, every other area closed.
-  var hereLink = HERE && HERE.entry.link;
-  qsa('details.crm-nav-subgroup', navEl).forEach(function (sub) {
-    sub.open = !!(hereLink && sub.contains(hereLink));
-  });
-
-  // 3. Sections remember being collapsed; the one you are in always opens.
-  var collapsed = store.get('collapsed-sections', {});
-  qsa('details.crm-nav-group', navEl).forEach(function (group) {
-    var name = labelOf(qs(':scope > summary', group));
-    var containsHere = !!(hereLink && group.contains(hereLink));
-    if (containsHere) group.open = true;
-    else if (Object.prototype.hasOwnProperty.call(collapsed, name)) group.open = !collapsed[name];
-    group.addEventListener('toggle', function () {
-      if (sidebar.classList.contains('fx-filtering')) return;
-      var state = store.get('collapsed-sections', {});
-      state[name] = !group.open;
-      store.set('collapsed-sections', state);
-    });
-  });
-
-  // 4. Personal account pages move into the account menu (footer).
-  var accountGroup = qsa('details.crm-nav-group', navEl).filter(function (group) {
-    var links = qsa('a[href]', group);
+  // Groups: personal account (→ account menu), administration (→ Settings
+  // panel), and the rest (→ main panel).
+  var groups = qsa('details.crm-nav-group', navEl);
+  var accountGroup = groups.filter(function (g) {
+    var links = qsa('a[href]', g);
     return links.length && links.every(function (a) { return /[?&]account_view=/.test(a.getAttribute('href') || ''); });
   })[0];
+  var adminGroup = groups.filter(function (g) {
+    return g !== accountGroup && (/workspace management|administration|settings/i.test(labelOf(qs(':scope > summary', g))) ||
+      !!qs('a[href$="tab=workspace-console"], a[href$="tab=billing"]', g));
+  })[0];
   var accountLinks = accountGroup ? qsa('a[href]', accountGroup) : [];
-  if (accountGroup) accountGroup.parentNode.removeChild(accountGroup);
 
+  var entries = NAV.filter(function (n) { return n.groupEl !== accountGroup; });
+  var adminEntries = entries.filter(function (n) { return n.groupEl === adminGroup; });
+  var appEntries = entries.filter(function (n) { return n.groupEl !== adminGroup; });
+
+  // Everyday list
+  var used = [];
+  var everyday = [];
+  EVERYDAY.forEach(function (spec) {
+    var match = appEntries.filter(function (n) {
+      if (n.route.tab !== spec.tab || used.indexOf(n) !== -1) return false;
+      return spec.view ? n.route.params.toString().indexOf(spec.view) !== -1 : true;
+    })[0];
+    if (!match) return;
+    used.push(match);
+    everyday.push({ entry: match, icon: spec.icon, label: spec.label || match.label });
+  });
+
+  // Sections: the remaining app pages grouped by their area.
+  var sections = [];
+  appEntries.forEach(function (n) {
+    if (used.indexOf(n) !== -1) return;
+    var name = n.area || n.group;
+    var section = sections.filter(function (s) { return s.name === name; })[0];
+    if (!section) { section = { name: name, entries: [] }; sections.push(section); }
+    section.entries.push(n);
+  });
+
+  // Settings sections, in server order.
+  var adminSections = [];
+  adminEntries.forEach(function (n) {
+    var name = n.area || n.group;
+    var section = adminSections.filter(function (s) { return s.name === name; })[0];
+    if (!section) { section = { name: name, entries: [] }; adminSections.push(section); }
+    section.entries.push(n);
+  });
+
+  var inSettings = !!(HERE && adminEntries.indexOf(HERE.entry) !== -1);
+
+  var mainPanel = el('div', { class: 'fx-panel', id: 'fx-panel-main', role: 'navigation', 'aria-label': 'Main' });
+  var settingsPanel = el('div', { class: 'fx-panel', id: 'fx-panel-settings', role: 'navigation', 'aria-label': 'Settings' });
+
+  // Main panel
+  var pinsBox = el('div', { class: 'fx-pins' });
+  mainPanel.appendChild(pinsBox);
+  mainPanel.appendChild(el('ul', { class: 'fx-list fx-everyday' }, everyday.map(function (item) {
+    return el('li', {}, [navItem(item.entry, item.label, item.icon)]);
+  })));
+  var openState = store.get('open-sections', {});
+  sections.forEach(function (section, i) {
+    mainPanel.appendChild(navSection(section, 'm' + i, openState));
+  });
+  if (adminEntries.length) {
+    var toSettings = el('button', { type: 'button', class: 'fx-item fx-to-settings', 'aria-controls': 'fx-panel-settings' },
+      [icon('sliders', 'fx-item-icon'), el('span', { class: 'fx-item-label', text: 'Settings' }), icon('chevron-right', 'fx-item-end')]);
+    toSettings.addEventListener('click', function () { showPanel('settings', true); });
+    mainPanel.appendChild(el('ul', { class: 'fx-list fx-settings-link' }, [el('li', {}, [toSettings])]));
+  }
+
+  // Settings panel
+  var back = el('button', { type: 'button', class: 'fx-panel-back', 'aria-controls': 'fx-panel-main' }, [icon('chevron-left'), 'Main menu']);
+  back.addEventListener('click', function () { showPanel('main', true); });
+  settingsPanel.appendChild(back);
+  settingsPanel.appendChild(el('h2', { class: 'fx-panel-title', text: 'Settings' }));
+  adminSections.forEach(function (section) {
+    settingsPanel.appendChild(el('h3', { class: 'fx-heading', text: section.name }));
+    settingsPanel.appendChild(el('ul', { class: 'fx-list' }, section.entries.map(function (n) {
+      return el('li', {}, [navItem(n, n.label)]);
+    })));
+  });
+
+  sidePanels = el('div', { class: 'fx-panels', 'data-panel': inSettings ? 'settings' : 'main' }, [mainPanel, settingsPanel]);
+  navEl.parentNode.insertBefore(sidePanels, navEl);
+  showPanel(inSettings ? 'settings' : 'main', false);
+
+  renderPins();
   buildSideSearch();
   buildSidebarFooter(accountLinks);
 
-  // 5. Bring the current page into view inside the list.
-  if (hereLink && navEl.contains(hereLink)) {
-    var linkTop = hereLink.offsetTop, viewTop = navEl.scrollTop, height = navEl.clientHeight;
-    if (linkTop < viewTop + 40 || linkTop > viewTop + height - 60) navEl.scrollTop = Math.max(0, linkTop - height / 3);
+  // Bring the current page into view.
+  var current = qs('.fx-panel:not([hidden]) [aria-current="page"]', sidePanels);
+  if (current) {
+    var panel = current.closest('.fx-panel');
+    if (current.offsetTop > panel.clientHeight - 80) panel.scrollTop = current.offsetTop - panel.clientHeight / 3;
   }
-
-  // 6. Favourites header reads as a plain section title.
-  function tidyFavorites() {
-    var heading = qs('.crm-favorites-group > strong', navEl);
-    if (heading && heading.textContent !== 'Favorites') heading.textContent = 'Favorites';
-  }
-  tidyFavorites();
-  new MutationObserver(tidyFavorites).observe(navEl, { childList: true });
-
   setupOverlay();
 }
 
+/** One page link in the sidebar. */
+function navItem(entry, label, iconName) {
+  var isHere = !!(HERE && HERE.entry === entry);
+  var a = el('a', { class: 'fx-item', href: entry.href, title: entry.label !== label ? entry.label : null,
+    'aria-current': isHere ? 'page' : null, 'data-key': entry.route.params.toString() }, [
+    iconName ? icon(iconName, 'fx-item-icon') : null,
+    el('span', { class: 'fx-item-label', text: label })
+  ]);
+  var pin = el('button', { type: 'button', class: 'fx-pin', 'aria-pressed': isPinned(entry) ? 'true' : 'false' }, [icon('star')]);
+  pin.setAttribute('aria-label', (isPinned(entry) ? 'Unpin ' : 'Pin ') + label);
+  pin.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    togglePin(entry);
+  });
+  a.appendChild(pin);
+  return a;
+}
+
+/** A collapsible group of pages. Open when it holds the current page or
+ *  when the person left it open; otherwise closed. */
+function navSection(section, id, openState) {
+  var holdsHere = section.entries.some(function (n) { return HERE && HERE.entry === n; });
+  var open = holdsHere || openState[section.name] === true;
+  var listId = 'fx-sec-' + id;
+  var head = el('button', { type: 'button', class: 'fx-heading fx-toggle', 'aria-expanded': open ? 'true' : 'false', 'aria-controls': listId },
+    [el('span', { text: section.name }), icon('chevron-right', 'fx-toggle-chev')]);
+  var list = el('ul', { class: 'fx-list', id: listId, hidden: !open }, section.entries.map(function (n) {
+    return el('li', {}, [navItem(n, n.label)]);
+  }));
+  head.addEventListener('click', function () {
+    var nowOpen = head.getAttribute('aria-expanded') !== 'true';
+    head.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+    list.hidden = !nowOpen;
+    var state = store.get('open-sections', {});
+    state[section.name] = nowOpen;
+    store.set('open-sections', state);
+  });
+  return el('div', { class: 'fx-section' }, [head, list]);
+}
+
+function showPanel(name, focus) {
+  if (!sidePanels) return;
+  sidePanels.setAttribute('data-panel', name);
+  qsa(':scope > .fx-panel', sidePanels).forEach(function (p) {
+    var active = p.id === 'fx-panel-' + name;
+    p.hidden = false;
+    p.inert = !active;
+    p.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+  if (focus) {
+    var target = name === 'settings' ? qs('.fx-panel-back', sidePanels) : qs('.fx-to-settings', sidePanels);
+    if (target) setTimeout(function () { target.focus({ preventScroll: true }); }, 30);
+  }
+}
+
+/* Pinned pages: stored per workspace, shown at the top of the main panel. */
+function pinKeys() { return store.get('pins', []); }
+function isPinned(entry) { return pinKeys().indexOf(entry.route.params.toString()) !== -1; }
+function togglePin(entry) {
+  var key = entry.route.params.toString();
+  var keys = pinKeys();
+  var i = keys.indexOf(key);
+  if (i === -1) keys.push(key); else keys.splice(i, 1);
+  store.set('pins', keys);
+  qsa('.fx-item[data-key="' + key.replace(/"/g, '\\"') + '"] .fx-pin', sidePanels).forEach(function (b) {
+    var on = i === -1;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.setAttribute('aria-label', (on ? 'Unpin ' : 'Pin ') + entry.label);
+  });
+  renderPins();
+}
+function renderPins() {
+  var box = qs('.fx-pins', sidePanels);
+  if (!box) return;
+  box.textContent = '';
+  var pinned = pinKeys().map(function (key) {
+    return NAV.filter(function (n) { return n.route.params.toString() === key; })[0];
+  }).filter(Boolean);
+  if (!pinned.length) return;
+  box.appendChild(el('h3', { class: 'fx-heading', text: 'Pinned' }));
+  box.appendChild(el('ul', { class: 'fx-list' }, pinned.map(function (n) {
+    return el('li', {}, [navItem(n, n.label, 'star')]);
+  })));
+}
+
+/* The search field at the top opens Search or jump to (one search for
+   pages, actions and records). */
 function buildSideSearch() {
   var label = qs(':scope > .eyebrow', sidebar);
-  var input = el('input', {
-    type: 'search', placeholder: 'Find a page', 'aria-label': 'Find a page in the menu',
-    autocomplete: 'off', spellcheck: 'false', enterkeyhint: 'go'
-  });
-  var box = el('div', { class: 'fx-side-search', role: 'search' }, [icon('search'), input]);
-  if (label) label.parentNode.insertBefore(box, label);
-  else sidebar.insertBefore(box, navEl);
-  sideSearchInput = input;
-
-  var empty = el('p', { class: 'fx-side-empty', hidden: true });
-  navEl.appendChild(empty);
-  var savedOpen = null;
-
-  function visibleLinks() {
-    return qsa('a[href]', navEl).filter(function (a) {
-      return !a.closest('[data-fx-hidden]') && !a.closest('.crm-favorites-group');
-    });
-  }
-
-  function filter() {
-    var q = norm(input.value);
-    var groups = qsa('details.crm-nav-group', navEl);
-    var subs = qsa('details.crm-nav-subgroup', navEl);
-    if (!q) {
-      sidebar.classList.remove('fx-filtering');
-      qsa('[data-fx-hidden]', navEl).forEach(function (n) { n.removeAttribute('data-fx-hidden'); });
-      if (savedOpen) savedOpen.forEach(function (s) { s.node.open = s.open; });
-      savedOpen = null;
-      empty.hidden = true;
-      return;
-    }
-    if (!savedOpen) savedOpen = groups.concat(subs).map(function (node) { return { node: node, open: node.open }; });
-    sidebar.classList.add('fx-filtering');
-    var words = q.split(' ');
-    var count = 0;
-    qsa('a[href]', navEl).forEach(function (a) {
-      if (a.closest('.crm-favorites-group')) return;
-      var entry = NAV.filter(function (n) { return n.link === a; })[0];
-      var hay = norm(labelOf(a) + ' ' + (entry ? entry.area + ' ' + entry.keywords : ''));
-      var hit = words.every(function (w) { return (' ' + hay).indexOf(' ' + w) !== -1; });
-      if (hit) { a.removeAttribute('data-fx-hidden'); count += 1; } else a.setAttribute('data-fx-hidden', '');
-    });
-    subs.forEach(function (sub) {
-      var any = qsa('a[href]', sub).some(function (a) { return !a.hasAttribute('data-fx-hidden'); });
-      if (any) { sub.removeAttribute('data-fx-hidden'); sub.open = true; } else sub.setAttribute('data-fx-hidden', '');
-    });
-    groups.forEach(function (group) {
-      var any = qsa('a[href]', group).some(function (a) { return !a.closest('[data-fx-hidden]'); });
-      if (any) { group.removeAttribute('data-fx-hidden'); group.open = true; } else group.setAttribute('data-fx-hidden', '');
-    });
-    empty.hidden = count > 0;
-    empty.textContent = count ? '' : 'No pages match “' + input.value.trim() + '”. Press Return to search records.';
-  }
-
-  input.addEventListener('input', filter);
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      if (input.value) { input.value = ''; filter(); e.stopPropagation(); e.preventDefault(); }
-      else input.blur();
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      var first = visibleLinks()[0];
-      if (input.value.trim() && first && sidebar.classList.contains('fx-filtering')) location.href = first.href;
-      else if (input.value.trim()) openPalette(input.value.trim());
-    } else if (e.key === 'ArrowDown') {
-      var target = visibleLinks()[0];
-      if (target) { e.preventDefault(); target.focus(); }
-    }
-  });
+  var button = el('button', { type: 'button', class: 'fx-side-search', 'aria-haspopup': 'dialog' },
+    [icon('search'), el('span', { text: 'Search' }), el('kbd', { text: MOD_LABEL + ' K' })]);
+  button.setAttribute('aria-label', 'Search or jump to');
+  button.addEventListener('click', function () { openPalette(''); });
+  if (label) label.parentNode.insertBefore(button, label);
+  else sidebar.insertBefore(button, sidePanels);
 }
 
 function buildSidebarFooter(accountLinks) {
@@ -547,8 +631,8 @@ function setupOverlay() {
     if (isOpen) {
       sidebarOpener = doc.activeElement;
       sidebar.focus({ preventScroll: true });
-      var hereLink = HERE && HERE.entry.link;
-      if (hereLink && navEl.contains(hereLink)) hereLink.scrollIntoView({ block: 'center' });
+      var here = sidePanels && qs('.fx-panel[aria-hidden="false"] [aria-current="page"]', sidePanels);
+      if (here) here.scrollIntoView({ block: 'center' });
     } else if (sidebarOpener && sidebarOpener.focus && doc.contains(sidebarOpener)) {
       sidebarOpener.focus({ preventScroll: true });
     }
@@ -764,15 +848,6 @@ function watchScroll() {
 var palette = null;
 var paletteState = { items: [], active: 0, opener: null };
 var RECENT_MAX = 8;
-// Same tile colors as the sidebar (05-sidebar-icons.css).
-var TILE_COLOR = {
-  house: 'blue', people: 'blue', heart: 'pink', checklist: 'orange', warning: 'red', phone: 'green', envelope: 'blue',
-  message: 'green', bell: 'red', calendar: 'red', doc: 'indigo', clock: 'gray', chart: 'purple', dollar: 'mint',
-  gauge: 'orange', headset: 'teal', book: 'brown', help: 'blue', sparkles: 'purple', star: 'orange', grid: 'indigo',
-  mappin: 'red', map: 'green', briefcase: 'brown', box: 'brown', person: 'gray', sliders: 'gray', team: 'blue',
-  tag: 'orange', 'check-circle': 'green', bolt: 'yellow', banknote: 'green', building: 'graphite', wrench: 'gray',
-  creditcard: 'indigo', link: 'blue', lock: 'blue', archive: 'graphite', search: 'blue', plus: 'blue', keyboard: 'graphite', sidebar: 'gray'
-};
 
 function recordVisit() {
   var here = routeOf(location.href);
@@ -844,11 +919,11 @@ function buildResults(raw) {
     var recent = store.get('recent', []).filter(function (r) { return r && r.href && r.key !== (routeOf(location.href) || {}).params.toString(); }).slice(0, 5)
       .map(function (r) { return { kind: 'page', label: r.label, sub: r.path || 'Recently viewed', href: r.href, icon: r.icon || 'clock' }; });
     if (recent.length) groups.push({ title: 'Recent', items: recent });
-    var favs = qsa('.crm-favorites-group a[href]', navEl || doc).map(function (a) {
-      var n = NAV.filter(function (x) { return x.href === a.href; })[0];
-      return { kind: 'page', label: labelOf(a), sub: n ? n.path : 'Favorite', href: a.href, icon: 'star' };
-    });
-    if (favs.length) groups.push({ title: 'Favorites', items: favs.slice(0, 6) });
+    var favs = store.get('pins', []).map(function (key) {
+      var n = NAV.filter(function (x) { return x.route.params.toString() === key; })[0];
+      return n ? { kind: 'page', label: n.label, sub: n.path, href: n.href, icon: 'star' } : null;
+    }).filter(Boolean);
+    if (favs.length) groups.push({ title: 'Pinned', items: favs.slice(0, 6) });
     if (actions.length) groups.push({ title: 'Quick actions', items: actions.slice(0, 6) });
     var suggested = ['overview', 'leads', 'customers', 'tasks', 'calendar', 'conversations'].map(function (tab) {
       return pages.filter(function (p) { var r = routeOf(p.href); return r && r.tab === tab; })[0];
@@ -936,7 +1011,7 @@ function renderPalette(raw) {
       var title = el('span', { class: 'fx-palette-title' });
       title.appendChild(doc.createTextNode(item.label));
       var option = el('div', { class: 'fx-palette-item', role: 'option', id: 'fx-opt-' + index, 'data-index': String(index), 'aria-selected': 'false' }, [
-        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true', style: '--fx-pi: var(--fx-c-' + (TILE_COLOR[item.icon] || 'blue') + ')' }, [icon(item.icon || 'circle')]),
+        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true' }, [icon(item.icon || 'circle')]),
         el('span', { class: 'fx-palette-text' }, [title, item.sub ? el('span', { class: 'fx-palette-sub', text: item.sub }) : null]),
         item.current ? el('span', { class: 'fx-palette-hint', text: 'Current page' }) : null
       ]);

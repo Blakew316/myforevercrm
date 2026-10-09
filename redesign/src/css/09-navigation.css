@@ -11,6 +11,7 @@ body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tab
   .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="])) {
   position: relative;
   display: inline-flex !important;
+  flex-direction: row !important;
   flex-wrap: nowrap !important;
   align-items: center;
   gap: 2px !important;
@@ -83,40 +84,62 @@ body .app nav.call-center-tabs > a.call-center-upload-tab {
 /* Tab bars that appear as their own block get a little air below the header */
 body .app main > nav:is(.call-center-tabs, .setup-center-tabs) { display: flex !important; width: fit-content; margin-bottom: 20px; }
 
-/* ---- Section navigator for long admin pages (workspace-sections.js) ---- */
-body .crm-section-nav {
+/* ---- Section navigator for long admin pages (workspace-sections.js) ----
+   A heading and one scrollable segmented row: pick a section to show it. */
+body .app .crm-section-nav {
   display: flex !important;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  padding: 14px 16px !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  min-height: 0 !important;
+  margin: 0 0 20px !important;
+  padding: 16px 20px !important;
+  border: 0 !important;
+  background: var(--fx-surface) !important;
+  box-shadow: var(--fx-shadow-card) !important;
 }
-body .crm-section-nav-heading { display: grid; gap: 2px; flex: 1 1 220px; }
-body .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
-body .crm-section-nav-heading small { color: var(--fx-secondary); }
-body .crm-section-nav-controls {
-  display: inline-flex !important;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 3px;
+body .app .crm-section-nav-heading { display: grid !important; gap: 2px !important; text-align: left !important; color: var(--fx-ink) !important; }
+body .app .crm-section-nav-heading strong { font-size: var(--fx-text-callout); font-weight: 600; }
+body .app .crm-section-nav-heading small { color: var(--fx-secondary) !important; font-size: var(--fx-text-footnote); }
+body .app .crm-section-nav-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-self: flex-start;
+  max-width: 100%;
+  gap: 2px !important;
+  padding: 3px !important;
+  overflow-x: auto;
+  scrollbar-width: none;
   border-radius: var(--fx-radius-md);
-  background: var(--fx-fill);
+  background: var(--fx-fill) !important;
 }
-body .crm-section-nav-controls > button {
+body .app .crm-section-nav-controls::-webkit-scrollbar { display: none; }
+body .app .crm-section-nav-controls button {
+  flex: none !important;
+  width: auto !important;
   min-height: 30px !important;
+  margin: 0 !important;
   padding: 5px 12px !important;
+  border: 0 !important;
   border-radius: 7px !important;
   background: transparent !important;
   color: var(--fx-ink-2) !important;
+  box-shadow: none !important;
   font-size: var(--fx-text-subhead) !important;
   font-weight: 500 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  transform: none !important;
 }
-body .crm-section-nav-controls > button[aria-pressed="true"] {
+body .app .crm-section-nav-controls button:hover { color: var(--fx-ink) !important; background: rgba(255, 255, 255, 0.6) !important; }
+body .app .crm-section-nav-controls button[aria-pressed="true"] {
   background: var(--fx-surface-raised) !important;
   color: var(--fx-ink) !important;
   font-weight: 600 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.04) !important;
 }
+body .app .crm-section-nav-controls .crm-section-show-all { margin-left: 6px !important; color: var(--fx-accent-text) !important; }
 
 /* ---- Phone tab bar ----------------------------------------------------- */
 @media (min-width: 781px) {
@@ -165,7 +188,7 @@ body .crm-section-nav-controls > button[aria-pressed="true"] {
     border: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
-    color: var(--fx-tint-strong) !important;
+    color: var(--fx-accent) !important;
   }
   body nav.crm-mobile-nav a > span:last-child {
     font-size: 10.5px !important;
@@ -208,5 +231,5 @@ body .crm-section-nav-controls > button[aria-pressed="true"] {
   body nav.crm-mobile-nav a[href$="tab=conversations"] { --fx-icon: var(--fx-i-envelope); }
   body nav.crm-mobile-nav a[href$="tab=notifications"] { --fx-icon: var(--fx-i-bell); }
   body nav.crm-mobile-nav a[data-crm-mobile-menu] { --fx-icon: var(--fx-i-sidebar); }
-  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-tint-strong) !important; }
+  body.crm-sidebar-open nav.crm-mobile-nav a[data-crm-mobile-menu] { color: var(--fx-accent) !important; }
 }

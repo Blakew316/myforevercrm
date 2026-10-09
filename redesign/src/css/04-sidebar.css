@@ -17,10 +17,8 @@ body aside#forever-crm-sidebar {
   padding: 0 !important;
   overflow: hidden !important;
   color: var(--fx-ink) !important;
-  background: rgba(246, 246, 249, 0.66) !important;
-  -webkit-backdrop-filter: saturate(200%) blur(30px);
-  backdrop-filter: saturate(200%) blur(30px);
-  border-right: 1px solid rgba(0, 0, 0, 0.07) !important;
+  background: #f2f2f5 !important;
+  border-right: 1px solid var(--fx-separator) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-subhead);
 }
@@ -154,7 +152,7 @@ body #forever-crm-sidebar .fx-side-single {
   display: flex !important;
   align-items: center;
   gap: 10px;
-  min-height: 34px;
+  min-height: 32px;
   padding: 5px 10px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
@@ -177,13 +175,11 @@ body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
 body #forever-crm-sidebar .crm-nav-group-links > a::before {
   content: "";
   flex: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background:
-    var(--fx-ic, var(--fx-iw-circle)) center / 15px 15px no-repeat,
-    linear-gradient(180deg, color-mix(in srgb, var(--fx-ic-bg, var(--fx-c-gray)) 78%, #fff), var(--fx-ic-bg, var(--fx-c-gray)));
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint-strong);
+  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
 }
 /* Disclosure chevron */
 body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
@@ -213,7 +209,7 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
   align-items: center;
   min-height: 30px;
   margin: 0 !important;
-  padding: 5px 30px 5px 44px !important;
+  padding: 5px 30px 5px 38px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   color: var(--fx-ink-2) !important;
@@ -227,16 +223,15 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
 }
 body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
 
-/* Where you are: filled with the accent, like a focused macOS sidebar */
-body #forever-crm-sidebar a[aria-current="page"],
-body #forever-crm-sidebar a[aria-current="page"]:hover {
-  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.35) !important;
-  color: #fff !important;
+/* Where you are */
+body #forever-crm-sidebar a[aria-current="page"] {
+  box-shadow: none !important;
+  outline-color: var(--fx-focus);
+  color: var(--fx-ink) !important;
   font-weight: 600 !important;
-  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
+  background: var(--fx-tint-soft) !important;
   border: 0 !important;
 }
-body #forever-crm-sidebar a[aria-current="page"] .crm-nav-pin::before { background: rgba(255, 255, 255, 0.85); }
 body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
 
 /* Pin to favourites: present on hover / keyboard focus only */
@@ -317,11 +312,11 @@ body #forever-crm-sidebar .crm-favorites-group > a {
 body #forever-crm-sidebar .crm-favorites-group > a::before {
   content: "";
   flex: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: var(--fx-iw-star-fill) center / 14px no-repeat, linear-gradient(180deg, #ffd60a, var(--fx-c-orange));
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
+  width: 18px;
+  height: 18px;
+  background: var(--fx-tint);
+  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  mask: var(--fx-i-star-fill) center / 15px no-repeat;
 }
 body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
 
@@ -392,3 +387,200 @@ body #forever-crm-sidebar .aside-bottom > a {
 html.fx-ready body #forever-crm-sidebar .aside-bottom::before { display: none; }
 html.fx-ready body #forever-crm-sidebar .aside-bottom > :is(strong, small, a) { display: none !important; }
 html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !important; padding-top: 8px !important; }
+
+/* ==== Design 4.0 navigation (built by design-400.js) ===================
+   Replaces the server's nested menu once the script runs. One label
+   column for every row: icon rows and plain rows line up at 38px. */
+html.fx-ready body #forever-crm-sidebar nav.crm-nav-groups { display: none !important; }
+
+body #forever-crm-sidebar .fx-side-search {
+  flex: none;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  height: 34px !important;
+  min-height: 0 !important;
+  margin: 6px 12px 8px !important;
+  padding: 0 8px 0 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: rgba(0, 0, 0, 0.055) !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 400 !important;
+  text-align: left;
+  cursor: pointer;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-side-search:hover { background: rgba(0, 0, 0, 0.08) !important; }
+body #forever-crm-sidebar .fx-side-search svg { width: 15px; height: 15px; color: var(--fx-secondary); }
+body #forever-crm-sidebar .fx-side-search span { flex: 1; }
+
+.fx-panels {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.fx-panel {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 10px 20px;
+  transition: transform 280ms var(--fx-ease-out), opacity 200ms var(--fx-ease);
+}
+.fx-panels[data-panel="main"] #fx-panel-settings,
+.fx-panels[data-panel="settings"] #fx-panel-main { pointer-events: none; opacity: 0; }
+.fx-panels[data-panel="main"] #fx-panel-settings { transform: translateX(100%); }
+.fx-panels[data-panel="settings"] #fx-panel-main { transform: translateX(-24%); }
+
+.fx-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.fx-list + .fx-list,
+.fx-everyday { margin-bottom: 10px; }
+.fx-section { margin: 2px 0; }
+
+body #forever-crm-sidebar .fx-item {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px !important;
+  margin: 0 !important;
+  padding: 6px 30px 6px 38px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-ink) !important;
+  box-shadow: none !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.006em;
+  text-align: left;
+  text-decoration: none !important;
+  transform: none !important;
+  cursor: pointer;
+}
+body #forever-crm-sidebar .fx-item:has(> .fx-item-icon) { padding-left: 10px !important; }
+body #forever-crm-sidebar .fx-item:hover { background: rgba(0, 0, 0, 0.05) !important; }
+body #forever-crm-sidebar .fx-item[aria-current="page"] {
+  background: rgba(0, 0, 0, 0.08) !important;
+  font-weight: 600 !important;
+}
+.fx-item-icon { flex: none; width: 18px; height: 18px; color: var(--fx-secondary); }
+body #forever-crm-sidebar .fx-item[aria-current="page"] .fx-item-icon { color: var(--fx-ink); }
+.fx-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fx-item-end { flex: none; width: 12px; height: 12px; margin-right: -20px; color: var(--fx-tertiary); }
+
+/* Pin: appears on hover or keyboard focus */
+body #forever-crm-sidebar .fx-pin {
+  position: absolute !important;
+  top: 50%;
+  right: 4px;
+  display: grid !important;
+  place-items: center;
+  width: 24px !important;
+  height: 24px !important;
+  min-height: 0 !important;
+  margin: -12px 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: var(--fx-tertiary) !important;
+  box-shadow: none !important;
+  opacity: 0;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-pin svg { width: 14px; height: 14px; }
+body #forever-crm-sidebar .fx-pin[aria-pressed="true"] { color: var(--fx-ink-2) !important; }
+body #forever-crm-sidebar .fx-pin[aria-pressed="true"] svg path { fill: currentColor; }
+body #forever-crm-sidebar .fx-item:hover > .fx-pin,
+body #forever-crm-sidebar .fx-item:focus-visible > .fx-pin,
+body #forever-crm-sidebar .fx-pin:focus-visible { opacity: 1; }
+body #forever-crm-sidebar .fx-pin:hover { background: rgba(0, 0, 0, 0.06) !important; }
+@media (hover: none) { body #forever-crm-sidebar .fx-pin { display: none !important; } }
+
+/* Section headings */
+body #forever-crm-sidebar .fx-heading {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 28px !important;
+  margin: 10px 0 1px !important;
+  padding: 4px 10px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-xs) !important;
+  background: transparent !important;
+  color: var(--fx-secondary) !important;
+  box-shadow: none !important;
+  font-family: var(--fx-font) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  text-align: left;
+  text-transform: none !important;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-toggle { cursor: pointer; }
+body #forever-crm-sidebar .fx-toggle:hover { background: rgba(0, 0, 0, 0.04) !important; color: var(--fx-ink) !important; }
+.fx-toggle-chev { flex: none; width: 11px; height: 11px; transition: transform 200ms var(--fx-ease); }
+.fx-toggle[aria-expanded="true"] .fx-toggle-chev { transform: rotate(90deg); }
+.fx-section .fx-heading { margin-top: 2px !important; }
+.fx-everyday + .fx-section .fx-heading { margin-top: 6px !important; }
+
+/* Settings entry and panel */
+.fx-settings-link { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--fx-separator); }
+body #forever-crm-sidebar .fx-panel-back {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 2px;
+  min-height: 30px !important;
+  margin: 2px 0 0 !important;
+  padding: 0 8px 0 2px !important;
+  border: 0 !important;
+  border-radius: var(--fx-radius-sm) !important;
+  background: transparent !important;
+  color: var(--fx-accent-text) !important;
+  box-shadow: none !important;
+  font-size: var(--fx-text-subhead) !important;
+  font-weight: 500 !important;
+  transform: none !important;
+}
+body #forever-crm-sidebar .fx-panel-back:hover { background: rgba(0, 0, 0, 0.05) !important; }
+body #forever-crm-sidebar .fx-panel-back svg { width: 16px; height: 16px; }
+.fx-panel-title {
+  margin: 6px 10px 4px !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+@media (prefers-reduced-motion: reduce) { .fx-panel { transition: none; } }
+
+/* Settings panel: back + title stay in view while the list scrolls */
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-back,
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-title {
+  position: sticky;
+  z-index: 2;
+  background: #f2f2f5 !important;
+}
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-back { top: 0; margin: 0 -10px !important; padding: 2px 8px 2px 12px !important; width: calc(100% + 20px); border-radius: 0 !important; min-height: 32px !important; }
+body #forever-crm-sidebar #fx-panel-settings > .fx-panel-title { top: 32px; margin: 0 -10px !important; padding: 2px 20px 8px !important; }
+
+/* Overlay sidebar (tablet / phone) is opaque so the page behind never muddies it */
+@media (max-width: 1023px) {
+  body aside#forever-crm-sidebar {
+    background: #f2f2f5 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+@media (hover: none) {
+  body #forever-crm-sidebar .fx-side-search kbd { display: none; }
+}

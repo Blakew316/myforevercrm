@@ -10,23 +10,20 @@ body .card {
   padding: 24px;
   border: 0;
   border-radius: var(--fx-radius-xl);
-  background: var(--fx-glass);
-  -webkit-backdrop-filter: var(--fx-glass-blur);
-  backdrop-filter: var(--fx-glass-blur);
-  box-shadow: var(--fx-shadow-card), inset 0 1px 0 var(--fx-glass-edge);
+  background: var(--fx-surface);
+  box-shadow: var(--fx-shadow-card);
   color: var(--fx-ink);
 }
 body main .card { border: 0 !important; }
 
 /* Nested surfaces */
 body .card .card,
+body .card .metric,
 body .card [class$="-card"]:not(.card),
 body .card .ux340-view-card {
   border: 0 !important;
   border-radius: var(--fx-radius-lg) !important;
-  background: rgba(118, 118, 128, 0.07) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  background: var(--fx-fill-quiet) !important;
   box-shadow: none !important;
 }
 body .card .card { padding: 18px; margin-bottom: 12px; }
@@ -94,9 +91,9 @@ body .notice {
   padding: 14px 16px 14px 46px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-lg);
-  background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), rgba(94, 92, 230, 0.07));
+  background: var(--fx-surface);
   color: var(--fx-ink);
-  box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.18);
+  box-shadow: var(--fx-shadow-card);
   font-size: var(--fx-text-callout);
   line-height: 1.45;
 }
@@ -202,7 +199,7 @@ body td {
 }
 body tbody tr:last-child td { border-bottom: 0 !important; }
 body tbody tr { transition: background-color var(--fx-fast) var(--fx-ease); }
-body tbody tr:hover > td { background: rgba(0, 113, 227, 0.045); }
+body tbody tr:hover > td { background: color-mix(in srgb, var(--fx-ink) 2.5%, transparent); }
 body td strong { font-weight: 600; }
 body td small { display: block; margin-top: 2px; color: var(--fx-secondary); font-size: var(--fx-text-footnote); }
 body td a:not(.button) { font-weight: 500; }

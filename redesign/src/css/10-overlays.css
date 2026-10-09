@@ -4,39 +4,6 @@
    shadows, and they arrive with a short, quiet motion.
    -------------------------------------------------------------------------- */
 
-/* ---- Sidebar: find a page -------------------------------------------- */
-.fx-side-search {
-  flex: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 34px;
-  margin: 6px 12px 4px;
-}
-.fx-side-search svg {
-  position: absolute;
-  left: 9px;
-  width: 15px;
-  height: 15px;
-  color: var(--fx-secondary);
-  pointer-events: none;
-}
-body .fx-side-search input[type="search"] {
-  width: 100%;
-  height: 34px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 10px 0 30px !important;
-  border: 0 !important;
-  border-radius: var(--fx-radius-sm) !important;
-  background: var(--fx-fill) !important;
-  color: var(--fx-ink) !important;
-  font-size: var(--fx-text-subhead) !important;
-  box-shadow: none !important;
-}
-body .fx-side-search input[type="search"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 30%, transparent) !important; }
-body .fx-side-search input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
-
 /* ---- Sidebar footer: help + account ----------------------------------- */
 .fx-help-row {
   display: flex;
@@ -150,7 +117,7 @@ body .fx-menu a:hover,
 body .fx-menu button:hover,
 body .fx-menu a:focus-visible,
 body .fx-menu button:focus-visible {
-  background: var(--fx-tint-strong) !important;
+  background: var(--fx-accent) !important;
   color: #fff !important;
   outline: none !important;
 }
@@ -243,7 +210,7 @@ body .fx-palette-field input::placeholder { color: var(--fx-tertiary); }
   cursor: pointer;
   user-select: none;
 }
-.fx-palette-item[aria-selected="true"] { background: var(--fx-tint-strong); color: #fff; }
+.fx-palette-item[aria-selected="true"] { background: var(--fx-accent); color: #fff; }
 .fx-palette-item[aria-selected="true"] .fx-palette-sub,
 .fx-palette-item[aria-selected="true"] .fx-palette-hint { color: rgba(255, 255, 255, 0.78); }
 .fx-palette-item[aria-selected="true"] .fx-palette-icon { background: rgba(255, 255, 255, 0.18); color: #fff; }
@@ -254,8 +221,8 @@ body .fx-palette-field input::placeholder { color: var(--fx-tertiary); }
   width: 30px;
   height: 30px;
   border-radius: var(--fx-radius-sm);
-  background: var(--fx-tint-wash);
-  color: var(--fx-tint-strong);
+  background: var(--fx-fill-quiet);
+  color: var(--fx-ink-2);
 }
 .fx-palette-icon svg { width: 17px; height: 17px; }
 .fx-palette-text { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
