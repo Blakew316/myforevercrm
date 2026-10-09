@@ -1,0 +1,10 @@
+# Captured screens contain real workspace data (names, phones, pay figures).
+# Never commit them: keep captures and generated previews local only.
+capture/
+preview/
+screens/
+raw/
+*.zip
+shots/
+node_modules/
+.DS_Store
