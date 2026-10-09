@@ -17,10 +17,10 @@ body aside#forever-crm-sidebar {
   padding: 0 !important;
   overflow: hidden !important;
   color: var(--fx-ink) !important;
-  background: var(--fx-material) !important;
-  -webkit-backdrop-filter: var(--fx-blur);
-  backdrop-filter: var(--fx-blur);
-  border-right: 1px solid var(--fx-separator) !important;
+  background: rgba(246, 246, 249, 0.66) !important;
+  -webkit-backdrop-filter: saturate(200%) blur(30px);
+  backdrop-filter: saturate(200%) blur(30px);
+  border-right: 1px solid rgba(0, 0, 0, 0.07) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-subhead);
 }
@@ -154,7 +154,7 @@ body #forever-crm-sidebar .fx-side-single {
   display: flex !important;
   align-items: center;
   gap: 10px;
-  min-height: 32px;
+  min-height: 34px;
   padding: 5px 10px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
@@ -177,11 +177,13 @@ body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
 body #forever-crm-sidebar .crm-nav-group-links > a::before {
   content: "";
   flex: none;
-  width: 18px;
-  height: 18px;
-  background: var(--fx-tint-strong);
-  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
-  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background:
+    var(--fx-ic, var(--fx-iw-circle)) center / 15px 15px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--fx-ic-bg, var(--fx-c-gray)) 78%, #fff), var(--fx-ic-bg, var(--fx-c-gray)));
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
 }
 /* Disclosure chevron */
 body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
@@ -211,7 +213,7 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
   align-items: center;
   min-height: 30px;
   margin: 0 !important;
-  padding: 5px 30px 5px 38px !important;
+  padding: 5px 30px 5px 44px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   color: var(--fx-ink-2) !important;
@@ -225,15 +227,16 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
 }
 body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
 
-/* Where you are */
-body #forever-crm-sidebar a[aria-current="page"] {
-  box-shadow: none !important;
-  outline-color: var(--fx-focus);
-  color: var(--fx-ink) !important;
+/* Where you are: filled with the accent, like a focused macOS sidebar */
+body #forever-crm-sidebar a[aria-current="page"],
+body #forever-crm-sidebar a[aria-current="page"]:hover {
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.35) !important;
+  color: #fff !important;
   font-weight: 600 !important;
-  background: var(--fx-tint-soft) !important;
+  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
   border: 0 !important;
 }
+body #forever-crm-sidebar a[aria-current="page"] .crm-nav-pin::before { background: rgba(255, 255, 255, 0.85); }
 body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
 
 /* Pin to favourites: present on hover / keyboard focus only */
@@ -314,11 +317,11 @@ body #forever-crm-sidebar .crm-favorites-group > a {
 body #forever-crm-sidebar .crm-favorites-group > a::before {
   content: "";
   flex: none;
-  width: 18px;
-  height: 18px;
-  background: var(--fx-tint);
-  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
-  mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--fx-iw-star-fill) center / 14px no-repeat, linear-gradient(180deg, #ffd60a, var(--fx-c-orange));
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
 }
 body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
 

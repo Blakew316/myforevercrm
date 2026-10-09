@@ -12,10 +12,13 @@ function setupSidebar() {
     var links = qsa(':scope > .crm-nav-subgroup-links > a[href]', sub);
     if (links.length !== 1) return;
     var summary = qs(':scope > summary', sub);
-    var iconValue = summary ? getComputedStyle(summary).getPropertyValue('--fx-icon').trim() : '';
+    var styles = summary ? getComputedStyle(summary) : null;
     var link = links[0];
     link.classList.add('fx-side-single');
-    if (iconValue) link.style.setProperty('--fx-icon', iconValue);
+    ['--fx-ic', '--fx-ic-bg'].forEach(function (name) {
+      var value = styles ? styles.getPropertyValue(name).trim() : '';
+      if (value) link.style.setProperty(name, value);
+    });
     if (!link.title && summary) link.title = labelOf(summary);
     sub.parentNode.replaceChild(link, sub);
   });

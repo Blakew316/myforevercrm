@@ -1906,10 +1906,32 @@ html.crm-modal-open,body.crm-modal-open{overflow:hidden}
   --fx-hover: rgba(0, 0, 0, 0.04);
   --fx-selected-quiet: rgba(0, 0, 0, 0.06);
 
+  /* Accent: Apple blue drives every interactive element */
+  --fx-accent: #0071e3;
+  --fx-accent-hover: #0077ed;
+  --fx-accent-press: #006edb;
+  --fx-accent-text: #0066cc;
+  --fx-accent-soft: rgba(0, 113, 227, 0.1);
+  --fx-accent-soft-hover: rgba(0, 113, 227, 0.16);
+  --fx-accent-ring: rgba(0, 113, 227, 0.32);
+
   /* Actions */
-  --fx-primary: var(--fx-ink);
-  --fx-primary-hover: #000;
+  --fx-primary: var(--fx-accent);
+  --fx-primary-hover: var(--fx-accent-hover);
   --fx-on-primary: #fff;
+
+  /* Glass (Liquid-Glass-style surfaces over the ambient canvas) */
+  --fx-glass: rgba(255, 255, 255, 0.72);
+  --fx-glass-strong: rgba(255, 255, 255, 0.84);
+  --fx-glass-edge: rgba(255, 255, 255, 0.7);
+  --fx-glass-blur: saturate(180%) blur(24px);
+
+  /* Icon tile colors (macOS System Settings palette) */
+  --fx-c-blue: #0a84ff;   --fx-c-indigo: #5e5ce6; --fx-c-purple: #bf5af2;
+  --fx-c-pink: #ff375f;   --fx-c-red: #ff453a;    --fx-c-orange: #ff9f0a;
+  --fx-c-yellow: #ffcc00; --fx-c-green: #30d158;  --fx-c-mint: #00c7be;
+  --fx-c-teal: #40c8e0;   --fx-c-cyan: #64d2ff;   --fx-c-brown: #ac8e68;
+  --fx-c-gray: #8e8e93;   --fx-c-graphite: #636366;
 
   /* System status colors (text-safe variants on white) */
   --fx-green: #248a3d;   --fx-green-bg: #e8f6ec;
@@ -1928,7 +1950,8 @@ html.crm-modal-open,body.crm-modal-open{overflow:hidden}
 
   /* Depth: hairlines first, shadows only for things that float */
   --fx-edge: 0 0 0 1px rgba(0, 0, 0, 0.045);
-  --fx-shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.045), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --fx-shadow-card: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 28px rgba(15, 23, 42, 0.06);
+  --fx-shadow-lift: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(15, 23, 42, 0.06), 0 16px 40px rgba(15, 23, 42, 0.1);
   --fx-shadow-pop: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
   --fx-shadow-modal: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 30px 80px rgba(0, 0, 0, 0.22);
 
@@ -2035,6 +2058,60 @@ html.crm-modal-open,body.crm-modal-open{overflow:hidden}
   --fx-i-check-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='m8.25 12.25 2.5 2.5 5-5.25'/%3E%3C/svg%3E");
   --fx-i-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 6.5l11 11M17.5 6.5l-11 11'/%3E%3C/svg%3E");
   --fx-i-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.5 16.5 16.5 7.5M9 7.5h7.5V15'/%3E%3C/svg%3E");
+  --fx-iw-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3.2' fill='%23fff' stroke='none'/%3E%3C/svg%3E");
+  --fx-iw-house: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.4 12 4l8 6.4V19a1 1 0 0 1-1 1h-4.6v-5.6H9.6V20H5a1 1 0 0 1-1-1z'/%3E%3C/svg%3E");
+  --fx-iw-people: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3.25 19c.65-3.05 2.85-4.8 5.75-4.8s5.1 1.75 5.75 4.8'/%3E%3Cpath d='M15.4 5.55a3.15 3.15 0 0 1 0 5.9'/%3E%3Cpath d='M17 14.35c2 .55 3.25 2.05 3.75 4.65'/%3E%3C/svg%3E");
+  --fx-iw-team: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8.2' r='3'/%3E%3Cpath d='M6.6 19.4c.55-3 2.75-4.7 5.4-4.7s4.85 1.7 5.4 4.7'/%3E%3Ccircle cx='5.4' cy='10.2' r='2.1'/%3E%3Ccircle cx='18.6' cy='10.2' r='2.1'/%3E%3Cpath d='M2.4 17.4c.3-1.65 1.35-2.7 2.95-3M21.6 17.4c-.3-1.65-1.35-2.7-2.95-3'/%3E%3C/svg%3E");
+  --fx-iw-person: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Cpath d='M6.3 18.4c1.15-2.05 3.15-3.15 5.7-3.15s4.55 1.1 5.7 3.15'/%3E%3C/svg%3E");
+  --fx-iw-phone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.7 3.75h2.55l1.45 4.05-2.05 1.5a11.2 11.2 0 0 0 6.05 6.05l1.5-2.05 4.05 1.45v2.55a2.05 2.05 0 0 1-2.15 2.05C10.6 18.95 5.05 13.4 4.6 5.9a2.05 2.05 0 0 1 2.1-2.15z'/%3E%3C/svg%3E");
+  --fx-iw-phone-device: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='7' y='2.75' width='10' height='18.5' rx='2.5'/%3E%3Cpath d='M10.5 5.75h3M11 18h2'/%3E%3C/svg%3E");
+  --fx-iw-headset: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 14.5V12a7.5 7.5 0 0 1 15 0v2.5'/%3E%3Crect x='3.5' y='13.25' width='4' height='6' rx='1.6'/%3E%3Crect x='16.5' y='13.25' width='4' height='6' rx='1.6'/%3E%3Cpath d='M18.5 19.25c0 1.3-1.55 2-4 2H13'/%3E%3C/svg%3E");
+  --fx-iw-calendar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.75' y='5' width='16.5' height='15.25' rx='3'/%3E%3Cpath d='M3.75 9.75h16.5M8 3v4M16 3v4'/%3E%3C/svg%3E");
+  --fx-iw-doc: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3.5h6.4l5.1 5.1v10.9a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5v-14.5A1.5 1.5 0 0 1 7 3.5z'/%3E%3Cpath d='M13.4 3.5v5.1h5.1M9 13h6M9 16.5h6'/%3E%3C/svg%3E");
+  --fx-iw-chart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Crect x='5.5' y='11' width='3' height='6.5' rx='1'/%3E%3Crect x='10.5' y='6.5' width='3' height='11' rx='1'/%3E%3Crect x='15.5' y='9' width='3' height='8.5' rx='1'/%3E%3C/svg%3E");
+  --fx-iw-dollar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M14.6 9.25c-.4-1-1.35-1.6-2.6-1.6-1.6 0-2.7.8-2.7 2s1 1.7 2.7 2.1 2.8.9 2.8 2.2-1.2 2.1-2.8 2.1c-1.3 0-2.3-.6-2.7-1.7M12 6v1.65M12 16.05v1.8'/%3E%3C/svg%3E");
+  --fx-iw-gauge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.1 17.2a8.75 8.75 0 1 1 15.8 0'/%3E%3Cpath d='M12 13.4l3.7-3.9'/%3E%3Ccircle cx='12' cy='13.6' r='1.3'/%3E%3C/svg%3E");
+  --fx-iw-book: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.6C10.2 5.2 7.7 4.5 4.5 4.5v13c3.2 0 5.7.7 7.5 2.1 1.8-1.4 4.3-2.1 7.5-2.1v-13c-3.2 0-5.7.7-7.5 2.1z'/%3E%3Cpath d='M12 6.6v13'/%3E%3C/svg%3E");
+  --fx-iw-mappin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-6.5-5.65-6.5-11.1a6.5 6.5 0 0 1 13 0C18.5 15.35 12 21 12 21z'/%3E%3Ccircle cx='12' cy='9.9' r='2.4'/%3E%3C/svg%3E");
+  --fx-iw-map: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4.5 3.5 6.5v13L9 17.5l6 2 5.5-2v-13L15 6.5z'/%3E%3Cpath d='M9 4.5v13M15 6.5v13'/%3E%3C/svg%3E");
+  --fx-iw-briefcase: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='7' width='17' height='12.5' rx='2.5'/%3E%3Cpath d='M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3.5 12.5h17'/%3E%3C/svg%3E");
+  --fx-iw-heart: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 19.6s-7.75-4.45-7.75-10.1A4.2 4.2 0 0 1 12 7.15a4.2 4.2 0 0 1 7.75 2.35c0 5.65-7.75 10.1-7.75 10.1z'/%3E%3C/svg%3E");
+  --fx-iw-building: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 20.5V5.5A1.5 1.5 0 0 1 6 4h7a1.5 1.5 0 0 1 1.5 1.5v15M14.5 10H18a1.5 1.5 0 0 1 1.5 1.5v9M3 20.5h18'/%3E%3Cpath d='M8 8h3M8 11.5h3M8 15h3'/%3E%3C/svg%3E");
+  --fx-iw-box: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.75 7.6 12 3.5l8.25 4.1v8.8L12 20.5l-8.25-4.1z'/%3E%3Cpath d='M3.75 7.6 12 11.7l8.25-4.1M12 11.7v8.8'/%3E%3C/svg%3E");
+  --fx-iw-tag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.2V4.8a1.3 1.3 0 0 1 1.3-1.3h7.4l8.3 8.3a1.3 1.3 0 0 1 0 1.85l-7.2 7.2a1.3 1.3 0 0 1-1.85 0z'/%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3C/svg%3E");
+  --fx-iw-banknote: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='6' width='18.5' height='12' rx='2'/%3E%3Ccircle cx='12' cy='12' r='2.6'/%3E%3Cpath d='M6 9.5v5M18 9.5v5'/%3E%3C/svg%3E");
+  --fx-iw-bolt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2.75 5.25 13.25h6.25l-1 8L18.25 10.75H12z'/%3E%3C/svg%3E");
+  --fx-iw-wrench: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.7 3.9a4.6 4.6 0 0 0-5.35 6l-5.6 5.6a1.95 1.95 0 0 0 2.75 2.75l5.6-5.6a4.6 4.6 0 0 0 6-5.35l-2.85 2.85-2.6-.4-.4-2.6z'/%3E%3C/svg%3E");
+  --fx-iw-creditcard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='5' width='18.5' height='14' rx='2.5'/%3E%3Cpath d='M2.75 9.5h18.5M6.5 15h3.5'/%3E%3C/svg%3E");
+  --fx-iw-sliders: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h9M17 7h3M4 17h3M11 17h9'/%3E%3Ccircle cx='15' cy='7' r='2'/%3E%3Ccircle cx='9' cy='17' r='2'/%3E%3C/svg%3E");
+  --fx-iw-link: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 14a4 4 0 0 0 5.65 0l3-3A4 4 0 0 0 13 5.35l-1.2 1.2'/%3E%3Cpath d='M14 10a4 4 0 0 0-5.65 0l-3 3A4 4 0 0 0 11 18.65l1.2-1.2'/%3E%3C/svg%3E");
+  --fx-iw-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V8a4 4 0 0 1 8 0v2.5'/%3E%3C/svg%3E");
+  --fx-iw-archive: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='4.5' width='17' height='4.5' rx='1.5'/%3E%3Cpath d='M5 9v9a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18V9M10 13h4'/%3E%3C/svg%3E");
+  --fx-iw-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.75' cy='10.75' r='6.25'/%3E%3Cpath d='m15.5 15.5 4.75 4.75'/%3E%3C/svg%3E");
+  --fx-iw-envelope: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5.5' width='18' height='13' rx='2.5'/%3E%3Cpath d='m3.75 7.25 8.25 6 8.25-6'/%3E%3C/svg%3E");
+  --fx-iw-bell: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.5H5z'/%3E%3Cpath d='M10 20.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+  --fx-iw-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+  --fx-iw-sidebar: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='3'/%3E%3Cpath d='M9.5 4.5v15M5.5 8.25h1.5M5.5 11.25h1.5'/%3E%3C/svg%3E");
+  --fx-iw-chevron-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.5 5.5-6.5 6.5 6.5 6.5'/%3E%3C/svg%3E");
+  --fx-iw-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9.5 5.5 6.5 6.5-6.5 6.5'/%3E%3C/svg%3E");
+  --fx-iw-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5.5 9.25 6.5 6.5 6.5-6.5'/%3E%3C/svg%3E");
+  --fx-iw-chevron-updown: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9.5 4-4 4 4M8 14.5l4 4 4-4'/%3E%3C/svg%3E");
+  --fx-iw-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3.8 2.5 5.1 5.6.8-4 3.95.95 5.6L12 16.6l-5.05 2.65.95-5.6-4-3.95 5.6-.8z'/%3E%3C/svg%3E");
+  --fx-iw-star-fill: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 3.8 2.5 5.1 5.6.8-4 3.95.95 5.6L12 16.6l-5.05 2.65.95-5.6-4-3.95 5.6-.8z' fill='%23fff'/%3E%3C/svg%3E");
+  --fx-iw-clock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/svg%3E");
+  --fx-iw-checklist: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 7 1.5 1.5L8.5 5.5M4 13l1.5 1.5 3-3M11.5 7h8.5M11.5 13h8.5M11.5 18.5h8.5'/%3E%3C/svg%3E");
+  --fx-iw-logout: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4.5H7A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h7'/%3E%3Cpath d='M16 8.5 19.5 12 16 15.5M19.5 12H10'/%3E%3C/svg%3E");
+  --fx-iw-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M9.6 9.6a2.5 2.5 0 0 1 4.85.85c0 1.75-2.45 2.1-2.45 3.65'/%3E%3Cpath d='M12 17.1v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-iw-keyboard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2.75' y='6' width='18.5' height='12' rx='2.5'/%3E%3Cpath d='M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7.5 14h9'/%3E%3C/svg%3E");
+  --fx-iw-sparkles: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 3.5 11.6 8.4 16.5 10l-4.9 1.6L10 16.5l-1.6-4.9L3.5 10l4.9-1.6z'/%3E%3Cpath d='m17.5 14.5.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z'/%3E%3C/svg%3E");
+  --fx-iw-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='4' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='4' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3Crect x='13.5' y='13.5' width='6.5' height='6.5' rx='1.5'/%3E%3C/svg%3E");
+  --fx-iw-return: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 5.5v6a2.5 2.5 0 0 1-2.5 2.5H6'/%3E%3Cpath d='m9.5 10.5-3.5 3.5 3.5 3.5'/%3E%3C/svg%3E");
+  --fx-iw-message: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19V7a2.5 2.5 0 0 1 2.5-2.5h9A2.5 2.5 0 0 1 19 7v6.5a2.5 2.5 0 0 1-2.5 2.5H9z'/%3E%3C/svg%3E");
+  --fx-iw-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='M12 11v5.25'/%3E%3Cpath d='M12 7.9v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-iw-warning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 4.6a2 2 0 0 1 3.4 0l7.05 12.2a2 2 0 0 1-1.7 3H4.95a2 2 0 0 1-1.7-3z'/%3E%3Cpath d='M12 9.5v4'/%3E%3Cpath d='M12 16.6v.01' stroke-width='2.4'/%3E%3C/svg%3E");
+  --fx-iw-check-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.75'/%3E%3Cpath d='m8.25 12.25 2.5 2.5 5-5.25'/%3E%3C/svg%3E");
+  --fx-iw-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.5 6.5l11 11M17.5 6.5l-11 11'/%3E%3C/svg%3E");
+  --fx-iw-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.5 16.5 16.5 7.5M9 7.5h7.5V15'/%3E%3C/svg%3E");
   --fx-i-chevron-updown-gray: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9.5 4-4 4 4M8 14.5l4 4 4-4'/%3E%3C/svg%3E");
 }
 
@@ -2046,10 +2123,10 @@ html.crm-modal-open,body.crm-modal-open{overflow:hidden}
   --fx-tint-strong: color-mix(in srgb, var(--fx-tint) 58%, #000);
   --fx-tint-soft: color-mix(in srgb, var(--fx-tint) 18%, #fff);
   --fx-tint-wash: color-mix(in srgb, var(--fx-tint) 9%, #fff);
-  --fx-link: var(--fx-tint-strong);
-  --fx-focus: var(--fx-tint-strong);
-  --accent: var(--fx-tint-strong);
-  --crm-accent: var(--fx-tint-strong);
+  --fx-link: var(--fx-accent-text);
+  --fx-focus: var(--fx-accent);
+  --accent: var(--fx-accent);
+  --crm-accent: var(--fx-accent);
 }
 
 @media (max-width: 1100px) {
@@ -2104,8 +2181,8 @@ body.ux340-dark, body.ux340-dark .app {
   --fx-tint-strong: color-mix(in srgb, var(--fx-tint) 82%, #fff);
   --fx-tint-soft: color-mix(in srgb, var(--fx-tint) 26%, #1c1c1e);
   --fx-tint-wash: color-mix(in srgb, var(--fx-tint) 12%, #1c1c1e);
-  --fx-link: var(--fx-tint-strong);
-  --fx-focus: var(--fx-tint-strong);
+  --fx-link: #4da3ff;
+  --fx-focus: #4da3ff;
 }
 
 /* css/02-base.css */
@@ -2384,10 +2461,10 @@ body aside#forever-crm-sidebar {
   padding: 0 !important;
   overflow: hidden !important;
   color: var(--fx-ink) !important;
-  background: var(--fx-material) !important;
-  -webkit-backdrop-filter: var(--fx-blur);
-  backdrop-filter: var(--fx-blur);
-  border-right: 1px solid var(--fx-separator) !important;
+  background: rgba(246, 246, 249, 0.66) !important;
+  -webkit-backdrop-filter: saturate(200%) blur(30px);
+  backdrop-filter: saturate(200%) blur(30px);
+  border-right: 1px solid rgba(0, 0, 0, 0.07) !important;
   box-shadow: none !important;
   font-size: var(--fx-text-subhead);
 }
@@ -2521,7 +2598,7 @@ body #forever-crm-sidebar .fx-side-single {
   display: flex !important;
   align-items: center;
   gap: 10px;
-  min-height: 32px;
+  min-height: 34px;
   padding: 5px 10px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
@@ -2544,11 +2621,13 @@ body #forever-crm-sidebar .crm-nav-subgroup > summary::before,
 body #forever-crm-sidebar .crm-nav-group-links > a::before {
   content: "";
   flex: none;
-  width: 18px;
-  height: 18px;
-  background: var(--fx-tint-strong);
-  -webkit-mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
-  mask: var(--fx-icon, var(--fx-i-circle)) center / contain no-repeat;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background:
+    var(--fx-ic, var(--fx-iw-circle)) center / 15px 15px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--fx-ic-bg, var(--fx-c-gray)) 78%, #fff), var(--fx-ic-bg, var(--fx-c-gray)));
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
 }
 /* Disclosure chevron */
 body #forever-crm-sidebar .crm-nav-subgroup > summary::after {
@@ -2578,7 +2657,7 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
   align-items: center;
   min-height: 30px;
   margin: 0 !important;
-  padding: 5px 30px 5px 38px !important;
+  padding: 5px 30px 5px 44px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-sm) !important;
   color: var(--fx-ink-2) !important;
@@ -2592,15 +2671,16 @@ body #forever-crm-sidebar .crm-nav-subgroup-links > a {
 }
 body #forever-crm-sidebar .crm-nav-subgroup-links > a:hover { background: var(--fx-hover) !important; color: var(--fx-ink) !important; }
 
-/* Where you are */
-body #forever-crm-sidebar a[aria-current="page"] {
-  box-shadow: none !important;
-  outline-color: var(--fx-focus);
-  color: var(--fx-ink) !important;
+/* Where you are: filled with the accent, like a focused macOS sidebar */
+body #forever-crm-sidebar a[aria-current="page"],
+body #forever-crm-sidebar a[aria-current="page"]:hover {
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.35) !important;
+  color: #fff !important;
   font-weight: 600 !important;
-  background: var(--fx-tint-soft) !important;
+  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
   border: 0 !important;
 }
+body #forever-crm-sidebar a[aria-current="page"] .crm-nav-pin::before { background: rgba(255, 255, 255, 0.85); }
 body #forever-crm-sidebar .crm-nav-subgroup:has(a[aria-current="page"]) > summary { font-weight: 600 !important; }
 
 /* Pin to favourites: present on hover / keyboard focus only */
@@ -2681,11 +2761,11 @@ body #forever-crm-sidebar .crm-favorites-group > a {
 body #forever-crm-sidebar .crm-favorites-group > a::before {
   content: "";
   flex: none;
-  width: 18px;
-  height: 18px;
-  background: var(--fx-tint);
-  -webkit-mask: var(--fx-i-star-fill) center / 15px no-repeat;
-  mask: var(--fx-i-star-fill) center / 15px no-repeat;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--fx-iw-star-fill) center / 14px no-repeat, linear-gradient(180deg, #ffd60a, var(--fx-c-orange));
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 1.5px rgba(0, 0, 0, 0.1);
 }
 body #forever-crm-sidebar .crm-favorites-group > a:hover { background: var(--fx-hover) !important; }
 
@@ -2764,39 +2844,39 @@ html.fx-ready body #forever-crm-sidebar .aside-bottom { display: block !importan
    symbol. Unknown areas fall back to a neutral dot.
    -------------------------------------------------------------------------- */
 
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-icon: var(--fx-i-people); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-icon: var(--fx-i-phone); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-icon: var(--fx-i-calendar); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-icon: var(--fx-i-doc); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-icon: var(--fx-i-chart); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-icon: var(--fx-i-dollar); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-icon: var(--fx-i-gauge); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-icon: var(--fx-i-book); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-icon: var(--fx-i-mappin); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-icon: var(--fx-i-briefcase); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-icon: var(--fx-i-heart); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-icon: var(--fx-i-building); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-icon: var(--fx-i-team); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-icon: var(--fx-i-tag); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-icon: var(--fx-i-headset); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-icon: var(--fx-i-banknote); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-icon: var(--fx-i-bolt); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-icon: var(--fx-i-wrench); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-icon: var(--fx-i-creditcard); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-icon: var(--fx-i-sliders); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-icon: var(--fx-i-lock); }
-#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-icon: var(--fx-i-archive); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=overview"], a[href$="tab=leads"], a[href$="tab=customers"], a[href$="tab=attention"]) > summary { --fx-ic: var(--fx-iw-people); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=call-sheets"], a[href$="tab=conversations"], a[href$="tab=chat"]) > summary { --fx-ic: var(--fx-iw-phone); --fx-ic-bg: var(--fx-c-green); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=appointments"], a[href$="tab=calendar"], a[href$="tab=scheduler-pages"]) > summary { --fx-ic: var(--fx-iw-calendar); --fx-ic-bg: var(--fx-c-red); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=proposals"], a[href$="tab=invoices"], a[href$="tab=contracts"], a[href$="tab=recurring"]) > summary { --fx-ic: var(--fx-iw-doc); --fx-ic-bg: var(--fx-c-indigo); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=leaderboard"], a[href$="tab=reports"], a[href$="tab=forecast"], a[href$="tab=seo-analytics"]) > summary { --fx-ic: var(--fx-iw-chart); --fx-ic-bg: var(--fx-c-purple); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=time-tracking"], a[href$="tab=commissions"], a[href$="tab=bonuses"]) > summary { --fx-ic: var(--fx-iw-dollar); --fx-ic-bg: var(--fx-c-mint); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=manager-center"], a[href$="tab=manager-call-center"], a[href$="tab=integration-health"]) > summary { --fx-ic: var(--fx-iw-gauge); --fx-ic-bg: var(--fx-c-orange); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="tab=resources"], a[href$="tab=tickets"], a[href$="tab=help"], a[href$="tab=suite"]) > summary { --fx-ic: var(--fx-iw-book); --fx-ic-bg: var(--fx-c-brown); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=field-mode"], a[href$="tab=field"], a[href$="tab=canvass"], a[href$="tab=field-routes"]) > summary { --fx-ic: var(--fx-iw-mappin); --fx-ic-bg: var(--fx-c-red); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=my-jobs"], a[href$="tab=job-assignment"]) > summary { --fx-ic: var(--fx-iw-briefcase); --fx-ic-bg: var(--fx-c-brown); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=customer-portal"], a[href$="tab=operations"], a[href$="tab=customer-lifecycle"]) > summary { --fx-ic: var(--fx-iw-heart); --fx-ic-bg: var(--fx-c-pink); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=profitability"], a[href$="tab=vendor-portal"], a[href$="tab=partner-portal"]) > summary { --fx-ic: var(--fx-iw-building); --fx-ic-bg: var(--fx-c-graphite); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=workspace-console"], a[href$="tab=team-directory"], a[href$="tab=team-recruiting"], a[href$="tab=team"], a[href$="tab=groups"]) > summary { --fx-ic: var(--fx-iw-team); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href*="proposal_view=catalog"], a[href$="tab=discount-codes"], a[href$="tab=commission-plans"], a[href$="tab=pipelines"], a[href$="tab=sales-playbook"]) > summary { --fx-ic: var(--fx-iw-tag); --fx-ic-bg: var(--fx-c-orange); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=communications-settings"], a[href$="tab=call-center-setup"], a[href$="tab=call-scripts"], a[href$="tab=contact-center"]) > summary { --fx-ic: var(--fx-iw-headset); --fx-ic-bg: var(--fx-c-teal); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=payroll-admin"], a[href$="tab=accounting"], a[href$="tab=vendor-bills"], a[href$="tab=vendor-directory"]) > summary { --fx-ic: var(--fx-iw-banknote); --fx-ic-bg: var(--fx-c-green); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=gamification"], a[href$="tab=automations"], a[href$="tab=workflows"], a[href$="tab=dashboard-builder"]) > summary { --fx-ic: var(--fx-iw-bolt); --fx-ic-bg: var(--fx-c-yellow); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=projects-settings"], a[href*="field_view=configure"], a[href$="tab=industry-builder"]) > summary { --fx-ic: var(--fx-iw-wrench); --fx-ic-bg: var(--fx-c-gray); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=billing"]) > summary { --fx-ic: var(--fx-iw-creditcard); --fx-ic-bg: var(--fx-c-indigo); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=experience-settings"], a[href$="tab=business-modules"], a[href$="tab=guided-setup"], a[href$="tab=branding"]) > summary { --fx-ic: var(--fx-iw-sliders); --fx-ic-bg: var(--fx-c-gray); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=integrations"], a[href$="tab=seo-analytics-setup"], a[href$="tab=security"]) > summary { --fx-ic: var(--fx-iw-lock); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-subgroup:has(a[href$="tab=data"], a[href$="tab=trash"]) > summary { --fx-ic: var(--fx-iw-archive); --fx-ic-bg: var(--fx-c-graphite); }
 
 /* Pages that sit directly in a section, without a task area */
-#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-icon: var(--fx-i-box); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-icon: var(--fx-i-person); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-icon: var(--fx-i-link); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-icon: var(--fx-i-calendar); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-icon: var(--fx-i-envelope); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-icon: var(--fx-i-bell); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-icon: var(--fx-i-sliders); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-icon: var(--fx-i-phone-device); }
-#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-icon: var(--fx-i-lock); }
+#forever-crm-sidebar .crm-nav-group-links > a[href$="tab=customer-operations"] { --fx-ic: var(--fx-iw-box); --fx-ic-bg: var(--fx-c-brown); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view="] { --fx-ic: var(--fx-iw-person); --fx-ic-bg: var(--fx-c-gray); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=connections"] { --fx-ic: var(--fx-iw-link); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=calendar"] { --fx-ic: var(--fx-iw-calendar); --fx-ic-bg: var(--fx-c-red); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=email"] { --fx-ic: var(--fx-iw-envelope); --fx-ic-bg: var(--fx-c-blue); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=notifications"] { --fx-ic: var(--fx-iw-bell); --fx-ic-bg: var(--fx-c-red); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=preferences"] { --fx-ic: var(--fx-iw-sliders); --fx-ic-bg: var(--fx-c-gray); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=app"] { --fx-ic: var(--fx-iw-phone-device); --fx-ic-bg: var(--fx-c-graphite); }
+#forever-crm-sidebar .crm-nav-group-links > a[href*="account_view=security"] { --fx-ic: var(--fx-iw-lock); --fx-ic-bg: var(--fx-c-blue); }
 
 /* css/06-toolbar.css */
 /* --------------------------------------------------------------------------
@@ -3243,12 +3323,12 @@ body input[type="button"] {
   padding: 0 16px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-fill);
-  color: var(--fx-ink);
+  background: var(--fx-accent-soft);
+  color: var(--fx-accent-text);
   box-shadow: none;
   font-family: inherit;
   font-size: var(--fx-text-callout);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.006em;
   text-align: center;
@@ -3261,13 +3341,13 @@ body input[type="button"] {
 }
 body button:hover,
 body .button:hover {
-  background: var(--fx-fill-hover);
-  color: var(--fx-ink);
+  background: var(--fx-accent-soft-hover);
+  color: var(--fx-accent-text);
   filter: none;
   text-decoration: none;
 }
 body button:active,
-body .button:active { background: var(--fx-fill-pressed); transform: scale(0.98); }
+body .button:active { background: rgba(0, 113, 227, 0.22); transform: scale(0.97); }
 
 body button:disabled,
 body .button[aria-disabled="true"],
@@ -3282,13 +3362,14 @@ body .primary,
 body button.primary,
 body .button.primary,
 body input[type="submit"].primary {
-  background: var(--fx-primary) !important;
+  background: linear-gradient(180deg, #1a86f0, var(--fx-primary)) !important;
   border-color: var(--fx-primary) !important;
   color: var(--fx-on-primary) !important;
   font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 }
 body button.primary:hover,
-body .button.primary:hover { background: var(--fx-primary-hover) !important; color: var(--fx-on-primary) !important; }
+body .button.primary:hover { background: linear-gradient(180deg, #2b91f5, var(--fx-primary-hover)) !important; color: var(--fx-on-primary) !important; }
 
 /* Destructive */
 body button.danger,
@@ -3357,8 +3438,8 @@ body input:not([type="checkbox"]):not([type="radio"]):focus,
 body select:focus,
 body textarea:focus {
   outline: none;
-  border-color: var(--fx-tint-strong);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+  border-color: var(--fx-accent);
+  box-shadow: 0 0 0 4px var(--fx-accent-ring);
 }
 
 body input:disabled,
@@ -3394,9 +3475,9 @@ body input[type="file"]::file-selector-button {
   padding: 7px 14px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-fill);
-  color: var(--fx-ink);
-  font: 500 var(--fx-text-subhead)/1.2 var(--fx-font);
+  background: var(--fx-accent-soft);
+  color: var(--fx-accent-text);
+  font: 600 var(--fx-text-subhead)/1.2 var(--fx-font);
   cursor: pointer;
 }
 body input[type="color"] { width: 44px; height: 32px; padding: 2px; border-radius: var(--fx-radius-sm); border: 1px solid var(--fx-field-border); }
@@ -3410,7 +3491,7 @@ body input[type="radio"] {
   height: 16px !important;
   min-height: 0 !important;
   margin: 0;
-  accent-color: var(--fx-tint-strong);
+  accent-color: var(--fx-accent);
   cursor: pointer;
   vertical-align: -3px;
 }
@@ -3506,20 +3587,23 @@ body .card {
   padding: 24px;
   border: 0;
   border-radius: var(--fx-radius-xl);
-  background: var(--fx-surface);
-  box-shadow: var(--fx-shadow-card);
+  background: var(--fx-glass);
+  -webkit-backdrop-filter: var(--fx-glass-blur);
+  backdrop-filter: var(--fx-glass-blur);
+  box-shadow: var(--fx-shadow-card), inset 0 1px 0 var(--fx-glass-edge);
   color: var(--fx-ink);
 }
 body main .card { border: 0 !important; }
 
 /* Nested surfaces */
 body .card .card,
-body .card .metric,
 body .card [class$="-card"]:not(.card),
 body .card .ux340-view-card {
   border: 0 !important;
   border-radius: var(--fx-radius-lg) !important;
-  background: var(--fx-fill-quiet) !important;
+  background: rgba(118, 118, 128, 0.07) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
   box-shadow: none !important;
 }
 body .card .card { padding: 18px; margin-bottom: 12px; }
@@ -3587,9 +3671,9 @@ body .notice {
   padding: 14px 16px 14px 46px !important;
   border: 0 !important;
   border-radius: var(--fx-radius-lg);
-  background: var(--fx-tint-wash);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), rgba(94, 92, 230, 0.07));
   color: var(--fx-ink);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(10, 132, 255, 0.18);
   font-size: var(--fx-text-callout);
   line-height: 1.45;
 }
@@ -3600,7 +3684,7 @@ body .notice::before {
   top: 15px;
   width: 18px;
   height: 18px;
-  background: var(--fx-tint-strong);
+  background: var(--fx-accent);
   -webkit-mask: var(--fx-i-info) center / contain no-repeat;
   mask: var(--fx-i-info) center / contain no-repeat;
 }
@@ -3695,7 +3779,7 @@ body td {
 }
 body tbody tr:last-child td { border-bottom: 0 !important; }
 body tbody tr { transition: background-color var(--fx-fast) var(--fx-ease); }
-body tbody tr:hover > td { background: color-mix(in srgb, var(--fx-ink) 2.5%, transparent); }
+body tbody tr:hover > td { background: rgba(0, 113, 227, 0.045); }
 body td strong { font-weight: 600; }
 body td small { display: block; margin-top: 2px; color: var(--fx-secondary); font-size: var(--fx-text-footnote); }
 body td a:not(.button) { font-weight: 500; }
@@ -4444,6 +4528,215 @@ body .network-banner {
 body .network-banner.show { opacity: 1; visibility: visible; transition: transform var(--fx-med) var(--fx-ease-out), opacity var(--fx-med) var(--fx-ease), visibility 0s !important; }
 @media (max-width: 780px) {
   body .network-banner { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* css/11-life.css */
+/* --------------------------------------------------------------------------
+   Color, depth and motion
+   An ambient wash of the brand color and system blue sits behind glass
+   surfaces, numbers carry color, the dashboard opens with a vivid card,
+   and content settles in once on load. Everything here is decoration on
+   top of the structure defined earlier, so it can be tuned in one place.
+   -------------------------------------------------------------------------- */
+
+/* ---- Ambient canvas ---------------------------------------------------- */
+body .app[data-sidebar-app]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 620px at 8% -10%, color-mix(in srgb, var(--fx-tint) 30%, transparent), transparent 68%),
+    radial-gradient(900px 600px at 92% -14%, rgba(10, 132, 255, 0.2), transparent 66%),
+    radial-gradient(800px 520px at 55% -6%, rgba(191, 90, 242, 0.12), transparent 70%),
+    radial-gradient(900px 700px at 100% 100%, rgba(48, 209, 88, 0.07), transparent 70%),
+    linear-gradient(180deg, #fbfbfd 0%, var(--fx-canvas) 520px);
+}
+body .app[data-sidebar-app] > main,
+body .app[data-sidebar-app] > aside { z-index: 1; }
+body.ux340-dark .app[data-sidebar-app]::before {
+  background:
+    radial-gradient(1100px 620px at 8% -10%, color-mix(in srgb, var(--fx-tint) 22%, transparent), transparent 68%),
+    radial-gradient(900px 600px at 92% -14%, rgba(10, 132, 255, 0.22), transparent 66%),
+    #000;
+}
+
+/* ---- Page title -------------------------------------------------------- */
+body .app main > header h1 {
+  font-size: calc(var(--fx-text-largetitle) + 4px) !important;
+  letter-spacing: -0.028em !important;
+}
+.fx-dateline {
+  display: block;
+  margin: 0 0 2px;
+  color: var(--fx-accent-text);
+  font-size: var(--fx-text-subhead);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* ---- Toolbar glass ----------------------------------------------------- */
+body .app main > .fx-toolbar.is-stuck::before {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: saturate(200%) blur(30px);
+  backdrop-filter: saturate(200%) blur(30px);
+}
+body .fx-search-trigger {
+  background: rgba(255, 255, 255, 0.72) !important;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+body .fx-search-trigger:hover { background: #fff !important; }
+body .crm-command-wrap .crm-quick-toggle {
+  background: linear-gradient(180deg, #1a86f0, var(--fx-accent)) !important;
+  box-shadow: 0 1px 3px rgba(0, 113, 227, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+body .fx-toolbar .crm-page-back { color: var(--fx-accent-text) !important; }
+
+/* ---- Metrics: each tile gets its own color ----------------------------- */
+body .metric {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  --fx-m: var(--fx-c-blue);
+  --fx-m-text: #0a6fd8;
+  background: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+}
+body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 2) { --fx-m: var(--fx-c-green); --fx-m-text: #1f9d4b; }
+body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 3) { --fx-m: var(--fx-c-orange); --fx-m-text: #d97a00; }
+body :is(.metric-grid, .metrics) > .metric:nth-child(4n + 4) { --fx-m: var(--fx-c-purple); --fx-m-text: #a145d4; }
+body .metric::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -36px;
+  top: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fx-m) 24%, transparent), transparent);
+}
+body .metric::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, var(--fx-m), color-mix(in srgb, var(--fx-m) 40%, transparent));
+  opacity: 0.75;
+}
+body .metric strong {
+  color: var(--fx-m-text) !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+}
+
+/* ---- Dashboard opening card ------------------------------------------- */
+body .card.ux340-role-home {
+  position: relative;
+  overflow: hidden;
+  padding: 28px !important;
+  background:
+    radial-gradient(120% 160% at 0% 0%, rgba(10, 132, 255, 0.16), transparent 52%),
+    radial-gradient(110% 150% at 100% 0%, color-mix(in srgb, var(--fx-tint) 34%, transparent), transparent 55%),
+    radial-gradient(90% 130% at 60% 130%, rgba(191, 90, 242, 0.14), transparent 60%),
+    rgba(255, 255, 255, 0.78) !important;
+}
+body .card.ux340-role-home h2 {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.024em !important;
+}
+body .card.needs-attention-clear .badge {
+  background: var(--fx-green-bg) !important;
+  color: var(--fx-green) !important;
+  font-weight: 600;
+}
+body .quick-actions .button:not(.primary) { background: rgba(255, 255, 255, 0.9) !important; box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05) !important; }
+body .quick-actions .button:not(.primary):hover { background: #fff !important; box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08) !important; }
+
+/* ---- Cards that are links lift under the pointer ----------------------- */
+body :is(a.card, .crm-mobile-launch-grid a, .setup-center-card, .ux340-view-card, .call-center-management-card, .integration-connect-card, .ai-package-card, .ai-launch-card) {
+  transition: transform var(--fx-med) var(--fx-ease-out), box-shadow var(--fx-med) var(--fx-ease-out);
+}
+@media (hover: hover) {
+  body :is(a.card, .crm-mobile-launch-grid a, .setup-center-card, .ux340-view-card, .call-center-management-card, .integration-connect-card, .ai-package-card, .ai-launch-card):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--fx-shadow-lift) !important;
+  }
+}
+
+/* ---- Segmented controls on glass -------------------------------------- */
+body :is(.view-switch, .fx-segmented, nav.call-center-tabs, nav.setup-center-tabs,
+  .structure-view-switch, .ux340-view-toggle, .resource-hero-actions:has(> a[href*="knowledge_view="]), .crm-section-nav-controls) {
+  background: rgba(118, 118, 128, 0.12) !important;
+}
+
+/* ---- Menus and search use the accent for the highlighted row ---------- */
+.fx-palette-item[aria-selected="true"] { background: linear-gradient(180deg, #1a86f0, var(--fx-accent)); }
+.fx-palette-icon {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--fx-pi, var(--fx-c-blue)) 78%, #fff), var(--fx-pi, var(--fx-c-blue)));
+  color: #fff;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+body .fx-menu a:hover,
+body .fx-menu button:hover,
+body .fx-menu a:focus-visible,
+body .fx-menu button:focus-visible,
+body .crm-command-wrap .crm-quick-menu > a:hover,
+body .crm-command-wrap .crm-quick-menu > a:focus-visible {
+  background: var(--fx-accent) !important;
+  color: #fff !important;
+}
+body .fx-side-search input[type="search"]:focus { box-shadow: 0 0 0 4px var(--fx-accent-ring) !important; }
+
+/* ---- Phone: floating glass tab bar ------------------------------------ */
+@media (max-width: 780px) {
+  body nav.crm-mobile-nav.crm-mobile-nav-3256,
+  body nav.crm-mobile-nav {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+    padding: 6px !important;
+    border: 0 !important;
+    border-radius: 28px !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 12px 32px rgba(15, 23, 42, 0.16) !important;
+  }
+  body nav.crm-mobile-nav a { min-height: 52px !important; border-radius: 22px !important; color: var(--fx-secondary) !important; }
+  body nav.crm-mobile-nav a[aria-current="page"] {
+    background: var(--fx-accent-soft) !important;
+    color: var(--fx-accent) !important;
+  }
+  body .app[data-sidebar-app] > main { padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* ---- One entrance, on load --------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.fx-ready body .app main > :is(header, section, .card, .notice, nav, form, .dashboard-widget-grid, .metric-grid, .metrics) {
+    animation: fx-rise 520ms var(--fx-ease-out) both;
+  }
+  html.fx-ready body .app main > :nth-child(3) { animation-delay: 40ms; }
+  html.fx-ready body .app main > :nth-child(4) { animation-delay: 80ms; }
+  html.fx-ready body .app main > :nth-child(5) { animation-delay: 120ms; }
+  html.fx-ready body .app main > :nth-child(6) { animation-delay: 160ms; }
+  html.fx-ready body .app main > :nth-child(7) { animation-delay: 200ms; }
+  html.fx-ready body .app main > :nth-child(n + 8) { animation-delay: 240ms; }
+}
+@keyframes fx-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Narrow toolbars show search as a plain icon */
+@media (max-width: 900px) {
+  body .fx-search-trigger { background: transparent !important; box-shadow: none !important; }
+  body .fx-search-trigger:hover { background: var(--fx-fill) !important; }
 }
 
 /* css/screens/home.css */

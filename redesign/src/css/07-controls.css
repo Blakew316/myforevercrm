@@ -17,12 +17,12 @@ body input[type="button"] {
   padding: 0 16px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-fill);
-  color: var(--fx-ink);
+  background: var(--fx-accent-soft);
+  color: var(--fx-accent-text);
   box-shadow: none;
   font-family: inherit;
   font-size: var(--fx-text-callout);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.006em;
   text-align: center;
@@ -35,13 +35,13 @@ body input[type="button"] {
 }
 body button:hover,
 body .button:hover {
-  background: var(--fx-fill-hover);
-  color: var(--fx-ink);
+  background: var(--fx-accent-soft-hover);
+  color: var(--fx-accent-text);
   filter: none;
   text-decoration: none;
 }
 body button:active,
-body .button:active { background: var(--fx-fill-pressed); transform: scale(0.98); }
+body .button:active { background: rgba(0, 113, 227, 0.22); transform: scale(0.97); }
 
 body button:disabled,
 body .button[aria-disabled="true"],
@@ -56,13 +56,14 @@ body .primary,
 body button.primary,
 body .button.primary,
 body input[type="submit"].primary {
-  background: var(--fx-primary) !important;
+  background: linear-gradient(180deg, #1a86f0, var(--fx-primary)) !important;
   border-color: var(--fx-primary) !important;
   color: var(--fx-on-primary) !important;
   font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 }
 body button.primary:hover,
-body .button.primary:hover { background: var(--fx-primary-hover) !important; color: var(--fx-on-primary) !important; }
+body .button.primary:hover { background: linear-gradient(180deg, #2b91f5, var(--fx-primary-hover)) !important; color: var(--fx-on-primary) !important; }
 
 /* Destructive */
 body button.danger,
@@ -131,8 +132,8 @@ body input:not([type="checkbox"]):not([type="radio"]):focus,
 body select:focus,
 body textarea:focus {
   outline: none;
-  border-color: var(--fx-tint-strong);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-tint) 26%, transparent);
+  border-color: var(--fx-accent);
+  box-shadow: 0 0 0 4px var(--fx-accent-ring);
 }
 
 body input:disabled,
@@ -168,9 +169,9 @@ body input[type="file"]::file-selector-button {
   padding: 7px 14px;
   border: 0;
   border-radius: var(--fx-radius-pill);
-  background: var(--fx-fill);
-  color: var(--fx-ink);
-  font: 500 var(--fx-text-subhead)/1.2 var(--fx-font);
+  background: var(--fx-accent-soft);
+  color: var(--fx-accent-text);
+  font: 600 var(--fx-text-subhead)/1.2 var(--fx-font);
   cursor: pointer;
 }
 body input[type="color"] { width: 44px; height: 32px; padding: 2px; border-radius: var(--fx-radius-sm); border: 1px solid var(--fx-field-border); }
@@ -184,7 +185,7 @@ body input[type="radio"] {
   height: 16px !important;
   min-height: 0 !important;
   margin: 0;
-  accent-color: var(--fx-tint-strong);
+  accent-color: var(--fx-accent);
   cursor: pointer;
   vertical-align: -3px;
 }

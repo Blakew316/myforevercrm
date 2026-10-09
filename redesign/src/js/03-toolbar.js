@@ -55,6 +55,14 @@ function setupToolbar() {
     setupQuickMenu(commandWrap);
   }
 
+  // Dashboard: today's date above the large title, as in Apple's Today views.
+  var titleBlock = header ? qs(':scope > div:first-child', header) : null;
+  var h1 = titleBlock ? qs('h1', titleBlock) : null;
+  if (h1 && currentTab === 'overview') {
+    var date = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+    titleBlock.insertBefore(el('span', { class: 'fx-dateline', text: date }), h1);
+  }
+
   toolbar.appendChild(lead);
   toolbar.appendChild(trail);
   main.insertBefore(toolbar, main.firstChild);

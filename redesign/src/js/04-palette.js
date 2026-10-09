@@ -6,6 +6,15 @@
 var palette = null;
 var paletteState = { items: [], active: 0, opener: null };
 var RECENT_MAX = 8;
+// Same tile colors as the sidebar (05-sidebar-icons.css).
+var TILE_COLOR = {
+  house: 'blue', people: 'blue', heart: 'pink', checklist: 'orange', warning: 'red', phone: 'green', envelope: 'blue',
+  message: 'green', bell: 'red', calendar: 'red', doc: 'indigo', clock: 'gray', chart: 'purple', dollar: 'mint',
+  gauge: 'orange', headset: 'teal', book: 'brown', help: 'blue', sparkles: 'purple', star: 'orange', grid: 'indigo',
+  mappin: 'red', map: 'green', briefcase: 'brown', box: 'brown', person: 'gray', sliders: 'gray', team: 'blue',
+  tag: 'orange', 'check-circle': 'green', bolt: 'yellow', banknote: 'green', building: 'graphite', wrench: 'gray',
+  creditcard: 'indigo', link: 'blue', lock: 'blue', archive: 'graphite', search: 'blue', plus: 'blue', keyboard: 'graphite', sidebar: 'gray'
+};
 
 function recordVisit() {
   var here = routeOf(location.href);
@@ -169,7 +178,7 @@ function renderPalette(raw) {
       var title = el('span', { class: 'fx-palette-title' });
       title.appendChild(doc.createTextNode(item.label));
       var option = el('div', { class: 'fx-palette-item', role: 'option', id: 'fx-opt-' + index, 'data-index': String(index), 'aria-selected': 'false' }, [
-        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true' }, [icon(item.icon || 'circle')]),
+        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true', style: '--fx-pi: var(--fx-c-' + (TILE_COLOR[item.icon] || 'blue') + ')' }, [icon(item.icon || 'circle')]),
         el('span', { class: 'fx-palette-text' }, [title, item.sub ? el('span', { class: 'fx-palette-sub', text: item.sub }) : null]),
         item.current ? el('span', { class: 'fx-palette-hint', text: 'Current page' }) : null
       ]);

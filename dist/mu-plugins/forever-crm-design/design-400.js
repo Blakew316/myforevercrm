@@ -269,10 +269,13 @@ function setupSidebar() {
     var links = qsa(':scope > .crm-nav-subgroup-links > a[href]', sub);
     if (links.length !== 1) return;
     var summary = qs(':scope > summary', sub);
-    var iconValue = summary ? getComputedStyle(summary).getPropertyValue('--fx-icon').trim() : '';
+    var styles = summary ? getComputedStyle(summary) : null;
     var link = links[0];
     link.classList.add('fx-side-single');
-    if (iconValue) link.style.setProperty('--fx-icon', iconValue);
+    ['--fx-ic', '--fx-ic-bg'].forEach(function (name) {
+      var value = styles ? styles.getPropertyValue(name).trim() : '';
+      if (value) link.style.setProperty(name, value);
+    });
     if (!link.title && summary) link.title = labelOf(summary);
     sub.parentNode.replaceChild(link, sub);
   });
@@ -595,6 +598,14 @@ function setupToolbar() {
     setupQuickMenu(commandWrap);
   }
 
+  // Dashboard: today's date above the large title, as in Apple's Today views.
+  var titleBlock = header ? qs(':scope > div:first-child', header) : null;
+  var h1 = titleBlock ? qs('h1', titleBlock) : null;
+  if (h1 && currentTab === 'overview') {
+    var date = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+    titleBlock.insertBefore(el('span', { class: 'fx-dateline', text: date }), h1);
+  }
+
   toolbar.appendChild(lead);
   toolbar.appendChild(trail);
   main.insertBefore(toolbar, main.firstChild);
@@ -722,6 +733,15 @@ function watchScroll() {
 var palette = null;
 var paletteState = { items: [], active: 0, opener: null };
 var RECENT_MAX = 8;
+// Same tile colors as the sidebar (05-sidebar-icons.css).
+var TILE_COLOR = {
+  house: 'blue', people: 'blue', heart: 'pink', checklist: 'orange', warning: 'red', phone: 'green', envelope: 'blue',
+  message: 'green', bell: 'red', calendar: 'red', doc: 'indigo', clock: 'gray', chart: 'purple', dollar: 'mint',
+  gauge: 'orange', headset: 'teal', book: 'brown', help: 'blue', sparkles: 'purple', star: 'orange', grid: 'indigo',
+  mappin: 'red', map: 'green', briefcase: 'brown', box: 'brown', person: 'gray', sliders: 'gray', team: 'blue',
+  tag: 'orange', 'check-circle': 'green', bolt: 'yellow', banknote: 'green', building: 'graphite', wrench: 'gray',
+  creditcard: 'indigo', link: 'blue', lock: 'blue', archive: 'graphite', search: 'blue', plus: 'blue', keyboard: 'graphite', sidebar: 'gray'
+};
 
 function recordVisit() {
   var here = routeOf(location.href);
@@ -885,7 +905,7 @@ function renderPalette(raw) {
       var title = el('span', { class: 'fx-palette-title' });
       title.appendChild(doc.createTextNode(item.label));
       var option = el('div', { class: 'fx-palette-item', role: 'option', id: 'fx-opt-' + index, 'data-index': String(index), 'aria-selected': 'false' }, [
-        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true' }, [icon(item.icon || 'circle')]),
+        el('span', { class: 'fx-palette-icon', 'aria-hidden': 'true', style: '--fx-pi: var(--fx-c-' + (TILE_COLOR[item.icon] || 'blue') + ')' }, [icon(item.icon || 'circle')]),
         el('span', { class: 'fx-palette-text' }, [title, item.sub ? el('span', { class: 'fx-palette-sub', text: item.sub }) : null]),
         item.current ? el('span', { class: 'fx-palette-hint', text: 'Current page' }) : null
       ]);

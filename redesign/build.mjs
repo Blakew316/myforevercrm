@@ -26,6 +26,10 @@ const dataUri = (svg) => 'url("data:image/svg+xml,' +
 // Icon custom properties for CSS masks / backgrounds.
 const iconVars = Object.entries(ICONS)
   .map(([name, inner]) => `  --fx-i-${name}: ${dataUri(svgMarkup(inner))};`);
+// White glyphs for the colored icon tiles (sidebar, palette).
+for (const [name, inner] of Object.entries(ICONS)) {
+  iconVars.push(`  --fx-iw-${name}: ${dataUri(svgMarkup(inner.replace(/#000/g, '#fff'), '#fff'))};`);
+}
 for (const [name, colors] of Object.entries(TINTED)) {
   for (const [suffix, color] of Object.entries(colors)) {
     iconVars.push(`  --fx-i-${name}-${suffix}: ${dataUri(svgMarkup(ICONS[name], color))};`);
